@@ -1,0 +1,7 @@
+<h2>Register</h2>
+<form>
+    <input #username type="text" placeholder="Username" />
+    <input #password type="password" placeholder="Password" />
+    <input #confirmPassword type="password" placeholder="Confirm Password" />
+    <button type="button" (click)="register(username.value, password.value, confirmPassword.value)">Register</button>
+</form>
