@@ -1,2 +1,22 @@
-WOHOOO YOU'RE IN!
-<button (click)="logout()">Logout</button>
+@if (isLoading()) {
+    <div>
+        <div></div>
+        <p>Loading user data...</p>
+    </div>
+} @else if (error()) {
+    <div>
+        <p>Error: {{ error() }}</p>
+        <button (click)="loadUserData()">Retry</button>
+    </div>
+} @else {
+    <div>
+        <h1>WOHOOO YOU'RE IN, {{ displayName() }}!</h1>
+        <div>
+            <p>Welcome back to your profile!</p>
+        </div>
+    </div>
+}
+
+<button (click)="logout()" [disabled]="isLoading()">
+    Logout
+</button>
