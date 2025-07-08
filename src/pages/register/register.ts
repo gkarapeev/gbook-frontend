@@ -12,14 +12,16 @@ export class Register {
 	constructor(private authService: AuthService) {}
 
 	register(username: string, password: string, confirmPassword: string) {
-		if (password === confirmPassword && password.length > 0) {
-			// In a real app, you'd make an API call here
-			// For now, we'll just redirect to login after successful registration
-			alert('Registration successful! Please login.');
-			// You could also automatically log them in here if desired
-			// this.authService.login();
-		} else {
-			alert('Passwords do not match or are empty!');
+		if (password !== confirmPassword) {
+			alert('Passwords do not match!');
+			return;
 		}
+
+		if (password.length === 0 || username.length === 0) {
+			alert('Username and password cannot be empty!');
+			return;
+		}
+
+		this.authService.register(username, password);
 	}
 }

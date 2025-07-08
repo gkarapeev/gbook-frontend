@@ -15,4 +15,8 @@ export class UserService {
 	getUsers(): Observable<User[]> {
 		return this.http.get<User[]>('/users');
 	}
+
+	register(username: string, password: string): Observable<any> {
+		return this.http.post('/register', { username, password });
+	}
 }
