@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nonpish-frontend": {
+    "nopish-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -58,32 +58,16 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "nonpish-frontend:build:production"
+              "buildTarget": "nopish-frontend:build:production"
             },
             "development": {
-              "buildTarget": "nonpish-frontend:build:development"
+              "buildTarget": "nopish-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.scss"
-            ]
-          }
         }
       }
     }
