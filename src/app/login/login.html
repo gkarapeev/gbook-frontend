@@ -1,6 +1,6 @@
 <h2>Login</h2>
-<form (ngSubmit)="login()">
-    <input type="text" placeholder="Username" [(ngModel)]="username" name="username" />
-    <input type="password" placeholder="Password" [(ngModel)]="password" name="password" />
-    <button type="submit">Login</button>
+<form>
+    <input #username type="text" placeholder="Username" />
+    <input #password type="password" placeholder="Password" />
+    <button type="button" (click)="login(username.value, password.value)">Login</button>
 </form>
