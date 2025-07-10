@@ -43,11 +43,13 @@ export class ProfileComponent implements OnInit {
 				}
 			},
 			error: (err) => {
-				this.error.set(
+				const result =
 					err instanceof Error
 						? err.message
-						: 'Failed to load user data'
-				);
+						: 'Failed to load user data';
+
+						this.error.set(result);
+						this.isLoading.set(false);
 			},
 			complete: () => {
 				this.isLoading.set(false);
