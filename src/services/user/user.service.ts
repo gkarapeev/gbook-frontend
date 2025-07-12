@@ -14,18 +14,22 @@ export class UserService {
 	constructor(private http: HttpClient) {}
 
 	getUsers(): Observable<User[]> {
-		return this.http.get<User[]>('/users').pipe(take(1));
+		return this.http.get<User[]>('/users');
 	}
 
 	register(username: string, password: string): Observable<any> {
-		return this.http.post('/register', { username, password }).pipe(take(1));
+		return this.http.post('/register', { username, password });
 	}
 
 	login(username: string, password: string): Observable<any> {
-		return this.http.post('/login', { username, password }).pipe(take(1));
+		return this.http.post('/login', { username, password });
 	}
 
 	getUserPosts(userId: number): Observable<any> {
-		return this.http.get(`/posts?userId=${userId}`).pipe(take(1));
+		return this.http.get(`/posts?userId=${userId}`);
+	}
+
+	createPost(userId: number, content: string): Observable<any> {
+		return this.http.post('/createPost', { userId, content });
 	}
 }
