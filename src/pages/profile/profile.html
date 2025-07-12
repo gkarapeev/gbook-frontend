@@ -1,10 +1,10 @@
 <div>
-    <h1>WOHOOO YOU'RE IN, {{ authService.user()?.username }}!</h1>
+    <h1>WOHOOO YOU'RE IN, {{ authService.user()?.username || '???' }}!</h1>
     <div>
         <p>Welcome back to your profile!</p>
     </div>
 </div>
 
-<button (click)="logout()" [disabled]="isLoading()">
+<button (click)="logout()">
     Logout
 </button>

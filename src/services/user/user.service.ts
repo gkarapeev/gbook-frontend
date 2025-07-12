@@ -24,4 +24,8 @@ export class UserService {
 	login(username: string, password: string): Observable<any> {
 		return this.http.post('/login', { username, password }).pipe(take(1));
 	}
+
+	getUserPosts(userId: number): Observable<any> {
+		return this.http.get(`/posts?userId=${userId}`).pipe(take(1));
+	}
 }

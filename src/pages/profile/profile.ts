@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, effect } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService, User } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
@@ -11,16 +11,26 @@ import { CommonModule } from '@angular/common';
 	imports: [CommonModule],
 })
 export class ProfileComponent {
-	isLoading = signal<boolean>(true);
-	user = signal<User | null>(null);
-	error = signal<string | null>(null);
+	constructor(
+		public authService: AuthService,
+		private userService: UserService
+	) {
+		effect(() => {
+			const user = this.authService.user();			
+			const userId = user?.id;
 
-	displayName = computed(() => {
-		const userData = this.user();
-		return userData?.username || 'Unknown User';
-	});
-
-	constructor(public authService: AuthService) {}
+			if (userId !== null && userId !== undefined) {
+				this.userService.getUserPosts(userId).subscribe({
+					next: (posts) => {
+						console.log('User posts fetched:', posts);
+					},
+					error: (err) => {
+						console.error('Error fetching user posts:', err);
+					},
+				});
+			}
+		});
+	}
 
 	logout() {
 		this.authService.logout();
