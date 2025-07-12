@@ -1,7 +1,22 @@
 <div>
     <h1>WOHOOO YOU'RE IN, {{ authService.user()?.username || '???' }}!</h1>
+
     <div>
         <p>Welcome back to your profile!</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 1rem; border: 1px solid #ccc; padding: 1rem; margin-top: 2rem;">
+        <h2>Your Posts</h2>
+
+        <ng-container *ngIf="posts().length > 0; else noPosts">
+            <div *ngFor="let post of posts()" style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 4px;">
+                <div>{{ post.content || 'No content' }}</div>
+            </div>
+        </ng-container>
+
+        <ng-template #noPosts>
+            <div>No posts found.</div>
+        </ng-template>
     </div>
 </div>
 

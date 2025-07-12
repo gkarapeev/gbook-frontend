@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed, effect } from '@angular/core';
+import { Component, signal, effect } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService, User } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
@@ -11,20 +11,22 @@ import { CommonModule } from '@angular/common';
 	imports: [CommonModule],
 })
 export class ProfileComponent {
+	posts = signal<any[]>([]);
+
 	constructor(
 		public authService: AuthService,
 		private userService: UserService
 	) {
 		effect(() => {
-			const user = this.authService.user();			
+			const user = this.authService.user();
 			const userId = user?.id;
 
 			if (userId !== null && userId !== undefined) {
 				this.userService.getUserPosts(userId).subscribe({
-					next: (posts) => {
-						console.log('User posts fetched:', posts);
+					next: (posts: any[]) => {
+						this.posts.set(posts);
 					},
-					error: (err) => {
+					error: (err: any) => {
 						console.error('Error fetching user posts:', err);
 					},
 				});
