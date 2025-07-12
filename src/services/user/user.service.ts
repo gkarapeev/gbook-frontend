@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, firstValueFrom, take } from 'rxjs';
 
 export interface User {
-	name: string;
+	id: number;
+	username: string;
 }
 
 @Injectable({
@@ -17,6 +18,10 @@ export class UserService {
 	}
 
 	register(username: string, password: string): Observable<any> {
-		return this.http.post('/register', { username, password });
+		return this.http.post('/register', { username, password }).pipe(take(1));
+	}
+
+	login(username: string, password: string): Observable<any> {
+		return this.http.post('/login', { username, password }).pipe(take(1));
 	}
 }

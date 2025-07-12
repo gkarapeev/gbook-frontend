@@ -1,21 +1,9 @@
-@if (isLoading()) {
+<div>
+    <h1>WOHOOO YOU'RE IN, {{ authService.user()?.username }}!</h1>
     <div>
-        <div></div>
-        <p>Loading user data...</p>
+        <p>Welcome back to your profile!</p>
     </div>
-} @else if (error()) {
-    <div>
-        <p>Error: {{ error() }}</p>
-        <button (click)="loadUserData()">Retry</button>
-    </div>
-} @else {
-    <div>
-        <h1>WOHOOO YOU'RE IN, {{ displayName() }}!</h1>
-        <div>
-            <p>Welcome back to your profile!</p>
-        </div>
-    </div>
-}
+</div>
 
 <button (click)="logout()" [disabled]="isLoading()">
     Logout

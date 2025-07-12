@@ -13,8 +13,6 @@ export class Login {
 	constructor(private authService: AuthService) {}
 
 	login(username: string, password: string) {
-		if (password === '123') {
-			this.authService.login();
-		}
+		this.authService.login(username, password);
 	}
 }
