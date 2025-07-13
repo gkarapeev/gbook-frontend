@@ -1,0 +1,8 @@
+<h2>User Registry</h2>
+
+
+@for (user of users(); track user.id) {
+  <div (click)="goToProfile(user.username)" style="border: 1px solid grey; margin: 8px 0; padding: 8px; cursor: pointer;">
+    {{ user.username }}
+  </div>
+}

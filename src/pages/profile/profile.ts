@@ -3,42 +3,67 @@ import { AuthService } from '../../services/auth/auth.service';
 import { UserService, User } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.html',
 	styleUrls: ['./profile.scss'],
 	standalone: true,
-	imports: [CommonModule, FormsModule],
+	imports: [CommonModule, FormsModule, RouterLink],
 })
 export class ProfileComponent {
 	posts = signal<any[]>([]);
 	newPostContent = '';
 	submitting = false;
+	profileUser: User | null = null;
 
 	constructor(
 		public authService: AuthService,
-		private userService: UserService
+		private userService: UserService,
+		private route: ActivatedRoute
 	) {
 		effect(() => {
-			const user = this.authService.user();
-			const userId = user?.id;
+			this.route.queryParams.subscribe((params) => {
+				const username = params['user'];
 
-			if (userId !== null && userId !== undefined) {
-				this.userService.getUserPosts(userId).subscribe({
-					next: (posts: any[]) => {
-						this.posts.set(posts);
-					},
-					error: (err: any) => {
-						console.error('Error fetching user posts:', err);
-					},
-				});
-			}
+				if (username) {
+					this.userService.getRegistry().subscribe((users) => {
+						const found = users.find((u) => u.username === username);
+						if (found) {
+							this.profileUser = found;
+							this.loadPosts(found.id);
+						} else {
+							this.profileUser = null;
+						}
+					});
+				} else {
+					const user = this.authService.user();
+					if (!user) {
+						return;
+					}
+
+					this.profileUser = user;
+
+					this.loadPosts(user.id);
+				}
+			});
+		});
+	}
+
+	loadPosts(userId: number) {
+		this.userService.getUserPosts(userId).subscribe({
+			next: (posts: any[]) => {
+				this.posts.set(posts);
+			},
+			error: (err: any) => {
+				console.error('Error fetching user posts:', err);
+			},
 		});
 	}
 
 	submitPost() {
-		const user = this.authService.user();
+		const user = this.profileUser;
 		const userId = user?.id;
 		const content = this.newPostContent.trim();
 		if (!userId || !content) return;
