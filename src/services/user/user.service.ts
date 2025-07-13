@@ -2,11 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, firstValueFrom, take } from 'rxjs';
 
-export interface User {
-	id: number;
-	username: string;
-}
-
 @Injectable({
 	providedIn: 'root',
 })
@@ -29,7 +24,7 @@ export class UserService {
 		return this.http.get(`/posts?userId=${userId}`);
 	}
 
-	createPost(userId: number, content: string): Observable<any> {
-		return this.http.post('/createPost', { userId, content });
+	createPost(authorId: number, hostId: number, content: string): Observable<any> {
+		return this.http.post('/createPost', { authorId, hostId, content });
 	}
 }

@@ -1,6 +1,6 @@
 import { Component, signal, effect } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { UserService, User } from '../../services/user/user.service';
+import { UserService } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -14,7 +14,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class ProfileComponent {
 	profileUser = signal<User | null>(null);
-	posts = signal<any[]>([]);
+	posts = signal<Post[]>([]);
 
 	newPostContent = '';
 	submitting = false;
@@ -31,12 +31,13 @@ export class ProfileComponent {
 				if (username) {
 					this.userService.getRegistry().subscribe((users) => {
 						const found = users.find((u) => u.username === username);
-					if (found) {
-						this.profileUser.set(found);
-						this.loadPosts(found.id);
-					} else {
-						this.profileUser.set(null);
-					}
+
+						if (found) {
+							this.profileUser.set(found);
+							this.loadPosts(found.id);
+						} else {
+							this.profileUser.set(null);
+						}
 					});
 				} else {
 					const user = this.authService.user();
@@ -70,7 +71,7 @@ export class ProfileComponent {
 		if (!userId || !content) return;
 		this.submitting = true;
 
-		this.userService.createPost(userId, content).subscribe({
+		this.userService.createPost(userId, this.profileUser()!.id, content).subscribe({
 			next: (result: any) => {
 				this.userService.getUserPosts(userId).subscribe({
 					next: (posts: any[]) => {
