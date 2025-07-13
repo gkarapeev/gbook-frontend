@@ -30,7 +30,9 @@ export class ProfileComponent {
 
 				if (username) {
 					this.userService.getRegistry().subscribe((users) => {
-						const found = users.find((u) => u.username === username);
+						const found = users.find(
+							(u) => u.username === username
+						);
 
 						if (found) {
 							this.profileUser.set(found);
@@ -64,30 +66,36 @@ export class ProfileComponent {
 		});
 	}
 
-		submitPost() {
-		const user = this.profileUser();
-		const userId = user?.id;
+	submitPost() {
+		const currentUser = this.authService.user();
+		const pageUser = this.profileUser();
 		const content = this.newPostContent.trim();
-		if (!userId || !content) return;
+
+		if (!currentUser || !pageUser || !content) {
+			return;
+		}
+
 		this.submitting = true;
 
-		this.userService.createPost(userId, this.profileUser()!.id, content).subscribe({
-			next: (result: any) => {
-				this.userService.getUserPosts(userId).subscribe({
-					next: (posts: any[]) => {
-						this.posts.set(posts);
-						this.newPostContent = '';
-						this.submitting = false;
-					},
-					error: () => {
-						this.submitting = false;
-					},
-				});
-			},
-			error: () => {
-				this.submitting = false;
-			},
-		});
+		this.userService
+			.createPost(currentUser.id, pageUser.id, content)
+			.subscribe({
+				next: () => {
+					this.userService.getUserPosts(pageUser.id).subscribe({
+						next: (posts: any[]) => {
+							this.posts.set(posts);
+							this.newPostContent = '';
+							this.submitting = false;
+						},
+						error: () => {
+							this.submitting = false;
+						},
+					});
+				},
+				error: () => {
+					this.submitting = false;
+				},
+			});
 	}
 
 	logout() {

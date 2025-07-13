@@ -5,7 +5,7 @@
 
     <div
         style="display: flex; flex-direction: column; gap: 1rem; border: 1px solid #ccc; padding: 1rem; margin-top: 2rem;">
-            @if (profileUser() && profileUser()?.username === authService.user()?.username) {
+            @if (profileUser() && authService.user()) {
                 <textarea [(ngModel)]="newPostContent" rows="3" cols="40" placeholder="Write a new post..."></textarea>
                 <button (click)="submitPost()" [disabled]="submitting || !newPostContent.trim()">Post</button>
             }
