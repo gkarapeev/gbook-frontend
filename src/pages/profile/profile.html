@@ -1,36 +1,33 @@
-<div>
-    <h1>Profile: {{ profileUser()?.username || '???' }}</h1>
-
-    <p>Welcome back to your profile!</p>
-
-    <div
-        style="display: flex; flex-direction: column; gap: 1rem; border: 1px solid #ccc; padding: 1rem; margin-top: 2rem;">
-            @if (profileUser() && authService.user()) {
-                <textarea [(ngModel)]="newPostContent" rows="3" cols="40" placeholder="Write a new post..."></textarea>
-                <button (click)="submitPost()" [disabled]="submitting || !newPostContent.trim()">Post</button>
-            }
-        <h2>Posts</h2>
-
-        @if (posts().length > 0) {
-            @for (post of posts(); track post.id) {
-            <div style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 4px;">
-                <div>{{ post.content || 'No content' }}</div>
-                <div style="font-size: 0.85em; color: #888; margin-top: 0.25rem;">
-                    Author: {{ post.author.username || 'Unknown' }}
-                </div>
-            </div>
-            }
-        } @else {
-            <div>No posts found.</div>
-        }
-
+<div class="profile-header" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; background: #e6e6e6; padding-bottom: 1rem;">
+    <div>
+        <h1 style="margin: 0;">Profile: {{ profileUser()?.username || '???' }}</h1>
+        <p style="margin: 0;">Welcome back to your profile!</p>
+    </div>
+    <div style="display: flex; gap: 0.5rem;">
+        <button routerLink="/registry">Registry</button>
+        <button (click)="logout()">Logout</button>
     </div>
 </div>
 
-<button routerLink="/registry">
-    Registry
-</button>
+<div
+    style="display: flex; flex-direction: column; gap: 1rem; border: 1px solid #ccc; padding: 1rem; margin-top: 2rem;">
+        @if (profileUser() && authService.user()) {
+            <textarea [(ngModel)]="newPostContent" rows="3" cols="40" placeholder="Write a new post..."></textarea>
+            <button (click)="submitPost()" [disabled]="submitting || !newPostContent.trim()">Post</button>
+        }
+    <h2>Posts</h2>
 
-<button (click)="logout()">
-    Logout
-</button>
+    @if (posts().length > 0) {
+        @for (post of posts(); track post.id) {
+        <div style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 4px;">
+            <div>{{ post.content || 'No content' }}</div>
+            <div style="font-size: 0.85em; color: #888; margin-top: 0.25rem;">
+                Author: {{ post.author.username || 'Unknown' }}
+            </div>
+        </div>
+        }
+    } @else {
+        <div>No posts found.</div>
+    }
+
+</div>

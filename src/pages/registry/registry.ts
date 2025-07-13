@@ -6,6 +6,12 @@ import { Router } from '@angular/router';
 	selector: 'app-registry',
 	templateUrl: './registry.html',
 	standalone: true,
+	styles: `
+		:host {
+			display: block;
+			padding: 1rem;
+		}
+	`
 })
 export class RegistryComponent implements OnInit {
 	public users = signal<User[]>([]);
