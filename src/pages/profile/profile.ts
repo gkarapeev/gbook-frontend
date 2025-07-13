@@ -101,4 +101,11 @@ export class ProfileComponent {
 	logout() {
 		this.authService.logout();
 	}
+
+	onNewPostKeydown(event: any) {
+		if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+			event.preventDefault();
+			this.submitPost();
+		}
+	}
 }
