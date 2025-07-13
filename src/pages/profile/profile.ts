@@ -13,10 +13,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 	imports: [CommonModule, FormsModule, RouterLink],
 })
 export class ProfileComponent {
+	profileUser = signal<User | null>(null);
 	posts = signal<any[]>([]);
+
 	newPostContent = '';
 	submitting = false;
-	profileUser: User | null = null;
 
 	constructor(
 		public authService: AuthService,
@@ -30,12 +31,12 @@ export class ProfileComponent {
 				if (username) {
 					this.userService.getRegistry().subscribe((users) => {
 						const found = users.find((u) => u.username === username);
-						if (found) {
-							this.profileUser = found;
-							this.loadPosts(found.id);
-						} else {
-							this.profileUser = null;
-						}
+					if (found) {
+						this.profileUser.set(found);
+						this.loadPosts(found.id);
+					} else {
+						this.profileUser.set(null);
+					}
 					});
 				} else {
 					const user = this.authService.user();
@@ -43,7 +44,7 @@ export class ProfileComponent {
 						return;
 					}
 
-					this.profileUser = user;
+					this.profileUser.set(user);
 
 					this.loadPosts(user.id);
 				}
@@ -62,8 +63,8 @@ export class ProfileComponent {
 		});
 	}
 
-	submitPost() {
-		const user = this.profileUser;
+		submitPost() {
+		const user = this.profileUser();
 		const userId = user?.id;
 		const content = this.newPostContent.trim();
 		if (!userId || !content) return;

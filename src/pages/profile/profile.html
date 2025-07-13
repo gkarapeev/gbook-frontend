@@ -1,27 +1,27 @@
 <div>
-    <h1>Profile: {{ profileUser?.username || '???' }}</h1>
+    <h1>Profile: {{ profileUser()?.username || '???' }}</h1>
 
-    <div>
-        <p>Welcome back to your profile!</p>
+    <p>Welcome back to your profile!</p>
+
+    <div
+        style="display: flex; flex-direction: column; gap: 1rem; border: 1px solid #ccc; padding: 1rem; margin-top: 2rem;">
+            @if (profileUser() && profileUser()?.username === authService.user()?.username) {
+                <textarea [(ngModel)]="newPostContent" rows="3" cols="40" placeholder="Write a new post..."></textarea>
+                <button (click)="submitPost()" [disabled]="submitting || !newPostContent.trim()">Post</button>
+            }
+        <h2>Posts</h2>
+
+        @if (posts().length > 0) {
+            @for (post of posts(); track post.id) {
+            <div style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 4px;">
+                <div>{{ post.content || 'No content' }}</div>
+            </div>
+            }
+        } @else {
+            <div>No posts found.</div>
+        }
+
     </div>
-
-<div style="display: flex; flex-direction: column; gap: 1rem; border: 1px solid #ccc; padding: 1rem; margin-top: 2rem;">
-    <div *ngIf="profileUser && profileUser.username === authService.user()?.username">
-        <textarea [(ngModel)]="newPostContent" rows="3" cols="40" placeholder="Write a new post..."></textarea>
-        <button (click)="submitPost()" [disabled]="submitting || !newPostContent.trim()">Post</button>
-    </div>
-    <h2>Posts</h2>
-
-    <ng-container *ngIf="posts().length > 0; else noPosts">
-        <div *ngFor="let post of posts()" style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 4px;">
-            <div>{{ post.content || 'No content' }}</div>
-        </div>
-    </ng-container>
-
-    <ng-template #noPosts>
-        <div>No posts found.</div>
-    </ng-template>
-</div>
 </div>
 
 <button routerLink="/registry">
