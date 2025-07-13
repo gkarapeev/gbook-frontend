@@ -13,8 +13,8 @@ export interface User {
 export class UserService {
 	constructor(private http: HttpClient) {}
 
-	getUsers(): Observable<User[]> {
-		return this.http.get<User[]>('/users');
+	getRegistry(): Observable<User[]> {
+		return this.http.get<User[]>('/registry');
 	}
 
 	register(username: string, password: string): Observable<any> {
