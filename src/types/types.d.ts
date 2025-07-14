@@ -7,4 +7,5 @@ interface Post {
 	id: number;
 	content: string;
 	author: User;
+	createdAt: number;
 }
