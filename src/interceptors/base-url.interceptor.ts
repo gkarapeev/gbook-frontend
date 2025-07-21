@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const baseUrlInterceptor: HttpInterceptorFn = (req, next) => {
-	const baseUrl = 'http://localhost:8080';
+	const baseUrl = 'http://localhost:3000';
 
 	// Only add base URL if the request doesn't already have a full URL
 	if (!req.url.startsWith('http')) {
