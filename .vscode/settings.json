@@ -1,7 +1,6 @@
 {
     "workbench.colorCustomizations": {
         "statusBar.background": "#ac2234",
-        "statusBar.foreground": "#ffffff",
-        "iLoveWorkSpaceColors": false
+        "statusBar.foreground": "#ffffff"
     }
 }
