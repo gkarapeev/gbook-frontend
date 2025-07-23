@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nopish-frontend": {
+    "gbook-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -74,10 +74,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "nopish-frontend:build:production"
+              "buildTarget": "gbook-frontend:build:production"
             },
             "development": {
-              "buildTarget": "nopish-frontend:build:development"
+              "buildTarget": "gbook-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
