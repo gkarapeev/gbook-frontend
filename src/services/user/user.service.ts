@@ -21,7 +21,7 @@ export class UserService {
 	}
 
 	getUserPosts(userId: number): Observable<any> {
-		return this.http.get(`/posts?userId=${userId}`);
+		return this.http.get(`/posts?userId=${userId}`, { withCredentials: true });
 	}
 
 	createPost(authorId: number, hostId: number, content: string): Observable<any> {
