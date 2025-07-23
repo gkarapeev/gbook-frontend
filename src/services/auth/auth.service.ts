@@ -13,8 +13,8 @@ export class AuthService {
 
 	login(username: string, password: string) {
 		this.userService.login(username, password).subscribe({
-			next: (user: User) => {
-				this.user.set(user);
+			next: (res: LoginResponse) => {
+				this.user.set(res.user);
 				this.router.navigate(['/profile']);
 			},
 			error: (error: any) => {

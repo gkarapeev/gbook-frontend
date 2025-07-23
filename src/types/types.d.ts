@@ -9,3 +9,8 @@ interface Post {
 	author: User;
 	createdAt: number;
 }
+
+interface LoginResponse {
+	expires: number;
+	user: User;
+}

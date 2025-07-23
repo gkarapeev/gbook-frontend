@@ -47,8 +47,8 @@
               "outputHashing": "all",
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
                 }
               ]
             },
@@ -58,8 +58,8 @@
               "sourceMap": true,
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ts"
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.ts"
                 }
               ]
             }
@@ -68,6 +68,10 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json",
+            "ssl": false
+          },
           "configurations": {
             "production": {
               "buildTarget": "nopish-frontend:build:production"
