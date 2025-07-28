@@ -1,8 +1,9 @@
 <h2>Login</h2>
 <form>
-    <input #username type="text" placeholder="Username" />
-    <input #password type="password" placeholder="Password" (keydown.enter)="login(username.value, password.value)"/>
-    <button type="button" (click)="login(username.value, password.value)">Login</button>
+    <input #username type="text" [(ngModel)]="credentials.username" name="username" placeholder="Username" autocomplete="false" autofocus />
+    <input #password type="password" [(ngModel)]="credentials.password" name="password" placeholder="Password" (keydown.enter)="login()" />
+    <button type="button" (click)="login()"
+        [disabled]="credentials.username.trim() === '' || credentials.password.trim() === ''">Login</button>
 
     <div>&nbsp;</div>
     <a routerLink="/register">Register</a>

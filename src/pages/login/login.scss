@@ -1,25 +1,33 @@
-:host {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+@mixin formichka {
+	:host {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		border: 1px solid grey;
+		padding: 20px;
+	}
+
+	input {
+		width: 100%;
+		height: 30px;
+		border: 1px solid grey;
+	}
+
+	button {
+		width: 210px;
+		height: 35px;
+		border: 1px solid grey;
+	}
+
+	a {
+		text-align: right;
+	}
 }
 
-form {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	border: 1px solid grey;
-	padding: 20px;
-}
-
-input {
-	width: 200px;
-	height: 30px;
-	border: 1px solid grey;
-}
-
-button {
-	width: 210px;
-	height: 35px;
-	border: 1px solid grey;
-}
+@include formichka;

@@ -1,25 +1,3 @@
-:host {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
+@use '../login/login.scss' as login;
 
-form {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	border: 1px solid grey;
-	padding: 20px;
-}
-
-input {
-	width: 200px;
-	height: 30px;
-	border: 1px solid grey;
-}
-
-button {
-	width: 210px;
-	height: 35px;
-	border: 1px solid grey;
-}
+@include login.formichka;
