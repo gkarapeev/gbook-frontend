@@ -3,14 +3,14 @@ import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.html',
 	styleUrls: ['./profile.scss'],
 	standalone: true,
-	imports: [CommonModule, FormsModule, RouterLink],
+	imports: [CommonModule, FormsModule],
 })
 export class ProfileComponent {
 	profileUser = signal<User | null>(null);
@@ -114,9 +114,6 @@ export class ProfileComponent {
 			});
 	}
 
-	logout() {
-		this.authService.logout();
-	}
 
 	onNewPostKeydown(event: any) {
 		if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {

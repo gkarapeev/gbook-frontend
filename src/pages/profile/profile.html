@@ -1,20 +1,3 @@
-<div class="profile-header" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #e6e6e6; padding: 1rem;">
-    <div>
-        <h1 style="margin: 0;">Profile: {{ profileUser()?.username || '???' }}</h1>
-        <p style="margin: 0;">Welcome back to your profile!</p>
-    </div>
-
-    <div style="display: flex; gap: 0.5rem; align-items: center;">
-        <button routerLink="/registry">Registry</button>
-
-        <button (click)="logout()">Logout</button>
-
-        <span routerLink="/profile" style="margin-left: 1rem; color: #555; font-size: 0.95em; padding: 0.3rem 1rem; border-radius: 100px; border: 1px solid grey;">
-                {{ authService.user()!.username }}
-        </span>
-    </div>
-</div>
-
 @if (profileUser() && authService.user()) {
     <div style="background-color: #a2a2a2; padding: 1rem; display: flex; gap: 1rem; margin: 0 2rem; border-radius: 15px;">
         <textarea [(ngModel)]="newPostContent" rows="3" cols="40" placeholder="Write a new post..." style="flex-grow: 1;" (keydown)="onNewPostKeydown($event)"></textarea>
