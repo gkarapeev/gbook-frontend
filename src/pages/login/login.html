@@ -1,6 +1,6 @@
 <h2>Login</h2>
 <form>
-    <input #username type="text" [(ngModel)]="credentials.username" name="username" placeholder="Username" autocomplete="false" autofocus />
+    <input #username type="text" [(ngModel)]="credentials.username" name="username" placeholder="Username" autocomplete="off" autofocus autocapitalize="false" />
     <input #password type="password" [(ngModel)]="credentials.password" name="password" placeholder="Password" (keydown.enter)="login()" />
     <button type="button" (click)="login()"
         [disabled]="credentials.username.trim() === '' || credentials.password.trim() === ''">Login</button>
