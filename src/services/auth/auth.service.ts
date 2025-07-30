@@ -2,7 +2,6 @@ import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 
-
 @Injectable({
 	providedIn: 'root',
 })
@@ -21,16 +20,22 @@ export class AuthService {
 				console.error('Login failed:', error);
 
 				const errorMessage =
-					error.error?.message ||
-					'Login failed. Please try again.';
+					error.error?.message || 'Login failed. Please try again.';
 				alert(errorMessage);
 			},
 		});
 	}
 
 	logout() {
-		this.user.set(null);
-		this.router.navigate(['/login']);
+		this.userService.logout().subscribe({
+			next: () => {
+				this.user.set(null);
+				this.router.navigate(['/login']);
+			},
+			error: () => {
+				console.error('Error logging out.')
+			}
+		});
 	}
 
 	register(username: string, password: string) {

@@ -17,14 +17,31 @@ export class UserService {
 	}
 
 	login(username: string, password: string) {
-		return this.http.post('/login', { username, password }) as Observable<LoginResponse>;
+		return this.http.post('/login', {
+			username,
+			password,
+		}) as Observable<LoginResponse>;
+	}
+
+	loginAuto() {
+		return this.http.post('/login-auto', null) as Observable<User>;
+	}
+
+	logout() {
+		return this.http.post('/logout', null);
 	}
 
 	getUserPosts(userId: number): Observable<any> {
-		return this.http.get(`/posts?userId=${userId}`, { withCredentials: true });
+		return this.http.get(`/posts?userId=${userId}`, {
+			withCredentials: true,
+		});
 	}
 
-	createPost(authorId: number, hostId: number, content: string): Observable<any> {
+	createPost(
+		authorId: number,
+		hostId: number,
+		content: string
+	): Observable<any> {
 		return this.http.post('/createPost', { authorId, hostId, content });
 	}
 }
