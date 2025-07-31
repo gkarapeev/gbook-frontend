@@ -1,0 +1,11 @@
+@use "variables.scss" as v;
+
+:host {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	background: #e6e6e6;
+	padding: v.$size-1;
+	height: v.$header-height;
+}

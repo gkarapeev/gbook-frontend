@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 	styles: `
 		:host {
 			display: block;
-			padding: 1rem;
 		}
 	`
 })

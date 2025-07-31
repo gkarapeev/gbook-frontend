@@ -1,10 +1,11 @@
+@use 'variables' as v;
+
 :host {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    padding-top: 120px;
+    height: 100vh;
 }
 
 #page-view {
-    flex-grow: 1;
+    height: calc(100vh - v.$header-height);
+    overflow: auto;
+    padding: v.$size-1 v.$size-1 0 v.$size-1;
 }

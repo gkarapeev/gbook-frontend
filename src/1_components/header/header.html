@@ -1,0 +1,20 @@
+@if (authService.user()) {
+    <button routerLink="/registry">Registry</button>
+
+    <button (click)="logout()" style="margin-left: auto">Logout</button>
+
+    <span
+        routerLink="/profile"
+        style="
+            color: #555;
+            font-size: 0.95em;
+            padding: 0.3rem 1rem;
+            border-radius: 100px;
+            border: 1px solid grey;
+        "
+    >
+        {{ authService.user()?.username || '???' }}
+    </span>
+} @else {
+    <h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
+}
