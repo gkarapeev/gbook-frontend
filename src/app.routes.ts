@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login';
-import { Register } from './pages/register/register';
-import { ProfileComponent } from './pages/profile/profile';
-import { RegistryComponent } from './pages/registry/registry';
+import { Login } from './1_pages/login/login';
+import { Register } from './1_pages/register/register';
+import { ProfileComponent } from './1_pages/profile/profile';
+import { RegistryComponent } from './1_pages/registry/registry';
 import { authGuard } from './services/auth/auth.guard';
 import { loggedOutGuard } from './services/auth/logged-out.guard';
 
