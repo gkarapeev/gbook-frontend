@@ -2,7 +2,7 @@
 echo "ARE YOU SURE YOU WANT TO DEPLOY THIS TO PRODUCTION? (yes/no)"
 read answer
 if [ "$answer" = "yes" ]; then
-  rm -f /usr/share/nginx/html*
+  rm -f /usr/share/nginx/html/*
   cp dist/gbook-frontend/browser/* /usr/share/nginx/html/
   echo "Deployment done."
 else
