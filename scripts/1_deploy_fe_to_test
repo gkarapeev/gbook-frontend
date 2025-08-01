@@ -1,11 +1,7 @@
 #!/bin/sh
-echo "ARE YOU SURE YOU WANT TO DEPLOY THIS TO PRODUCTION? (yes/no)"
-read answer
-if [ "$answer" = "yes" ]; then
-  rm -f /usr/share/nginx/html*
-  cp dist/gbook-frontend/browser/* /usr/share/nginx/html_test/
-  echo "Deployment done."
-else
-  echo "Deployment aborted."
-fi
+
+rm -f /usr/share/nginx/html/*
+cp dist/gbook-frontend/browser/* /usr/share/nginx/html_test/
+
+echo "Deployed FE to test."
 
