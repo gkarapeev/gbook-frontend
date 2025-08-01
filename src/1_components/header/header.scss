@@ -5,7 +5,7 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 1rem;
-	background: #e6e6e6;
+	background: var(--mat-sys-primary-container);
 	padding: v.$size-1;
 	height: v.$header-height;
 }

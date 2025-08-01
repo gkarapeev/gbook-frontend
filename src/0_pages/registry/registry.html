@@ -1,8 +1,13 @@
-<h2>User Registry</h2>
+<h2 style="text-align: center">User Registry</h2>
 
+<mat-action-list>
+	@for (user of users(); track user.id) {
+    <button mat-list-item (click)="goToProfile(user.username)">
+      {{ user.username }}
+    </button>
 
-@for (user of users(); track user.id) {
-  <div (click)="goToProfile(user.username)" style="border: 1px solid grey; margin: 8px 0; padding: 8px; cursor: pointer;">
-    {{ user.username }}
-  </div>
-}
+    @if (!$last) {
+      <mat-divider></mat-divider>
+    }
+  }
+</mat-action-list>

@@ -1,6 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
 	selector: 'app-registry',
@@ -10,7 +12,8 @@ import { Router } from '@angular/router';
 		:host {
 			display: block;
 		}
-	`
+	`,
+	imports: [MatListModule, MatDividerModule]
 })
 export class RegistryComponent implements OnInit {
 	public users = signal<User[]>([]);

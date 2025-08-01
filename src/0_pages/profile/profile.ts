@@ -4,34 +4,32 @@ import { UserService } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { humanTime } from './profile-utils';
 
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.html',
 	styleUrls: ['./profile.scss'],
 	standalone: true,
-	imports: [CommonModule, FormsModule],
+	imports: [
+		CommonModule,
+		FormsModule,
+		MatInputModule,
+		MatIconModule,
+		MatButton,
+	],
 })
 export class ProfileComponent {
+	humanTime = humanTime;
+
 	profileUser = signal<User | null>(null);
 	posts = signal<Post[]>([]);
 
 	newPostContent = '';
 	submitting = false;
-
-	// Returns a human-readable time difference (e.g., '2 hours ago')
-	humanTime(ts: number): string {
-		// If ts is in seconds, convert to ms
-		if (ts < 1e12) ts = ts * 1000;
-		const now = Date.now();
-		const diff = Math.floor((now - ts) / 1000); // in seconds
-		if (diff < 60) return `${diff}s ago`;
-		if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
-		if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
-		if (diff < 2592000) return `${Math.floor(diff/86400)}d ago`;
-		const d = new Date(ts);
-		return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-	}
 
 	constructor(
 		public authService: AuthService,
@@ -68,8 +66,6 @@ export class ProfileComponent {
 			});
 		});
 	}
-
-	// ...existing code...
 
 	loadPosts(userId: number) {
 		this.userService.getUserPosts(userId).subscribe({
@@ -113,7 +109,6 @@ export class ProfileComponent {
 				},
 			});
 	}
-
 
 	onNewPostKeydown(event: any) {
 		if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {

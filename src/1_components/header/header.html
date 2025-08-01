@@ -1,20 +1,21 @@
 @if (authService.user()) {
-    <button routerLink="/registry">Registry</button>
+	<button matButton routerLink="/registry">Registry</button>
 
-    <button (click)="logout()" style="margin-left: auto">Logout</button>
-
-    <span
-        routerLink="/profile"
-        style="
-            color: #555;
-            font-size: 0.95em;
-            padding: 0.3rem 1rem;
-            border-radius: 100px;
-            border: 1px solid grey;
-        "
-    >
-        {{ authService.user()?.username || '???' }}
-    </span>
+	<button matButton="outlined" [matMenuTriggerFor]="menu">
+		{{ authService.user()?.username || '???' }}
+	</button>
 } @else {
-    <h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
+	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
 }
+
+<mat-menu #menu="matMenu">
+	<button mat-menu-item routerLink="/profile">
+		<mat-icon fontIcon="home"></mat-icon>
+		My Profile
+	</button>
+
+	<button mat-menu-item (click)="logout()">
+		<mat-icon fontIcon="logout"></mat-icon>
+		Logout
+	</button>
+</mat-menu>

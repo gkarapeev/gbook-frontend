@@ -1,11 +1,16 @@
-@use 'variables' as v;
+@use "variables" as v;
 
 :host {
-    height: 100vh;
+	display: block;
 }
 
 #page-view {
-    height: calc(100vh - v.$header-height);
-    overflow: auto;
-    padding: v.$size-1 v.$size-1 0 v.$size-1;
+	height: calc(100vh - v.$header-height);
+	overflow: auto;
+	padding: v.$size-2 v.$size-1 0 v.$size-1;
+
+	#page-content {
+		max-width: 700px;
+		margin: auto;
+	}
 }

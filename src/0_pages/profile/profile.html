@@ -1,26 +1,41 @@
 @if (profileUser() && authService.user()) {
-    <div style="background-color: #a2a2a2; padding: 1rem; display: flex; gap: 1rem; border-radius: 15px;">
-        <textarea [(ngModel)]="newPostContent" rows="3" cols="40" placeholder="Write a new post..." style="flex-grow: 1;" (keydown)="onNewPostKeydown($event)"></textarea>
-        <button (click)="submitPost()" [disabled]="submitting || !newPostContent.trim()" style="min-width: 70px;">Post</button>
-    </div>
+	<div id="writing-box">
+		<mat-form-field style="flex-grow: 1">
+			<textarea
+				matInput
+				type="textarea"
+				[(ngModel)]="newPostContent"
+				rows="3"
+				cols="40"
+				placeholder="Write a new post..."
+				style="flex-grow: 1"
+				(keydown)="onNewPostKeydown($event)"
+			></textarea>
+		</mat-form-field>
+
+		<button
+			matButton
+			(click)="submitPost()"
+			[disabled]="submitting || !newPostContent.trim()"
+		>
+			<mat-icon fontIcon="send"></mat-icon>
+			Post
+		</button>
+	</div>
 }
 
-<h2>Posts</h2>
-<div
-    style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem; background-color: #e6e6e6;">
+<div id="post-container">
+	@if (posts() && posts().length > 0) { @for (post of posts(); track post.id)
+	{
+	<div class="post">
+		<div>{{ post.content || 'No content' }}</div>
 
-    @if (posts() && posts().length > 0) {
-        @for (post of posts(); track post.id) {
-            <div style="border: 1px solid #aaa; background-color: white; padding: 0.5rem; border-radius: 4px;">
-                <div>{{ post.content || 'No content' }}</div>
-
-                <div style="font-size: 0.85em; color: #888; margin-top: 0.25rem; display: flex; justify-content: space-between; align-items: center;">
-                    <span>Author: {{ post.author.username || 'Unknown' }}</span>
-                    <span *ngIf="post.createdAt">{{ humanTime(post.createdAt) }}</span>
-                </div>
-            </div>
-        }
-    } @else {
-        <div>No posts found.</div>
-    }
+		<div class="post-meta">
+			<span>Author: {{ post.author.username || 'Unknown' }}</span>
+			<span *ngIf="post.createdAt">{{ humanTime(post.createdAt) }}</span>
+		</div>
+	</div>
+	} } @else {
+	<div>No posts found.</div>
+	}
 </div>

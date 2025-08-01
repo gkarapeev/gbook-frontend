@@ -1,10 +1,40 @@
-<h2>Login</h2>
 <form>
-    <input #username type="text" [(ngModel)]="credentials.username" name="username" placeholder="Username" autocomplete="off" autofocus autocapitalize="false" />
-    <input #password type="password" [(ngModel)]="credentials.password" name="password" placeholder="Password" (keydown.enter)="login()" />
-    <button type="button" (click)="login()"
-        [disabled]="credentials.username.trim() === '' || credentials.password.trim() === ''">Login</button>
+	<mat-form-field appearance="fill">
+		<mat-label>Username</mat-label>
+		<input
+			matInput
+			#username
+			type="text"
+			[(ngModel)]="credentials.username"
+			name="username"
+			autocomplete="off"
+			autofocus
+			autocapitalize="false"
+		/>
+	</mat-form-field>
 
-    <div>&nbsp;</div>
-    <a routerLink="/register">Register</a>
+	<mat-form-field appearance="fill">
+		<mat-label>Password</mat-label>
+		<input
+			matInput
+			#password
+			type="password"
+			[(ngModel)]="credentials.password"
+			name="password"
+			(keydown.enter)="login()"
+		/>
+	</mat-form-field>
+
+	<button
+        matButton="filled"
+		type="button"
+		(click)="login()"
+		[disabled]="credentials.username.trim() === '' || credentials.password.trim() === ''"
+	>
+		Login
+	</button>
+
+	<div>&nbsp;</div>
+    <button matButton routerLink="/register">Register</button>
+
 </form>
