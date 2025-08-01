@@ -1,9 +1,8 @@
 ✅ - persistent logged-in state
+✅ - Design system
  - SSL certificate man, this is embarassing!
- - something to prevent expired cookie failed requests
- - Design system
- - Likes of posts
  - Comments on posts
  - Home page
  - Adding friends and restricting non-friend access to profile
  - Being able to post images and gifs
+ - something to prevent expired cookie failed requests
