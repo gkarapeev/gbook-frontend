@@ -1,4 +1,8 @@
 @if (profileUser() && authService.user()) {
+	<div id="profile-header">
+		{{ profileUser()!.username}}
+	</div>
+
 	<div id="writing-box">
 		<mat-form-field style="flex-grow: 1">
 			<textarea

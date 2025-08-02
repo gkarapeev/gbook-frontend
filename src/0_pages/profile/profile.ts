@@ -1,6 +1,6 @@
 import { Component, signal, effect } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { UserService } from '../../services/user/user.service';
+import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -34,7 +34,7 @@ export class ProfileComponent {
 	constructor(
 		public authService: AuthService,
 		private userService: UserService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
 	) {
 		effect(() => {
 			this.route.queryParams.subscribe((params) => {

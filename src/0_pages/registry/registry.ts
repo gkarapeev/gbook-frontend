@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { UserService } from '../../services/user/user.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
