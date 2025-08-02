@@ -21,7 +21,7 @@
 			type="password"
 			[(ngModel)]="credentials.password"
 			name="password"
-			(keydown.enter)="login()"
+			(keydown.enter)="$event.preventDefault(); login()"
 		/>
 	</mat-form-field>
 
