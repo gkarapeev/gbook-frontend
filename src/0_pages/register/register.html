@@ -1,11 +1,50 @@
 <h2>Register</h2>
+
 <form>
-    <input #username type="text" placeholder="Username" />
-    <input #password type="password" placeholder="Password" />
-    <input #confirmPassword type="password" placeholder="Confirm Password" />
-    <button type="button" (click)="register(username.value, password.value, confirmPassword.value)">Register</button>
+	<mat-form-field appearance="fill">
+		<mat-label>Username</mat-label>
+		<input
+			matInput
+			type="text"
+			[(ngModel)]="entry.username"
+			name="username"
+			autocomplete="off"
+			autofocus
+			autocapitalize="false"
+		/>
+	</mat-form-field>
 
+	<mat-form-field appearance="fill">
+		<mat-label>Password</mat-label>
+		<input
+			matInput
+			type="password"
+			[(ngModel)]="entry.password"
+			name="password"
+			(keydown.enter)="$event.preventDefault(); register()"
+		/>
+	</mat-form-field>
 
-    <div>&nbsp;</div>
-    <a routerLink="/login">Login</a>
+	<mat-form-field appearance="fill">
+		<mat-label>Confirm password</mat-label>
+		<input
+			matInput
+			type="password"
+			[(ngModel)]="entry.confirmPassword"
+			name="password"
+			(keydown.enter)="$event.preventDefault(); register()"
+		/>
+	</mat-form-field>
+
+	<button
+		matButton="filled"
+		type="button"
+		(click)="register()"
+		[disabled]="entry.username.trim() === '' || entry.password.trim() === '' || entry.confirmPassword.trim() === ''"
+	>
+		Register
+	</button>
+
+	<div>&nbsp;</div>
+	<button matButton routerLink="/login">Login</button>
 </form>

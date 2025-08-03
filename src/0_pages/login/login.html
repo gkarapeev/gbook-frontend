@@ -3,9 +3,8 @@
 		<mat-label>Username</mat-label>
 		<input
 			matInput
-			#username
 			type="text"
-			[(ngModel)]="credentials.username"
+			[(ngModel)]="entry.username"
 			name="username"
 			autocomplete="off"
 			autofocus
@@ -17,9 +16,8 @@
 		<mat-label>Password</mat-label>
 		<input
 			matInput
-			#password
 			type="password"
-			[(ngModel)]="credentials.password"
+			[(ngModel)]="entry.password"
 			name="password"
 			(keydown.enter)="$event.preventDefault(); login()"
 		/>
@@ -29,7 +27,7 @@
         matButton="filled"
 		type="button"
 		(click)="login()"
-		[disabled]="credentials.username.trim() === '' || credentials.password.trim() === ''"
+		[disabled]="entry.username.trim() === '' || entry.password.trim() === ''"
 	>
 		Login
 	</button>

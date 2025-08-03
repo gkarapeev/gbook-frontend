@@ -1,29 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
 	selector: 'app-register',
-	imports: [RouterLink, FormsModule],
+	imports: [RouterLink, FormsModule, MatInputModule, MatButtonModule],
 	templateUrl: './register.html',
 	styleUrl: './register.scss',
 	standalone: true,
 })
 export class Register {
-	constructor(private authService: AuthService) {}
+	private authService = inject(AuthService);
 
-	register(username: string, password: string, confirmPassword: string) {
-		if (password !== confirmPassword) {
+	public entry = {
+		username: '',
+		password: '',
+		confirmPassword: '',
+	};
+
+	register() {
+		if (this.entry.password !== this.entry.confirmPassword) {
 			alert('Passwords do not match!');
 			return;
 		}
 
-		if (password.length === 0 || username.length === 0) {
+		if (
+			this.entry.password.length === 0 ||
+			this.entry.username.length === 0
+		) {
 			alert('Username and password cannot be empty!');
 			return;
 		}
 
-		this.authService.register(username, password);
+		this.authService.register(
+			this.entry.username,
+			this.entry.password
+		);
 	}
 }
