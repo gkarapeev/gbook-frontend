@@ -7,8 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
-import { humanTime } from './profile-utils';
 import { Posts } from '../../services/posts';
+import { PostList } from '../../1_components/post-list/post-list';
 
 @Component({
 	selector: 'app-profile',
@@ -21,11 +21,10 @@ import { Posts } from '../../services/posts';
 		MatInputModule,
 		MatIconModule,
 		MatButton,
+		PostList
 	],
 })
 export class Profile {
-	humanTime = humanTime;
-
 	profileUser = signal<User | null>(null);
 	posts = signal<Post[]>([]);
 

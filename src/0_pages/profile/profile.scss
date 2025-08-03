@@ -1,5 +1,4 @@
 @use "variables" as v;
-@use "mixins" as m;
 
 :host {
 	display: flex;
@@ -33,6 +32,3 @@
 	border-radius: var(--mat-sys-corner-medium);
 	background-color: var(--mat-sys-surface-bright);
 }
-
-
-@include m.post-list;

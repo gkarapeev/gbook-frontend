@@ -1,19 +1,17 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Posts } from '../../services/posts';
-import { humanTime } from '../profile/profile-utils';
+import { PostList } from '../../1_components/post-list/post-list';
 
 @Component({
 	selector: 'app-feed',
-	imports: [],
+	imports: [PostList],
 	templateUrl: './feed.html',
 	styleUrl: './feed.scss',
 	standalone: true,
 })
 export class Feed implements OnInit {
   postService = inject(Posts);
-  posts = signal<Post[] | null>(null);
-
-  humanTime = humanTime;
+  posts = signal<Post[]>([]);
 
   ngOnInit(): void {
 		this.postService.getFeed().subscribe({

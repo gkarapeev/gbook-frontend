@@ -28,18 +28,4 @@
 	</div>
 }
 
-<div id="post-container">
-	@if (posts() && posts().length > 0) { @for (post of posts(); track post.id)
-	{
-	<div class="post">
-		<div>{{ post.content || 'No content' }}</div>
-
-		<div class="post-meta">
-			<span>Author: {{ post.author.username || 'Unknown' }}</span>
-			<span *ngIf="post.createdAt">{{ humanTime(post.createdAt) }}</span>
-		</div>
-	</div>
-	} } @else {
-	<div>No posts found.</div>
-	}
-</div>
+<app-post-list [posts]="posts()"></app-post-list>

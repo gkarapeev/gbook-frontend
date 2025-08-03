@@ -1,0 +1,33 @@
+@use "variables" as v;
+
+#post-container {
+	display: flex;
+	flex-direction: column;
+	gap: v.$size-1;
+	padding-bottom: v.$size-1;
+}
+
+.post {
+	display: flex;
+	flex-direction: column;
+	gap: v.$size-0;
+	border: 1px solid var(--mat-sys-outline-variant);
+	background-color: var(--mat-sys-surface-bright);
+	padding: v.$size-1;
+	border-radius: var(--mat-sys-corner-small);
+	overflow: hidden;
+	text-align: justify;
+}
+
+.post-meta {
+	font-size: 0.85em;
+	color: #888;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+
+	a {
+		color: var(--mat-sys-primary);
+		text-decoration: none;
+	}
+}
