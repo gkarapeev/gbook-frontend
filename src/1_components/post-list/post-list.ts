@@ -1,3 +1,22 @@
+import { Component, Input, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgTemplateOutlet } from '@angular/common';
+
+@Component({
+  selector: 'app-post-list',
+  imports: [RouterLink, NgTemplateOutlet],
+  templateUrl: './post-list.html',
+  styleUrl: './post-list.scss',
+  standalone: true,
+})
+export class PostList {
+  @Input({ required: true })
+  mode!: 'feed' | 'profile';
+
+  posts = input<Post[]>();
+  humanTime = humanTime;
+}
+
 // Returns a human-readable time difference (e.g., '2 hours ago')
 export const humanTime = (ts: number): string => {
 	// If ts is in seconds, convert to ms

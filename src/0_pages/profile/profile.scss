@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use "variables" as v;
 
 :host {
 	display: flex;
@@ -10,6 +10,20 @@
 	}
 }
 
+#profile-header {
+	position: sticky;
+	top: 0;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--mat-sys-surface);
+	background-color: var(--mat-sys-surface-bright);
+	border-bottom: 1px solid var(--mat-sys-outline-variant);
+	z-index: 2;
+	margin: 0 -#{v.$size-1};
+}
+
 #writing-box {
 	border: 1px solid var(--mat-sys-outline-variant);
 	padding: v.$size-1;
@@ -17,26 +31,4 @@
 	gap: v.$size-1;
 	border-radius: var(--mat-sys-corner-medium);
 	background-color: var(--mat-sys-surface-bright);
-}
-
-#post-container {
-	display: flex;
-	flex-direction: column;
-	gap: v.$size-1;
-}
-
-.post {
-	border: 1px solid var(--mat-sys-outline-variant);
-	background-color: var(--mat-sys-surface-bright);
-	padding: v.$size-1;
-	border-radius: var(--mat-sys-corner-small);
-}
-
-.post-meta {
-	font-size: 0.85em;
-	color: #888;
-	margin-top: 0.25rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 }
