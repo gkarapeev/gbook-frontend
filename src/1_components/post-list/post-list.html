@@ -3,11 +3,22 @@
 	{
 	<div class="post">
 		<div class="post-meta">
+			@let fromOther = post.author.id !== post.host.id;
+
+			@if (fromOther) {
+				<a
+					[routerLink]="['/profile']"
+					[queryParams]="{ user: post.host.username }"
+					>{{ post.host.username || 'Unknown' }}</a
+				>&gt;
+			}
+
 			<a
 				[routerLink]="['/profile']"
 				[queryParams]="{ user: post.author.username }"
 				>{{ post.author.username || 'Unknown' }},</a
 			>
+
 			@if (post.createdAt) {
 			<span>{{ humanTime(post.createdAt) }}</span>
 			}
