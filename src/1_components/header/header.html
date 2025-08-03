@@ -1,7 +1,8 @@
 @if (authService.user()) {
-	<button matButton routerLink="/registry">Registry</button>
+	<button matButton routerLink="/people">people</button>
+	<button matButton routerLink="/feed">feed</button>
 
-	<button matButton="outlined" [matMenuTriggerFor]="menu">
+	<button matButton="outlined" [matMenuTriggerFor]="menu" style="margin-left: auto">
 		{{ authService.user()?.username || '???' }}
 	</button>
 } @else {

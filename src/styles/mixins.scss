@@ -1,0 +1,27 @@
+@use "variables" as v;
+
+@mixin post-list {
+	#post-container {
+		display: flex;
+		flex-direction: column;
+		gap: v.$size-1;
+        padding-bottom: v.$size-1;
+	}
+
+	.post {
+		border: 1px solid var(--mat-sys-outline-variant);
+		background-color: var(--mat-sys-surface-bright);
+		padding: v.$size-1;
+		border-radius: var(--mat-sys-corner-small);
+		overflow: hidden;
+	}
+
+	.post-meta {
+		font-size: 0.85em;
+		color: #888;
+		margin-top: 0.25rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}

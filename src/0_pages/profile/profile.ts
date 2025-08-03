@@ -1,6 +1,6 @@
 import { Component, signal, effect } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/user';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { humanTime } from './profile-utils';
+import { Posts } from '../../services/posts';
 
 @Component({
 	selector: 'app-profile',
@@ -22,7 +23,7 @@ import { humanTime } from './profile-utils';
 		MatButton,
 	],
 })
-export class ProfileComponent {
+export class Profile {
 	humanTime = humanTime;
 
 	profileUser = signal<User | null>(null);
@@ -34,6 +35,7 @@ export class ProfileComponent {
 	constructor(
 		public authService: AuthService,
 		private userService: UserService,
+		private postService: Posts,
 		private route: ActivatedRoute,
 	) {
 		effect(() => {
@@ -41,7 +43,7 @@ export class ProfileComponent {
 				const username = params['user'];
 
 				if (username) {
-					this.userService.getRegistry().subscribe((users) => {
+					this.userService.getPeople().subscribe((users) => {
 						const found = users.find(
 							(u) => u.username === username
 						);
@@ -68,7 +70,7 @@ export class ProfileComponent {
 	}
 
 	loadPosts(userId: number) {
-		this.userService.getUserPosts(userId).subscribe({
+		this.postService.getUserPosts(userId).subscribe({
 			next: (posts: any[]) => {
 				this.posts.set(posts);
 			},
@@ -89,11 +91,11 @@ export class ProfileComponent {
 
 		this.submitting = true;
 
-		this.userService
+		this.postService
 			.createPost(currentUser.id, pageUser.id, content)
 			.subscribe({
 				next: () => {
-					this.userService.getUserPosts(pageUser.id).subscribe({
+					this.postService.getUserPosts(pageUser.id).subscribe({
 						next: (posts: any[]) => {
 							this.posts.set(posts);
 							this.newPostContent = '';

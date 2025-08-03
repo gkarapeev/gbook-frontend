@@ -1,12 +1,12 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/user';
 import { Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-	selector: 'app-registry',
-	templateUrl: './registry.html',
+	selector: 'app-people',
+	templateUrl: './people.html',
 	standalone: true,
 	styles: `
 		:host {
@@ -15,13 +15,13 @@ import { MatDividerModule } from '@angular/material/divider';
 	`,
 	imports: [MatListModule, MatDividerModule]
 })
-export class RegistryComponent implements OnInit {
+export class People implements OnInit {
 	public users = signal<User[]>([]);
 
 	constructor(private userService: UserService, private router: Router) {}
 
 	ngOnInit() {
-		this.userService.getRegistry().subscribe((users: User[]) => {
+		this.userService.getPeople().subscribe((users: User[]) => {
 			this.users.set(users);
 		});
 	}

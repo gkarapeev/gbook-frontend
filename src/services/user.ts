@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class UserService {
 	constructor(private http: HttpClient) {}
 
-	getRegistry(): Observable<User[]> {
+	getPeople(): Observable<User[]> {
 		return this.http.get<User[]>('/registry');
 	}
 
@@ -29,19 +29,5 @@ export class UserService {
 
 	logout() {
 		return this.http.post('/logout', null);
-	}
-
-	getUserPosts(userId: number): Observable<any> {
-		return this.http.get(`/posts?userId=${userId}`, {
-			withCredentials: true,
-		});
-	}
-
-	createPost(
-		authorId: number,
-		hostId: number,
-		content: string
-	): Observable<any> {
-		return this.http.post('/createPost', { authorId, hostId, content });
 	}
 }
