@@ -1,32 +1,46 @@
 <div id="post-container">
-	@if (posts() && posts()!.length > 0) { @for (post of posts(); track post.id)
-	{
-	<div class="post">
-		<div class="post-meta">
-			@let fromOther = post.author.id !== post.host.id;
+	@if (posts() && posts()!.length > 0) {
+		@for (post of posts(); track post.id) {
+			<div class="post">
+				<div class="post-meta">
+					@let fromOther = post.author.id !== post.host.id;
+					@let template = mode === 'feed' ? forFeed : forWall;
 
-			@if (fromOther) {
-				<a
-					[routerLink]="['/profile']"
-					[queryParams]="{ user: post.host.username }"
-					>{{ post.host.username || 'Unknown' }}</a
-				>&gt;
-			}
+					<ng-container
+						*ngTemplateOutlet="template; context: { post, fromOther }"
+					></ng-container>
 
-			<a
-				[routerLink]="['/profile']"
-				[queryParams]="{ user: post.author.username }"
-				>{{ post.author.username || 'Unknown' }},</a
-			>
+					@if (post.createdAt) {
+						<span>{{ humanTime(post.createdAt) }}</span>
+					}
+				</div>
 
-			@if (post.createdAt) {
-			<span>{{ humanTime(post.createdAt) }}</span>
-			}
-		</div>
-
-		<div>{{ post.content || 'No content' }}</div>
-	</div>
-	} } @else {
-	<div>No posts found.</div>
+				<div>{{ post.content || 'No content' }}</div>
+			</div>
+		}
+	} @else {
+		<div>No posts found.</div>
 	}
 </div>
+
+<ng-template #forFeed let-post="post" let-fromOther="fromOther">
+	@if (fromOther) {
+		<a [routerLink]="['/profile']" [queryParams]="{ user: post.host.username }"
+			>{{ post.host.username || 'Unknown' }}</a
+		>&gt;
+	}
+
+	<a
+		[routerLink]="['/profile']"
+		[queryParams]="{ user: post.author.username }"
+		>{{ post.author.username || 'Unknown' }},</a
+	>
+</ng-template>
+
+<ng-template #forWall let-post="post">
+	<a
+		[routerLink]="['/profile']"
+		[queryParams]="{ user: post.author.username }"
+		>{{ post.author.username || 'Unknown' }},</a
+	>
+</ng-template>

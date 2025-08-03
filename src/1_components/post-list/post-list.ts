@@ -1,14 +1,18 @@
-import { Component, input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-post-list',
-  imports: [RouterLink],
+  imports: [RouterLink, NgTemplateOutlet],
   templateUrl: './post-list.html',
   styleUrl: './post-list.scss',
   standalone: true,
 })
 export class PostList {
+  @Input({ required: true })
+  mode!: 'feed' | 'profile';
+
   posts = input<Post[]>();
   humanTime = humanTime;
 }
