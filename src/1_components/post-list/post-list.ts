@@ -1,32 +1,35 @@
-import { Component, Input, input } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	Input,
+	input,
+	Output,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
+import { humanTime } from '../utils/utils';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-post-list',
-  imports: [RouterLink, NgTemplateOutlet],
-  templateUrl: './post-list.html',
-  styleUrl: './post-list.scss',
-  standalone: true,
+	selector: 'app-post-list',
+	imports: [RouterLink, NgTemplateOutlet, MatInputModule],
+	templateUrl: './post-list.html',
+	styleUrl: './post-list.scss',
+	standalone: true,
 })
 export class PostList {
-  @Input({ required: true })
-  mode!: 'feed' | 'profile';
+	@Input({ required: true })
+	mode!: 'feed' | 'profile';
 
-  posts = input<Post[]>();
-  humanTime = humanTime;
+	@Output() comment = new EventEmitter<CommentInfo>();
+
+	posts = input<Post[]>();
+	humanTime = humanTime;
+
+	addComment(target: HTMLInputElement, postId: number): void {
+		this.comment.next({
+			postId,
+			content: target.value,
+		});
+	}
 }
-
-// Returns a human-readable time difference (e.g., '2 hours ago')
-export const humanTime = (ts: number): string => {
-	// If ts is in seconds, convert to ms
-	if (ts < 1e12) ts = ts * 1000;
-	const now = Date.now();
-	const diff = Math.floor((now - ts) / 1000); // in seconds
-	if (diff < 60) return `${diff}s ago`;
-	if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-	if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-	if (diff < 2592000) return `${Math.floor(diff / 86400)}d ago`;
-	const d = new Date(ts);
-	return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-};

@@ -16,6 +16,29 @@
 				</div>
 
 				<div>{{ post.content || 'No content' }}</div>
+
+				<input type="text" placeholder="Add a comment..." (keydown.enter)="addComment($any($event.target), post.id); $any($event.target).value = ''"/>
+
+				@if (post.comments) {
+					<div class="comment-pane">
+						@for (comment of post.comments; track comment.id) {
+							<div class="comment">
+								<div class="comment-meta">
+									<a
+										[routerLink]="['/profile']"
+										[queryParams]="{ user: comment.author.username }"
+										>{{ comment.author.username || 'Unknown' }}</a
+									>,
+
+									@if (comment.createdAt) {
+										<span>{{ humanTime(comment.createdAt) }}</span>
+									}
+								</div>
+								<div>{{ comment.content }}</div>
+							</div>
+						}
+					</div>
+				}
 			</div>
 		}
 	} @else {
@@ -33,14 +56,14 @@
 	<a
 		[routerLink]="['/profile']"
 		[queryParams]="{ user: post.author.username }"
-		>{{ post.author.username || 'Unknown' }},</a
-	>
+		>{{ post.author.username || 'Unknown' }}</a
+	>,
 </ng-template>
 
 <ng-template #forWall let-post="post">
 	<a
 		[routerLink]="['/profile']"
 		[queryParams]="{ user: post.author.username }"
-		>{{ post.author.username || 'Unknown' }},</a
-	>
+		>{{ post.author.username || 'Unknown' }}</a
+	>,
 </ng-template>

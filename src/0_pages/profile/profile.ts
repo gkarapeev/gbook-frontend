@@ -117,4 +117,25 @@ export class Profile {
 			this.submitPost();
 		}
 	}
+
+	addComment(e: CommentInfo) {
+		this.postService.addComment(e.postId, this.authService.user()!.id, e.content).subscribe({
+			next: (c: Comment) => {
+				this.posts.update((posts) => {
+					const post = posts.find((p) => p.id === e.postId);
+					if (!post) {
+						return posts;
+					}
+
+					if (!post.comments) {
+						post.comments = [];
+					}
+
+					post.comments.unshift(c);
+					
+					return [...posts];
+				});
+			}
+		});
+	}
 }
