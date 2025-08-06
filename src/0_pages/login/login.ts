@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -13,14 +13,14 @@ import { MatButtonModule } from '@angular/material/button';
 	standalone: true,
 })
 export class Login {
-	public credentials = {
+	private authService = inject(AuthService);
+
+	public entry = {
 		username: '',
 		password: '',
 	};
 
-	constructor(private authService: AuthService) {}
-
 	login() {
-		this.authService.login(this.credentials.username, this.credentials.password);
+		this.authService.login(this.entry.username, this.entry.password);
 	}
 }
