@@ -23,4 +23,12 @@ export class Posts {
 	): Observable<any> {
 		return this.http.post('/createPost', { authorId, hostId, content });
 	}
+
+	addComment(
+		postId: number,
+		authorId: number,
+		content: string
+	): Observable<any> {
+		return this.http.post('/addComment', { postId, authorId, content });
+	}
 }
