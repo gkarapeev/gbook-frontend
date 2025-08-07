@@ -20,9 +20,9 @@
 				<input type="text" placeholder="Add a comment..." (keydown.enter)="addComment($any($event.target), post.id); $any($event.target).value = ''"/>
 
 				@if (post.comments) {
-					<div class="comment-pane">
+					<div class="comment-pane" style="display: flex; flex-direction: column; gap: 5px;">
 						@for (comment of post.comments; track comment.id) {
-							<div class="comment">
+							<div class="comment" style="display: flex; justify-content: space-between; padding: 2px 16px; background-color: #e7e7e7; margin-left: 20%;">
 								<div class="comment-meta">
 									<a
 										[routerLink]="['/profile']"
