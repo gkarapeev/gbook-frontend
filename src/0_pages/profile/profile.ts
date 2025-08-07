@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { Posts } from '../../services/posts';
 import { PostList } from '../../1_components/post-list/post-list';
+import { TextArea } from '../../1_components/textarea';
 
 @Component({
 	selector: 'app-profile',
@@ -21,7 +22,8 @@ import { PostList } from '../../1_components/post-list/post-list';
 		MatInputModule,
 		MatIconModule,
 		MatButton,
-		PostList
+		PostList,
+		TextArea
 	],
 })
 export class Profile {
