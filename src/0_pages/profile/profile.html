@@ -1,4 +1,3 @@
-<app-textarea></app-textarea>
 @if (profileUser() && authService.user()) {
 	<div id="profile-header">
 		{{ profileUser()!.username}}
@@ -17,6 +16,7 @@
 				(keydown)="onNewPostKeydown($event)"
 			></textarea>
 		</mat-form-field>
+<app-textarea></app-textarea>
 
 		<button
 			matButton
