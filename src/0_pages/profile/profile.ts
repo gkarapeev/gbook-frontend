@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { Posts } from '../../services/posts';
 import { PostList } from '../../1_components/post-list/post-list';
-import { TextArea } from '../../1_components/textarea/textarea';
 
 @Component({
 	selector: 'app-profile',
@@ -23,7 +22,6 @@ import { TextArea } from '../../1_components/textarea/textarea';
 		MatIconModule,
 		MatButton,
 		PostList,
-		TextArea
 	],
 })
 export class Profile {
@@ -37,7 +35,7 @@ export class Profile {
 		public authService: AuthService,
 		private userService: UserService,
 		private postService: Posts,
-		private route: ActivatedRoute,
+		private route: ActivatedRoute
 	) {
 		effect(() => {
 			this.route.queryParams.subscribe((params) => {
@@ -121,23 +119,25 @@ export class Profile {
 	}
 
 	addComment(e: CommentInfo) {
-		this.postService.addComment(e.postId, this.authService.user()!.id, e.content).subscribe({
-			next: (c: Comment) => {
-				this.posts.update((posts) => {
-					const post = posts.find((p) => p.id === e.postId);
-					if (!post) {
-						return posts;
-					}
+		this.postService
+			.addComment(e.postId, this.authService.user()!.id, e.content)
+			.subscribe({
+				next: (c: Comment) => {
+					this.posts.update((posts) => {
+						const post = posts.find((p) => p.id === e.postId);
+						if (!post) {
+							return posts;
+						}
 
-					if (!post.comments) {
-						post.comments = [];
-					}
+						if (!post.comments) {
+							post.comments = [];
+						}
 
-					post.comments.unshift(c);
-					
-					return [...posts];
-				});
-			}
-		});
+						post.comments.unshift(c);
+
+						return [...posts];
+					});
+				},
+			});
 	}
 }
