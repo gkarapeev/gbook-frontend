@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
 	selector: 'app-textarea',
@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
 	standalone: true,
 })
 export class TextArea {
-	focus() {}
+	@HostBinding('class.focused')
+	public isFocused = false;
+
+	focus() {
+		this.isFocused = true;
+	}
+
+	blur() {
+		this.isFocused = false;
+	}
 }

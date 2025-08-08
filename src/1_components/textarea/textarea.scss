@@ -1,5 +1,22 @@
 @use "../styles/variables" as v;
 
+:host {
+	&.focused {
+		.field-wrapper {
+			background-color: var(--mat-sys-surface-variant);
+
+			.focus-overlay {
+				opacity: 0;
+			}
+		}
+
+		.ripple::after {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+	}
+}
+
 .field-wrapper {
 	flex-grow: 1;
 	background-color: var(--mat-sys-surface-variant);
@@ -13,9 +30,9 @@
 	&:hover {
 		background-color: var(--mat-sys-surface-variant);
 
-        .focus-overlay {
-            opacity: var(--mat-sys-hover-state-layer-opacity);
-        }
+		.focus-overlay {
+			opacity: var(--mat-sys-hover-state-layer-opacity);
+		}
 	}
 }
 
@@ -35,8 +52,8 @@
 }
 
 .mat-mdc-form-field-infix {
-    padding-top: var(--mat-form-field-container-vertical-padding, 16px);
-    padding-bottom: var(--mat-form-field-container-vertical-padding, 16px);
+	padding-top: var(--mat-form-field-container-vertical-padding, 16px);
+	padding-bottom: var(--mat-form-field-container-vertical-padding, 16px);
 	flex: auto;
 	min-width: 0;
 	width: 180px;
@@ -61,6 +78,10 @@ textarea {
 	&:focus {
 		outline: none;
 	}
+
+	&::placeholder {
+		color: var(--mat-sys-on-surface-variant);
+	}
 }
 
 .ripple {
@@ -75,5 +96,13 @@ textarea {
 		border-bottom-width: 1px;
 
 		content: "";
+	}
+
+	&::after {
+		border-bottom-width: 2px;
+		transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 180ms cubic-bezier(0.4, 0, 0.2, 1);
+		transform: scaleX(0);
+		border-bottom-color: var(--mat-sys-primary);
 	}
 }
