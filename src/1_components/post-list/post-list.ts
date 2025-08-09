@@ -1,21 +1,22 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
 	Component,
 	effect,
-	EventEmitter,
 	Input,
 	input,
-	Output,
-	signal,
+	signal
 } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { NgTemplateOutlet } from '@angular/common';
-import { humanTime } from '../utils/utils';
-import { MatInputModule } from '@angular/material/input';
-import { Posts } from '../../services/posts';
-import { AuthService } from '../../services/auth/auth.service';
-import { UserService } from '../../services/user';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { Posts } from '../../services/posts';
+import { humanTime } from '../utils/utils';
+
+interface PostWithComments extends Post {
+	commentsExpanded: boolean
+}
 
 @Component({
 	selector: 'app-post-list',
@@ -24,7 +25,7 @@ import { MatButton } from '@angular/material/button';
 		NgTemplateOutlet,
 		MatInputModule,
 		MatIconModule,
-		MatButton,
+		MatButton
 	],
 	templateUrl: './post-list.html',
 	styleUrl: './post-list.scss',
@@ -34,12 +35,9 @@ export class PostList {
 	@Input({ required: true })
 	public mode!: 'feed' | 'profile';
 
-	@Output()
-	public comment = new EventEmitter<CommentInfo>();
-
 	public profileUser = input<User | null>(null);
 
-	public posts = signal<Post[]>([]);
+	public posts = signal<PostWithComments[]>([]);
 	public newPostContent = '';
 
 	public humanTime = humanTime;
@@ -49,9 +47,7 @@ export class PostList {
 
 	constructor(
 		public authService: AuthService,
-		private userService: UserService,
 		private postService: Posts,
-		private route: ActivatedRoute
 	) {
 		effect(() => {
 			if (this.mode === 'profile') {
@@ -65,7 +61,7 @@ export class PostList {
 
 			this.postService.getFeed().subscribe({
 				next: (posts: Post[]) => {
-					this.posts.set(posts);
+					this.posts.set(posts.map(p => ({ ...p, commentsExpanded: false })));
 				},
 				error: (err: any) => {
 					console.error('Error fetching user posts:', err);
@@ -76,8 +72,8 @@ export class PostList {
 
 	loadPosts(userId: number) {
 		this.postService.getUserPosts(userId).subscribe({
-			next: (posts: any[]) => {
-				this.posts.set(posts);
+			next: (posts: Post[]) => {
+				this.posts.set(posts.map(p => ({ ...p, commentsExpanded: false })));
 			},
 			error: (err: any) => {
 				console.error('Error fetching user posts:', err);

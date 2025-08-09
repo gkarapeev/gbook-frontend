@@ -42,33 +42,49 @@
 			<div>{{ post.content || 'No content' }}</div>
 		</div>
 
-		<div id="comment-pane">
-			<input
-				id="new-comment-input"
-				#newCommentInput
-				type="text"
-				placeholder="Add a comment..."
-				autocapitalize="off"
-				autocomplete="off"
-				(keydown.enter)="addComment(newCommentInput.value, post.id); newCommentInput.value = ''"
-			/>
-
-			@if (post.comments) { @for (comment of post.comments; track
-			comment.id) {
-			<div class="comment">
-				<div class="comment-content">{{ comment.content }}</div>
-
-				<div class="comment-meta">
-					<a
-						[routerLink]="['/profile']"
-						[queryParams]="{ user: comment.author.username }"
-						>{{ comment.author.username || 'Unknown' }}</a
-					>
-
-					<span>{{ humanTime(comment.createdAt) }}</span>
-				</div>
+		@if (post.commentsExpanded) {
+			<div class="comment-pane">
+				<input
+					class="new-comment-input"
+					#newCommentInput
+					type="text"
+					placeholder="Add a comment..."
+					autocapitalize="off"
+					autocomplete="off"
+					(keydown.enter)="addComment(newCommentInput.value, post.id); newCommentInput.value = ''"
+				/>
+	
+				@if (post.comments) {
+					@for (comment of post.comments; track comment.id) {
+						<div class="comment">
+							<div class="comment-content">{{ comment.content }}</div>
+			
+							<div class="comment-meta">
+								<a
+									[routerLink]="['/profile']"
+									[queryParams]="{ user: comment.author.username }"
+									>{{ comment.author.username || 'Unknown' }}</a
+								>
+			
+								<span>{{ humanTime(comment.createdAt) }}</span>
+							</div>
+						</div>
+					}
+				}
 			</div>
-			} }
+		}
+
+		<div class="comment-pane-toggle" (click)="post.commentsExpanded = !post.commentsExpanded">
+			Comments
+			@if (post.comments && post.comments.length > 0) {
+				({{ post.comments.length }})
+			}
+
+			@if (post.commentsExpanded) {
+				<mat-icon fontIcon="keyboard_arrow_up"></mat-icon>
+			} @else {
+				<mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
+			}
 		</div>
 	</div>
 	} } @else {
