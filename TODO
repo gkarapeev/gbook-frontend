@@ -17,4 +17,5 @@
 🕙 - Largest contentful paint skeleton + loading indicators for every single thing
 🕙 - Infinite dynamic post loading in scroll near bottom
 🕙 - Protobuf!
+🕙 - Cache any posts younger than one month and only fetch newer ones during session
 
