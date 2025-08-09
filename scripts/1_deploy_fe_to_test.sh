@@ -19,8 +19,8 @@ ssh $REMOTE "
   cd $REMOTE_REPO_DIR &&
   git checkout $BRANCH &&
   git pull &&
-  rm -rf $REMOTE_PUBLIC_DIR/*
-  cp -r dist/gbook-frontend/browser/* $REMOTE_PUBLIC_DIR/
+  doas rm -rf $REMOTE_PUBLIC_DIR/*
+  doas cp -r dist/gbook-frontend/browser/* $REMOTE_PUBLIC_DIR/
 "
 
 echo "Deployed FE to test."
