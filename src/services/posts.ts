@@ -20,8 +20,8 @@ export class Posts {
 		authorId: number,
 		hostId: number,
 		content: string
-	): Observable<any> {
-		return this.http.post('/createPost', { authorId, hostId, content });
+	) {
+		return this.http.post('/createPost', { authorId, hostId, content }) as Observable<Post>;
 	}
 
 	addComment(
