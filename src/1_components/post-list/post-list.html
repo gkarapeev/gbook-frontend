@@ -1,63 +1,89 @@
+<div id="writing-box">
+	<mat-form-field style="flex-grow: 1">
+		<textarea
+			#newPostInput
+			matInput
+			type="textarea"
+			(input)="newPostContent = newPostInput.value"
+			[rows]="isMobile ? 3 : 2"
+			cols="40"
+			placeholder="Write a new post..."
+			style="flex-grow: 1"
+			(keydown)="onNewPostKeydown($event)"
+		></textarea>
+	</mat-form-field>
+
+	<button
+		matButton
+		(click)="submitPost()"
+		[disabled]="!newPostContent.trim()"
+	>
+		<mat-icon fontIcon="send"></mat-icon>
+		Post
+	</button>
+</div>
+
 <div id="post-container">
-	@if (posts() && posts()!.length > 0) {
-		@for (post of posts(); track post.id) {
-			<div class="post">
-				<div class="post-meta">
-					@let fromOther = post.author.id !== post.host.id;
-					@let template = mode === 'feed' ? forFeed : forWall;
+	@if (posts() && posts()!.length > 0) { @for (post of posts(); track post.id)
+	{
+	<div class="post">
+		<div class="post-meta">
+			@let fromOther = post.author.id !== post.host.id; @let template =
+			mode === 'feed' ? forFeed : forWall;
 
-					<ng-container
-						*ngTemplateOutlet="template; context: { post, fromOther }"
-					></ng-container>
+			<ng-container
+				*ngTemplateOutlet="template; context: { post, fromOther }"
+			></ng-container>
 
-					@if (post.createdAt) {
-						<span>{{ humanTime(post.createdAt) }}</span>
-					}
+			<span>{{ humanTime(post.createdAt) }}&nbsp;ago</span>
+		</div>
+
+		<div>{{ post.content || 'No content' }}</div>
+
+		<input
+			id="new-comment-input"
+			#newCommentInput
+			type="text"
+			placeholder="Add a comment..."
+			(keydown.enter)="addComment(newCommentInput.value, post.id); newCommentInput.value = ''"
+		/>
+
+		@if (post.comments) {
+		<div id="comment-pane">
+			@for (comment of post.comments; track comment.id) {
+			<div class="comment">
+				<div class="comment-content">{{ comment.content }}</div>
+
+				<div class="comment-meta">
+					<a
+						[routerLink]="['/profile']"
+						[queryParams]="{ user: comment.author.username }"
+						>{{ comment.author.username || 'Unknown' }}</a
+					>
+
+					<span>{{ humanTime(comment.createdAt) }}</span>
 				</div>
-
-				<div>{{ post.content || 'No content' }}</div>
-
-				<input type="text" placeholder="Add a comment..." (keydown.enter)="addComment($any($event.target), post.id); $any($event.target).value = ''"/>
-
-				@if (post.comments) {
-					<div class="comment-pane" style="display: flex; flex-direction: column; gap: 5px;">
-						@for (comment of post.comments; track comment.id) {
-							<div class="comment" style="display: flex; justify-content: space-between; padding: 2px 16px; background-color: #e7e7e7; margin-left: 20%;">
-								<div class="comment-meta">
-									<a
-										[routerLink]="['/profile']"
-										[queryParams]="{ user: comment.author.username }"
-										>{{ comment.author.username || 'Unknown' }}</a
-									>,
-
-									@if (comment.createdAt) {
-										<span>{{ humanTime(comment.createdAt) }}</span>
-									}
-								</div>
-								<div>{{ comment.content }}</div>
-							</div>
-						}
-					</div>
-				}
 			</div>
+			}
+		</div>
 		}
-	} @else {
-		<div>No posts found.</div>
+	</div>
+	} } @else {
+	<div>No posts found.</div>
 	}
 </div>
 
 <ng-template #forFeed let-post="post" let-fromOther="fromOther">
 	@if (fromOther) {
-		<a [routerLink]="['/profile']" [queryParams]="{ user: post.host.username }"
-			>{{ post.host.username || 'Unknown' }}</a
-		>&gt;
-	}
+	<a [routerLink]="['/profile']" [queryParams]="{ user: post.host.username }"
+		>{{ post.host.username || 'Unknown' }}</a
+	>&gt; }
 
 	<a
 		[routerLink]="['/profile']"
 		[queryParams]="{ user: post.author.username }"
 		>{{ post.author.username || 'Unknown' }}</a
-	>,
+	>
 </ng-template>
 
 <ng-template #forWall let-post="post">
@@ -65,5 +91,5 @@
 		[routerLink]="['/profile']"
 		[queryParams]="{ user: post.author.username }"
 		>{{ post.author.username || 'Unknown' }}</a
-	>,
+	>
 </ng-template>

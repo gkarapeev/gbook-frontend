@@ -3,29 +3,7 @@
 		{{ profileUser()!.username}}
 	</div>
 
-	<div id="writing-box">
-		<mat-form-field style="flex-grow: 1">
-			<textarea
-				matInput
-				type="textarea"
-				[(ngModel)]="newPostContent"
-				rows="3"
-				cols="40"
-				placeholder="Write a new post..."
-				style="flex-grow: 1"
-				(keydown)="onNewPostKeydown($event)"
-			></textarea>
-		</mat-form-field>
 
-		<button
-			matButton
-			(click)="submitPost()"
-			[disabled]="submitting || !newPostContent.trim()"
-		>
-			<mat-icon fontIcon="send"></mat-icon>
-			Post
-		</button>
-	</div>
 }
 
-<app-post-list [posts]="posts()" mode="profile" (comment)="addComment($event)"></app-post-list>
+<app-post-list mode="profile" [profileUser]="profileUser()"></app-post-list>

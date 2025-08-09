@@ -1,10 +1,26 @@
 @use "variables" as v;
+@use "mixins" as m;
+
+:host {
+	display: flex;
+	flex-direction: column;
+	gap: v.$size-2;
+	padding: v.$size-2 0;
+}
+
+#writing-box {
+	border: 1px solid var(--mat-sys-outline-variant);
+	padding: v.$size-1;
+	display: flex;
+	gap: v.$size-1;
+	border-radius: var(--mat-sys-corner-medium);
+	background-color: var(--mat-sys-surface-bright);
+}
 
 #post-container {
 	display: flex;
 	flex-direction: column;
 	gap: v.$size-1;
-	padding-bottom: v.$size-1;
 }
 
 .post {
@@ -20,14 +36,56 @@
 }
 
 .post-meta {
-	font-size: 0.85em;
-	color: #888;
+	font-size: var(--mat-sys-label-large-size);
+	color: var(--grey-font-color);
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
 
-	a {
-		color: var(--mat-sys-primary);
-		text-decoration: none;
-	}
+	@include m.username-text;
+}
+
+#comment-pane {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+#new-comment-input {
+	width: 100%;
+	border: 1px solid var(--mat-sys-outline-variant);
+	border-radius: var(--mat-sys-corner-small);
+	padding: v.$size-0;
+	background-color: white;
+}
+
+.comment {
+	display: flex;
+	justify-content: space-between;
+	padding: 2px 16px;
+	background-color: white;
+	margin: auto;
+	width: 100%;
+	border-radius: var(--mat-sys-corner-small);
+	border: 1px solid var(--mat-sys-outline-variant);
+	border-color: color-mix(
+		in srgb,
+		var(--mat-sys-outline-variant) 50%,
+		transparent
+	);
+}
+
+.comment-meta {
+	display: flex;
+	flex-direction: column;
+	font-size: var(--mat-sys-label-medium-size);
+	text-align: right;
+	color: var(--grey-font-color);
+
+	@include m.username-text;
+}
+
+.comment-content {
+	display: flex;
+	align-items: center;
 }
