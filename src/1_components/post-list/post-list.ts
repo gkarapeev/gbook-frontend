@@ -1,11 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-	Component,
-	effect,
-	Input,
-	input,
-	signal
-} from '@angular/core';
+import { Component, effect, Input, input, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +10,7 @@ import { humanTime } from '../utils/utils';
 import { LinkifyPipe } from '../../pipes/linkify';
 
 interface PostWithComments extends Post {
-	commentsExpanded: boolean
+	commentsExpanded: boolean;
 }
 
 @Component({
@@ -27,7 +21,7 @@ interface PostWithComments extends Post {
 		MatInputModule,
 		MatIconModule,
 		MatButton,
-		LinkifyPipe
+		LinkifyPipe,
 	],
 	templateUrl: './post-list.html',
 	styleUrl: './post-list.scss',
@@ -37,23 +31,19 @@ export class PostList {
 	@Input({ required: true })
 	public mode!: 'feed' | 'profile';
 
-	public profileUser = input<User | null>(null);
+	public pageHost = input<User | null>(null);
 
 	public posts = signal<PostWithComments[]>([]);
-	public newPostContent = '';
 
 	public humanTime = humanTime;
 	public isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(
 		navigator.userAgent
 	);
 
-	constructor(
-		public authService: AuthService,
-		private postService: Posts,
-	) {
+	constructor(public authService: AuthService, private postService: Posts) {
 		effect(() => {
 			if (this.mode === 'profile') {
-				const user = this.profileUser();
+				const user = this.pageHost();
 				if (user) {
 					this.loadPosts(user.id);
 				}
@@ -63,7 +53,7 @@ export class PostList {
 
 			this.postService.getFeed().subscribe({
 				next: (posts: Post[]) => {
-					this.posts.set(posts.map(p => ({ ...p, commentsExpanded: false })));
+					this.setPosts(posts);
 				},
 				error: (err: any) => {
 					console.error('Error fetching user posts:', err);
@@ -75,7 +65,7 @@ export class PostList {
 	loadPosts(userId: number) {
 		this.postService.getUserPosts(userId).subscribe({
 			next: (posts: Post[]) => {
-				this.posts.set(posts.map(p => ({ ...p, commentsExpanded: false })));
+				this.setPosts(posts);
 			},
 			error: (err: any) => {
 				console.error('Error fetching user posts:', err);
@@ -83,36 +73,43 @@ export class PostList {
 		});
 	}
 
-	submitPost() {
-		const currentUser = this.authService.user();
-		const pageUser = this.profileUser();
-		const content = this.newPostContent.trim();
+	onNewPostKeydown(event: any, textarea: HTMLTextAreaElement) {
+		if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+			event.preventDefault();
+			this.submitPost(textarea);
+		}
+	}
 
-		if (!currentUser || !pageUser || !content) {
+	submitPost(textarea: HTMLTextAreaElement) {
+		const currentUser = this.authService.user();
+
+		if (!currentUser) {
+			return;
+		}
+
+		const hostId =
+			this.pageHost() !== null ? this.pageHost()!.id : currentUser.id;
+
+		const content = textarea.value.trim();
+
+		if (!hostId || !content) {
 			return;
 		}
 
 		this.postService
-			.createPost(currentUser.id, pageUser.id, content)
+			.createPost(currentUser.id, hostId, content)
 			.subscribe({
 				next: () => {
-					this.postService.getUserPosts(pageUser.id).subscribe({
-						next: (posts: any[]) => {
-							this.posts.set(posts);
-							this.newPostContent = '';
+					this.postService.getUserPosts(hostId).subscribe({
+						next: (posts: Post[]) => {
+							this.setPosts(posts);
+							textarea.value = '';
 						},
 						error: () => {},
 					});
 				},
 				error: () => {},
 			});
-	}
-
-	onNewPostKeydown(event: any) {
-		if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-			event.preventDefault();
-			this.submitPost();
-		}
 	}
 
 	addComment(commentText: string, postId: number): void {
@@ -136,5 +133,9 @@ export class PostList {
 					});
 				},
 			});
+	}
+
+	private setPosts(posts: Post[]) {
+		this.posts.set(posts.map((p) => ({ ...p, commentsExpanded: false })));
 	}
 }

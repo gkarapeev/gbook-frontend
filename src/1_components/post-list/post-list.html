@@ -1,22 +1,21 @@
 <div id="writing-box">
 	<mat-form-field style="flex-grow: 1">
 		<textarea
-			#newPostInput
+			#newPostTextArea
 			matInput
 			type="textarea"
-			(input)="newPostContent = newPostInput.value"
 			[rows]="isMobile ? 3 : 2"
 			cols="40"
 			placeholder="Write a new post..."
 			style="flex-grow: 1"
-			(keydown)="onNewPostKeydown($event)"
+			(keydown)="onNewPostKeydown($event, newPostTextArea)"
 		></textarea>
 	</mat-form-field>
 
 	<button
 		matButton
-		(click)="submitPost()"
-		[disabled]="!newPostContent.trim()"
+		(click)="submitPost(newPostTextArea)"
+		[disabled]="!newPostTextArea.value.trim()"
 	>
 		<mat-icon fontIcon="send"></mat-icon>
 		Post
@@ -48,9 +47,11 @@
 					class="new-comment-input"
 					#newCommentInput
 					type="text"
+					name="add-comment"
 					placeholder="Add a comment..."
 					autocapitalize="off"
 					autocomplete="off"
+					autofocus
 					(keydown.enter)="addComment(newCommentInput.value, post.id); newCommentInput.value = ''"
 				/>
 	
