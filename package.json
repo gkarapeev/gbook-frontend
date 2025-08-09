@@ -9,6 +9,7 @@
     "start": "ng serve",
     "build": "ng build --configuration production",
     "build:test": "ng build --configuration test",
+    "deploy:test": "sh ./scripts/1_deploy_fe_to_test.sh",
     "watch": "ng build --watch --configuration development"
   },
   "private": true,
