@@ -27,30 +27,34 @@
 	@if (posts() && posts()!.length > 0) { @for (post of posts(); track post.id)
 	{
 	<div class="post">
-		<div class="post-meta">
-			@let fromOther = post.author.id !== post.host.id; @let template =
-			mode === 'feed' ? forFeed : forWall;
+		<div class="post-main">
+			<div class="post-meta">
+				@let fromOther = post.author.id !== post.host.id; @let template
+				= mode === 'feed' ? forFeed : forWall;
 
-			<ng-container
-				*ngTemplateOutlet="template; context: { post, fromOther }"
-			></ng-container>
+				<ng-container
+					*ngTemplateOutlet="template; context: { post, fromOther }"
+				></ng-container>
 
-			<span>{{ humanTime(post.createdAt) }}&nbsp;ago</span>
+				<span>{{ humanTime(post.createdAt) }}&nbsp;ago</span>
+			</div>
+
+			<div>{{ post.content || 'No content' }}</div>
 		</div>
 
-		<div>{{ post.content || 'No content' }}</div>
-
-		<input
-			id="new-comment-input"
-			#newCommentInput
-			type="text"
-			placeholder="Add a comment..."
-			(keydown.enter)="addComment(newCommentInput.value, post.id); newCommentInput.value = ''"
-		/>
-
-		@if (post.comments) {
 		<div id="comment-pane">
-			@for (comment of post.comments; track comment.id) {
+			<input
+				id="new-comment-input"
+				#newCommentInput
+				type="text"
+				placeholder="Add a comment..."
+				autocapitalize="off"
+				autocomplete="off"
+				(keydown.enter)="addComment(newCommentInput.value, post.id); newCommentInput.value = ''"
+			/>
+
+			@if (post.comments) { @for (comment of post.comments; track
+			comment.id) {
 			<div class="comment">
 				<div class="comment-content">{{ comment.content }}</div>
 
@@ -64,9 +68,8 @@
 					<span>{{ humanTime(comment.createdAt) }}</span>
 				</div>
 			</div>
-			}
+			} }
 		</div>
-		}
 	</div>
 	} } @else {
 	<div>No posts found.</div>

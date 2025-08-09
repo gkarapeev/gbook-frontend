@@ -5,7 +5,7 @@
 }
 
 #page-view {
-	height: calc(100vh - v.$header-height);
+	height: calc(100dvh - v.$header-height);
 	overflow: auto;
 	padding: 0 v.$size-1;
 

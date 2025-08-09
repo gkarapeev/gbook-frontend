@@ -19,24 +19,33 @@ import { MatButton } from '@angular/material/button';
 
 @Component({
 	selector: 'app-post-list',
-	imports: [RouterLink, NgTemplateOutlet, MatInputModule, MatIconModule, MatButton],
+	imports: [
+		RouterLink,
+		NgTemplateOutlet,
+		MatInputModule,
+		MatIconModule,
+		MatButton,
+	],
 	templateUrl: './post-list.html',
 	styleUrl: './post-list.scss',
 	standalone: true,
 })
 export class PostList {
 	@Input({ required: true })
-	mode!: 'feed' | 'profile';
+	public mode!: 'feed' | 'profile';
 
 	@Output()
 	public comment = new EventEmitter<CommentInfo>();
 
-	profileUser = input<User | null>(null);
-	posts = signal<Post[]>([]);
-	newPostContent = '';
+	public profileUser = input<User | null>(null);
 
-	humanTime = humanTime;
-	isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+	public posts = signal<Post[]>([]);
+	public newPostContent = '';
+
+	public humanTime = humanTime;
+	public isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(
+		navigator.userAgent
+	);
 
 	constructor(
 		public authService: AuthService,
@@ -50,31 +59,19 @@ export class PostList {
 				if (user) {
 					this.loadPosts(user.id);
 				}
+
+				return;
 			}
-		});
-	}
 
-	addComment(commentText: string, postId: number): void {
-		this.postService
-			.addComment(postId, this.authService.user()!.id, commentText)
-			.subscribe({
-				next: (c: Comment) => {
-					this.posts.update((posts) => {
-						const post = posts.find((p) => p.id === postId);
-						if (!post) {
-							return posts;
-						}
-
-						if (!post.comments) {
-							post.comments = [];
-						}
-
-						post.comments.unshift(c);
-
-						return [...posts];
-					});
+			this.postService.getFeed().subscribe({
+				next: (posts: Post[]) => {
+					this.posts.set(posts);
+				},
+				error: (err: any) => {
+					console.error('Error fetching user posts:', err);
 				},
 			});
+		});
 	}
 
 	loadPosts(userId: number) {
@@ -118,5 +115,28 @@ export class PostList {
 			event.preventDefault();
 			this.submitPost();
 		}
+	}
+
+	addComment(commentText: string, postId: number): void {
+		this.postService
+			.addComment(postId, this.authService.user()!.id, commentText)
+			.subscribe({
+				next: (c: Comment) => {
+					this.posts.update((posts) => {
+						const post = posts.find((p) => p.id === postId);
+						if (!post) {
+							return posts;
+						}
+
+						if (!post.comments) {
+							post.comments = [];
+						}
+
+						post.comments.unshift(c);
+
+						return [...posts];
+					});
+				},
+			});
 	}
 }
