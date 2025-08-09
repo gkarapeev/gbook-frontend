@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { Posts } from '../../services/posts';
 import { humanTime } from '../utils/utils';
+import { LinkifyPipe } from '../../pipes/linkify';
 
 interface PostWithComments extends Post {
 	commentsExpanded: boolean
@@ -25,7 +26,8 @@ interface PostWithComments extends Post {
 		NgTemplateOutlet,
 		MatInputModule,
 		MatIconModule,
-		MatButton
+		MatButton,
+		LinkifyPipe
 	],
 	templateUrl: './post-list.html',
 	styleUrl: './post-list.scss',

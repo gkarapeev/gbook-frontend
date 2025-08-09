@@ -39,7 +39,7 @@
 				<span class="post-time">{{ humanTime(post.createdAt) }}&nbsp;ago</span>
 			</div>
 
-			<div>{{ post.content || 'No content' }}</div>
+			<div class="post-content" [innerHTML]="(post.content | linkify) || 'No content'"></div>
 		</div>
 
 		@if (post.commentsExpanded) {
