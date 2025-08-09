@@ -36,7 +36,7 @@
 					*ngTemplateOutlet="template; context: { post, fromOther }"
 				></ng-container>
 
-				<span>{{ humanTime(post.createdAt) }}&nbsp;ago</span>
+				<span class="post-time">{{ humanTime(post.createdAt) }}&nbsp;ago</span>
 			</div>
 
 			<div>{{ post.content || 'No content' }}</div>

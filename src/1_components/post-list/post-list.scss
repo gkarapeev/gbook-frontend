@@ -55,6 +55,10 @@
 	@include m.username-text;
 }
 
+.post-time {
+	font-size: var(--mat-sys-label-medium-size);
+}
+
 #comment-pane {
 	display: flex;
 	flex-direction: column;
