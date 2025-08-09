@@ -1,1 +1,9 @@
 @use "variables" as v;
+
+@mixin username-text {
+	a {
+		font-weight: bold;
+		color: var(--mat-sys-primary);
+		text-decoration: none;
+	}
+}

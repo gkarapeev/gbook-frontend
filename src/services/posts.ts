@@ -12,8 +12,8 @@ export class Posts {
 		return this.http.get(`/feed`) as Observable<Post[]>;
 	}
 
-	getUserPosts(userId: number): Observable<any> {
-		return this.http.get(`/posts?userId=${userId}`);
+	getUserPosts(userId: number) {
+		return this.http.get(`/posts?userId=${userId}`) as Observable<Post[]>;
 	}
 
 	createPost(
@@ -22,5 +22,13 @@ export class Posts {
 		content: string
 	): Observable<any> {
 		return this.http.post('/createPost', { authorId, hostId, content });
+	}
+
+	addComment(
+		postId: number,
+		authorId: number,
+		content: string
+	) {
+		return this.http.post('/addComment', { postId, authorId, content }) as Observable<Comment>;
 	}
 }

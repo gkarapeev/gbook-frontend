@@ -1,5 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { Posts } from '../../services/posts';
+import { Component } from '@angular/core';
 import { PostList } from '../../1_components/post-list/post-list';
 
 @Component({
@@ -9,18 +8,4 @@ import { PostList } from '../../1_components/post-list/post-list';
 	styleUrl: './feed.scss',
 	standalone: true,
 })
-export class Feed implements OnInit {
-  postService = inject(Posts);
-  posts = signal<Post[]>([]);
-
-  ngOnInit(): void {
-		this.postService.getFeed().subscribe({
-			next: (posts: Post[]) => {
-				this.posts.set(posts);
-			},
-			error: (err: any) => {
-				console.error('Error fetching user posts:', err);
-			},
-		});
-	}
-}
+export class Feed {}

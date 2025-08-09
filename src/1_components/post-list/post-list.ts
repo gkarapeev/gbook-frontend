@@ -1,32 +1,140 @@
-import { Component, Input, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
+import {
+	Component,
+	effect,
+	Input,
+	input,
+	signal
+} from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { Posts } from '../../services/posts';
+import { humanTime } from '../utils/utils';
+import { LinkifyPipe } from '../../pipes/linkify';
 
-@Component({
-  selector: 'app-post-list',
-  imports: [RouterLink, NgTemplateOutlet],
-  templateUrl: './post-list.html',
-  styleUrl: './post-list.scss',
-  standalone: true,
-})
-export class PostList {
-  @Input({ required: true })
-  mode!: 'feed' | 'profile';
-
-  posts = input<Post[]>();
-  humanTime = humanTime;
+interface PostWithComments extends Post {
+	commentsExpanded: boolean
 }
 
-// Returns a human-readable time difference (e.g., '2 hours ago')
-export const humanTime = (ts: number): string => {
-	// If ts is in seconds, convert to ms
-	if (ts < 1e12) ts = ts * 1000;
-	const now = Date.now();
-	const diff = Math.floor((now - ts) / 1000); // in seconds
-	if (diff < 60) return `${diff}s ago`;
-	if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-	if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-	if (diff < 2592000) return `${Math.floor(diff / 86400)}d ago`;
-	const d = new Date(ts);
-	return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-};
+@Component({
+	selector: 'app-post-list',
+	imports: [
+		RouterLink,
+		NgTemplateOutlet,
+		MatInputModule,
+		MatIconModule,
+		MatButton,
+		LinkifyPipe
+	],
+	templateUrl: './post-list.html',
+	styleUrl: './post-list.scss',
+	standalone: true,
+})
+export class PostList {
+	@Input({ required: true })
+	public mode!: 'feed' | 'profile';
+
+	public profileUser = input<User | null>(null);
+
+	public posts = signal<PostWithComments[]>([]);
+	public newPostContent = '';
+
+	public humanTime = humanTime;
+	public isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(
+		navigator.userAgent
+	);
+
+	constructor(
+		public authService: AuthService,
+		private postService: Posts,
+	) {
+		effect(() => {
+			if (this.mode === 'profile') {
+				const user = this.profileUser();
+				if (user) {
+					this.loadPosts(user.id);
+				}
+
+				return;
+			}
+
+			this.postService.getFeed().subscribe({
+				next: (posts: Post[]) => {
+					this.posts.set(posts.map(p => ({ ...p, commentsExpanded: false })));
+				},
+				error: (err: any) => {
+					console.error('Error fetching user posts:', err);
+				},
+			});
+		});
+	}
+
+	loadPosts(userId: number) {
+		this.postService.getUserPosts(userId).subscribe({
+			next: (posts: Post[]) => {
+				this.posts.set(posts.map(p => ({ ...p, commentsExpanded: false })));
+			},
+			error: (err: any) => {
+				console.error('Error fetching user posts:', err);
+			},
+		});
+	}
+
+	submitPost() {
+		const currentUser = this.authService.user();
+		const pageUser = this.profileUser();
+		const content = this.newPostContent.trim();
+
+		if (!currentUser || !pageUser || !content) {
+			return;
+		}
+
+		this.postService
+			.createPost(currentUser.id, pageUser.id, content)
+			.subscribe({
+				next: () => {
+					this.postService.getUserPosts(pageUser.id).subscribe({
+						next: (posts: any[]) => {
+							this.posts.set(posts);
+							this.newPostContent = '';
+						},
+						error: () => {},
+					});
+				},
+				error: () => {},
+			});
+	}
+
+	onNewPostKeydown(event: any) {
+		if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+			event.preventDefault();
+			this.submitPost();
+		}
+	}
+
+	addComment(commentText: string, postId: number): void {
+		this.postService
+			.addComment(postId, this.authService.user()!.id, commentText)
+			.subscribe({
+				next: (c: Comment) => {
+					this.posts.update((posts) => {
+						const post = posts.find((p) => p.id === postId);
+						if (!post) {
+							return posts;
+						}
+
+						if (!post.comments) {
+							post.comments = [];
+						}
+
+						post.comments.unshift(c);
+
+						return [...posts];
+					});
+				},
+			});
+	}
+}

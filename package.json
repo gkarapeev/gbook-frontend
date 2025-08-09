@@ -1,11 +1,15 @@
 {
   "name": "gbook-frontend",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=22.14.0 <25.0.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production",
     "build:test": "ng build --configuration test",
+    "deploy:test": "sh ./scripts/1_deploy_fe_to_test.sh",
     "watch": "ng build --watch --configuration development"
   },
   "private": true,
