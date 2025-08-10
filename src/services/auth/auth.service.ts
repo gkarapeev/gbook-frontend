@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user';
+import { SESSION_EXPIRES } from '../../interceptors/cookie.interceptor';
 
 @Injectable({
 	providedIn: 'root',
@@ -14,6 +15,7 @@ export class AuthService {
 		this.userService.login(username, password).subscribe({
 			next: (res: LoginResponse) => {
 				this.user.set(res.user);
+				localStorage.setItem(SESSION_EXPIRES, res.expires.toString())
 				this.router.navigate(['/profile']);
 			},
 			error: (error: any) => {
@@ -30,6 +32,7 @@ export class AuthService {
 		this.userService.logout().subscribe({
 			next: () => {
 				this.user.set(null);
+				localStorage.removeItem(SESSION_EXPIRES);
 				this.router.navigate(['/login']);
 			},
 			error: () => {

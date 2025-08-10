@@ -24,7 +24,7 @@ export class UserService {
 	}
 
 	loginAuto() {
-		return this.http.post('/login-auto', null) as Observable<User>;
+		return this.http.post('/login-auto', null) as Observable<LoginResponse>;
 	}
 
 	logout() {
