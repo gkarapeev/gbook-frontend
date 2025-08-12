@@ -3,11 +3,12 @@
 ✅ - SSL certificate man, this is embarassing!
 ✅ - Home page
 ✅ - Comments on posts
+✅ - Include clickable links in comments too
 
 🔶 - 
 
-🕙 - Include clickable links in comments too
 🕙 - Clicking on a username sends a /registry request before loading the appropriate profile page
+      - This is due to needint to load the page user and it being inside an effect
 🕙 - "See more" on longer posts and comments
 🕙 - Eslint
 🕙 - Capitalize comment input
