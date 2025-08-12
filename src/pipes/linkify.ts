@@ -1,18 +1,23 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({ name: 'linkify' })
 export class LinkifyPipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) {}
+	transform(value: string): string {
+		if (!value) {
+			return '';
+		}
 
-  transform(value: string): SafeHtml {
-    if (!value) return value;
-    const urlRegex = /(\bhttps?:\/\/[^\s]+)/gi;
-    const linked = value.replace(urlRegex, (url) => {
-      const displayUrl = url.replace(/^https?:\/\//, '');
-      return `<a href="${url}" target="_blank" rel="noopener noreferrer">${displayUrl}</a>`
-    }
-    );
-    return this.sanitizer.bypassSecurityTrustHtml(linked);
-  }
+    const escaped = value
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/javascript/g, 'null')
+			.replace(/onclick/g, 'null');
+
+    const displayUrl = escaped.replace(/^https?:\/\//, '');
+
+		return escaped.replace(
+			/(https?:\/\/[^\s]+)/g,
+			`<a href="$1" target="_blank" rel="noopener noreferrer">${displayUrl}</a>`
+		);
+	}
 }
