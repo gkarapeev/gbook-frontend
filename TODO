@@ -3,12 +3,11 @@
 ✅ - SSL certificate man, this is embarassing!
 ✅ - Home page
 ✅ - Comments on posts
+✅ - Refreshing cookie on each login + something to prevent expired cookie failed requests
 ✅ - Include clickable links in comments too
 
 🔶 - 
 
-🕙 - Clicking on a username sends a /registry request before loading the appropriate profile page
-      - This is due to needint to load the page user and it being inside an effect
 🕙 - "See more" on longer posts and comments
 🕙 - Eslint
 🕙 - Capitalize comment input
@@ -18,9 +17,11 @@
 🕙 - Post images
 🕙 - Adding friends and restricting non-friend access to profile
 🕙 - Being able to post images and gifs
-🕙 - Refreshing cookie on each login + something to prevent expired cookie failed requests
 🕙 - Exploding, well-defined design system, free from libraries
 🕙 - Largest contentful paint skeleton + loading indicators for every single thing
 🕙 - Infinite dynamic post loading in scroll near bottom
 🕙 - Protobuf!
 🕙 - Cache any posts younger than one month and only fetch newer ones during session
+
+🕙 - Clicking on a username sends a /registry request before loading the appropriate profile page
+      - This is due to needint to load the page user and it being inside an effect

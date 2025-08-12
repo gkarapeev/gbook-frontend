@@ -41,6 +41,19 @@
 			<div class="post-content" [innerHTML]="(post.content | linkify) || 'No content'"></div>
 		</div>
 
+		<div class="comment-pane-toggle" (click)="post.commentsExpanded = !post.commentsExpanded" [class.collapsed]="!post.commentsExpanded">
+			Comments
+			@if (post.comments && post.comments.length > 0) {
+				({{ post.comments.length }})
+			}
+
+			@if (post.commentsExpanded) {
+				<mat-icon fontIcon="keyboard_arrow_up"></mat-icon>
+			} @else {
+				<mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
+			}
+		</div>
+
 		@if (post.commentsExpanded) {
 			<div class="comment-pane">
 				<input
@@ -74,19 +87,6 @@
 				}
 			</div>
 		}
-
-		<div class="comment-pane-toggle" (click)="post.commentsExpanded = !post.commentsExpanded">
-			Comments
-			@if (post.comments && post.comments.length > 0) {
-				({{ post.comments.length }})
-			}
-
-			@if (post.commentsExpanded) {
-				<mat-icon fontIcon="keyboard_arrow_up"></mat-icon>
-			} @else {
-				<mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
-			}
-		</div>
 	</div>
 	} } @else {
 	<div>No posts found.</div>
