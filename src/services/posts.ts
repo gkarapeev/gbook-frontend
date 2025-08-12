@@ -12,8 +12,8 @@ export class Posts {
 		return this.http.get(`/feed`) as Observable<Post[]>;
 	}
 
-	getUserPosts(userId: number) {
-		return this.http.get(`/posts?userId=${userId}`) as Observable<Post[]>;
+	getUserPosts(userId: number, skip: number, take: number) {
+		return this.http.get(`/posts?userId=${userId}&skip=${skip}&take=${take}`) as Observable<Post[]>;
 	}
 
 	createPost(
