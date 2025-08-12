@@ -1,0 +1,29 @@
+{
+	"tabWidth": 4,
+	"useTabs": true,
+	"endOfLine": "crlf",
+	"insertFinalNewline": true,
+	"singleQuote": true,
+	"printWidth": 80,
+	"trailingComma": "es5",
+	"arrowParens": "always",
+	"bracketSpacing": true,
+	"requirePragma": false,
+	"proseWrap": "preserve",
+	"overrides": [
+		{
+			"files": "*.md",
+			"options": {
+				"proseWrap": "never",
+				"trimTrailingWhitespace": false
+			}
+		},
+		{
+			"files": "*.ts",
+			"options": {
+				"singleQuote": true
+			}
+		}
+	],
+	"curly": true
+}
