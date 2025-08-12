@@ -58,7 +58,7 @@
 				@if (post.comments) {
 					@for (comment of post.comments; track comment.id) {
 						<div class="comment">
-							<div class="comment-content">{{ comment.content }}</div>
+							<div class="comment-content" [innerHTML]="(comment.content | linkify) || 'No content'"></div>
 			
 							<div class="comment-meta">
 								<a

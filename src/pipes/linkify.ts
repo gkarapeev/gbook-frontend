@@ -7,17 +7,15 @@ export class LinkifyPipe implements PipeTransform {
 			return '';
 		}
 
-    const escaped = value
+		const escaped = value
 			.replace(/</g, '&lt;')
 			.replace(/>/g, '&gt;')
 			.replace(/javascript/g, 'null')
 			.replace(/onclick/g, 'null');
 
-    const displayUrl = escaped.replace(/^https?:\/\//, '');
-
-		return escaped.replace(
-			/(https?:\/\/[^\s]+)/g,
-			`<a href="$1" target="_blank" rel="noopener noreferrer">${displayUrl}</a>`
-		);
+		return escaped.replace(/(https?:\/\/[^\s]+)/g, (url) => {
+			const displayUrl = url.replace(/^https?:\/\//, '');
+			return `&nbsp;<a href="${url}" target="_blank" rel="noopener noreferrer">${displayUrl}</a>&nbsp;`;
+		});
 	}
 }
