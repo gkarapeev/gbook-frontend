@@ -12,6 +12,7 @@
 
 🕙 - Trim usernames and passwords
 🕙 - Add validation to disallow spaces at start or end of passwords
+🕙 - Escape and sanitize post and comment content, even before it's sent to the backend
 🕙 - "See more" on longer posts and comments
 🕙 - Eslint
 🕙 - Comment submit btn
@@ -26,3 +27,4 @@
 
 🕙 - Clicking on a username sends a /registry request before loading the appropriate profile page
       - This is due to needint to load the page user and it being inside an effect
+      - Loading the posts is glitchy man. Sometimes clicking a user from a post author in the feed, loads the wrong stuff. But only sometimes. Makes you question reality. This needs a cleaner, simpler, tidier logic.
