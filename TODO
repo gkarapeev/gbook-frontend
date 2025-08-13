@@ -7,6 +7,7 @@
 ✅ - Include clickable links in comments too
 ✅ - Capitalize comment input
 ✅ - Remove capitalization on register page!
+✅ - Infinite dynamic post loading in scroll near bottom
 
 🔶 - 
 
@@ -15,6 +16,7 @@
 🕙 - Add eye toggle on register page, password inputs
 🕙 - Escape and sanitize post and comment content, even before it's sent to the backend
 🕙 - "See more" on longer posts and comments
+🕙 - Infinite scroll for Feed page
 🕙 - Eslint
 🕙 - Comment submit btn
 🕙 - Profile images
@@ -22,7 +24,6 @@
 🕙 - Adding friends and restricting non-friend access to profile
 🕙 - Exploding, well-defined design system, free from libraries
 🕙 - Largest contentful paint skeleton + loading indicators for every single thing
-🕙 - Infinite dynamic post loading in scroll near bottom
 🕙 - Protobuf!
 🕙 - Cache any posts younger than one month and only fetch newer ones during session
 
