@@ -12,6 +12,7 @@
 
 🕙 - Trim usernames and passwords
 🕙 - Add validation to disallow spaces at start or end of passwords
+🕙 - Add eye toggle on register page, password inputs
 🕙 - Escape and sanitize post and comment content, even before it's sent to the backend
 🕙 - "See more" on longer posts and comments
 🕙 - Eslint
