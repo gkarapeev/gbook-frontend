@@ -10,6 +10,8 @@
 
 🔶 - 
 
+🕙 - Trim usernames and passwords
+🕙 - Add validation to disallow spaces at start or end of passwords
 🕙 - "See more" on longer posts and comments
 🕙 - Eslint
 🕙 - Comment submit btn
