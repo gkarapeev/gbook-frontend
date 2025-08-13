@@ -21,6 +21,7 @@
 🔶 - "See more" on longer posts and comments<br />
 
 ## Backlog
+🕙 - End-to-end post size on mobile phones<br />
 🕙 - Infinite scroll for Feed page<br />
 🕙 - Eslint<br />
 🕙 - Comment submit btn<br />
