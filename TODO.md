@@ -33,6 +33,3 @@
 🕙 - Largest contentful paint skeleton + loading indicators for every single thing<br />
 🕙 - Protobuf!<br />
 🕙 - Cache any posts younger than one month and only fetch newer ones during session<br /><br />
-
-🕙 - Clicking on a username sends a /registry request before loading the appropriate profile page<br />
-      - This is due to needint to load the page user and it being inside an effect<br />
