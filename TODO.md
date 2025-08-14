@@ -9,7 +9,8 @@
 ✅ - Include clickable links in comments too<br />
 ✅ - Capitalize comment input<br />
 ✅ - Remove capitalization on register page<br />
-✅ - Infinite dynamic post loading in scroll near bottom
+✅ - Infinite dynamic post loading in scroll near bottom<br />
+✅ - Fix: Loading user profile page, fetches posts that are for /feed
 
 
 ## In Progress
@@ -35,4 +36,3 @@
 
 🕙 - Clicking on a username sends a /registry request before loading the appropriate profile page<br />
       - This is due to needint to load the page user and it being inside an effect<br />
-      - Loading the posts is glitchy man. Sometimes clicking a user from a post author in the feed, loads the wrong stuff. But only sometimes. Makes you question reality. This needs a cleaner, simpler, tidier logic.
