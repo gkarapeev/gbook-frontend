@@ -50,8 +50,12 @@ export class PostList {
 			this.skip = 0;
 			this.allLoaded = false;
 
-			const user = this.pageHost();
-			if (this.mode === 'profile' && user) {
+			if (this.mode === 'profile') {
+				const user = this.pageHost();
+				if (!user) {
+					return;
+				}
+
 				this.loadPosts(user.id, true);
 				this.attachScrollListener();
 
