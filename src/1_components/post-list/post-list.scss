@@ -101,6 +101,10 @@
 		border-bottom-left-radius: var(--mat-sys-corner-small);
 		border-bottom-right-radius: var(--mat-sys-corner-small);
 		margin-bottom: -#{v.$size-1};
+
+		@media screen and (max-width: #{v.$page-content-width - 1px}) {
+			border-radius: 0;
+		}
 	}
 
 	&:hover {
@@ -109,10 +113,6 @@
 
 	&:active {
 		filter: brightness(0.9);
-	}
-
-	@media screen and (max-width: #{v.$page-content-width - 1px}) {
-		border-radius: 0;
 	}
 }
 
