@@ -1,4 +1,8 @@
 @use 'variables' as v;
 @use 'mixins' as m;
 
+:host {
+    display: block;
+}
+
 @include m.post-type-indicator;
