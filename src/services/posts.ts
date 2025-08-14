@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 export class Posts {
 	constructor(private http: HttpClient) {}
 
-	getFeed() {
-		return this.http.get(`/feed`) as Observable<Post[]>;
+	getFeed(skip: number, take: number) {
+		return this.http.get(`/feed?skip=${skip}&take=${take}`) as Observable<Post[]>;
 	}
 
 	getUserPosts(userId: number, skip: number, take: number) {

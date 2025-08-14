@@ -1,5 +1,12 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, effect, Input, input, signal } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	effect,
+	Input,
+	input,
+	signal,
+} from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -57,13 +64,22 @@ export class PostList {
 				}
 
 				this.loadPosts(user.id, true);
-				this.attachScrollListener();
-
 				return;
 			}
 
 			this.loadFeed();
 		});
+	}
+
+	ngAfterViewInit() {
+		const pageView = document.getElementById('page-view');
+
+		if (!pageView) {
+			return;
+		}
+
+		pageView.removeEventListener('scroll', this.onScroll);
+		pageView.addEventListener('scroll', this.onScroll);
 	}
 
 	ngOnDestroy() {
@@ -72,18 +88,6 @@ export class PostList {
 		if (pageView) {
 			pageView.removeEventListener('scroll', this.onScroll);
 		}
-	}
-
-	private attachScrollListener() {
-		setTimeout(() => {
-			const pageView = document.getElementById('page-view');
-			if (!pageView) {
-				return;
-			}
-
-			pageView.removeEventListener('scroll', this.onScroll);
-			pageView.addEventListener('scroll', this.onScroll);
-		}, 0);
 	}
 
 	private onScroll = () => {
@@ -141,13 +145,31 @@ export class PostList {
 		});
 	}
 
-	loadFeed() {
-		this.postService.getFeed().subscribe({
+	loadFeed(reset = false) {
+		if (this.loading || this.allLoaded) {
+			return;
+		}
+
+		this.loading = true;
+		const skip = reset ? 0 : this.skip;
+		this.postService.getFeed(skip, this.take).subscribe({
 			next: (posts: Post[]) => {
-				this.setPosts(posts);
+				if (reset) {
+					this.setPosts(posts);
+				} else {
+					this.appendPosts(posts);
+				}
+
+				if (posts.length < this.take) {
+					this.allLoaded = true;
+				}
+
+				this.skip += posts.length;
+				this.loading = false;
 			},
 			error: (err: any) => {
-				console.error('Error fetching user posts:', err);
+				console.error('Error fetching feed posts:', err);
+				this.loading = false;
 			},
 		});
 	}
@@ -181,7 +203,7 @@ export class PostList {
 				if (this.mode === 'profile') {
 					this.loadPosts(hostId, true);
 				} else {
-					this.loadFeed();
+					this.loadFeed(true);
 				}
 
 				textarea.value = '';
