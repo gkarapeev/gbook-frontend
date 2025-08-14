@@ -10,7 +10,7 @@
 	padding: 0 v.$size-1;
 
 	#page-content {
-		max-width: 700px;
+		max-width: v.$page-content-width;
 		margin: auto;
 		height: 100%;
 	}

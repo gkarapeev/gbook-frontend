@@ -1,5 +1,5 @@
-@use "variables" as v;
-@use "mixins" as m;
+@use 'variables' as v;
+@use 'mixins' as m;
 
 :host {
 	display: flex;
@@ -25,6 +25,10 @@
 	display: flex;
 	flex-direction: column;
 	gap: v.$size-1;
+
+	@media screen and (max-width: #{v.$page-content-width - 1px}) {
+		gap: v.$size-2;
+	}
 }
 
 .post {
@@ -37,6 +41,13 @@
 	border-radius: var(--mat-sys-corner-small);
 	overflow: hidden;
 	text-align: justify;
+
+	@media screen and (max-width: #{v.$page-content-width - 1px}) {
+		margin: 0 -1rem;
+		border: none;
+		border-radius: 0;
+		box-shadow: 0 0 10px -8px #000000;
+	}
 }
 
 .post-main {
@@ -98,6 +109,10 @@
 
 	&:active {
 		filter: brightness(0.9);
+	}
+
+	@media screen and (max-width: #{v.$page-content-width - 1px}) {
+		border-radius: 0;
 	}
 }
 
