@@ -1,6 +1,6 @@
 @if (authService.user()) {
-	<button matButton routerLink="/people">people</button>
-	<button matButton routerLink="/feed">feed</button>
+	<button matButton routerLink="/people"><mat-icon fontIcon="emoji_people"></mat-icon>people</button>
+	<button matButton routerLink="/feed"><mat-icon fontIcon="home"></mat-icon>feed</button>
 
 	<button matButton="outlined" [matMenuTriggerFor]="menu" style="margin-left: auto">
 		{{ authService.user()?.username || '???' }}
@@ -11,7 +11,7 @@
 
 <mat-menu #menu="matMenu" xPosition="before">
 	<button mat-menu-item routerLink="/profile">
-		<mat-icon fontIcon="home"></mat-icon>
+		<mat-icon fontIcon="person"></mat-icon>
 		My Profile
 	</button>
 

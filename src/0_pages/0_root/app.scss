@@ -7,6 +7,7 @@
 #page-view {
 	height: calc(100dvh - v.$header-height);
 	overflow: auto;
+	overflow-x: hidden;
 	padding: 0 v.$size-1;
 
 	#page-content {
