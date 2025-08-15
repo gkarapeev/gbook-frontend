@@ -16,7 +16,7 @@
 		My Profile
 	</button>
 
-	<button mat-menu-item (click)="dialog.open ? dialog.open = false : dialog.showModal()">
+	<button mat-menu-item (click)="dialog.open =!dialog.open">
 		<mat-icon fontIcon="photo_camera"></mat-icon>
 		Image
 	</button>
