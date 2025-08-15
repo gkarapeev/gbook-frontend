@@ -227,7 +227,7 @@ export class PostList {
 							post.comments = [];
 						}
 
-						post.comments.unshift(c);
+						post.comments.push(c);
 
 						return [...posts];
 					});

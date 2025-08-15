@@ -133,7 +133,6 @@
 .comment {
 	display: flex;
 	gap: v.$size-1;
-	justify-content: space-between;
 	padding: v.$size-0 v.$size-1;
 	background-color: white;
 	margin: auto;
@@ -161,4 +160,9 @@
 	display: flex;
 	align-items: center;
 	text-align: left;
+}
+
+.time {
+	font-size: var(--mat-sys-label-medium-size);
+	margin-left: auto;
 }

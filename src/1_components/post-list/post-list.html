@@ -69,17 +69,19 @@
 				@if (post.comments) {
 					@for (comment of post.comments; track comment.id) {
 						<div class="comment">
-							<div class="comment-content" [innerHTML]="(comment.content | linkify) || 'No content'"></div>
-			
 							<div class="comment-meta">
+								<img [src]="'/content/' + post.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
+	
 								<a
 									[routerLink]="['/profile']"
 									[queryParams]="{ user: comment.author.username }"
 									>{{ comment.author.username || 'Unknown' }}</a
 								>
-			
-								<span>{{ humanTime(comment.createdAt) }}</span>
 							</div>
+
+							<div class="comment-content" [innerHTML]="(comment.content | linkify) || 'No content'"></div>
+			
+							<span class="time">{{ humanTime(comment.createdAt) }}</span>
 						</div>
 					}
 				}
@@ -93,13 +95,13 @@
 
 <ng-template #forFeed let-post="post" let-fromOther="fromOther">
 	@if (fromOther) {
-		<img [src]="'/content/' + (post.author.id || 'no') + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
+		<img [src]="'/content/' + post.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
 		<a [routerLink]="['/profile']" [queryParams]="{ user: post.author.username }"
 			>{{ post.author.username || 'Unknown' }}</a
 		>&gt;
 	}
 
-		<img [src]="'/content/' + (post.host.id || 'no') + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
+		<img [src]="'/content/' + post.host.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
 
 	<a
 		[routerLink]="['/profile']"
@@ -109,7 +111,7 @@
 </ng-template>
 
 <ng-template #forWall let-post="post">
-	<img [src]="'/content/' + (post.author.id || 'no') + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
+	<img [src]="'/content/' + post.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
 	<a
 		[routerLink]="['/profile']"
 		[queryParams]="{ user: post.author.username }"
