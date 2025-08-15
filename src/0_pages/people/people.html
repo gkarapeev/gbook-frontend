@@ -3,6 +3,7 @@
 <mat-action-list>
 	@for (user of users(); track user.id) {
     <button mat-list-item (click)="goToProfile(user.username)">
+		<img [src]="'/content/avatars/' + user.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
       {{ user.username }}
     </button>
 

@@ -11,9 +11,15 @@ import { MatDividerModule } from '@angular/material/divider';
 	styles: `
 		:host {
 			display: block;
+
+			::ng-deep .mdc-list-item__primary-text {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+			}
 		}
 	`,
-	imports: [MatListModule, MatDividerModule]
+	imports: [MatListModule, MatDividerModule],
 })
 export class People implements OnInit {
 	public users = signal<User[]>([]);
