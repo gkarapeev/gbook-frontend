@@ -1,9 +1,8 @@
 @if (profileUser() && authService.user()) {
 	<div class="post-type-indicator">
+		<img [src]="'/content/avatars/' + profileUser()!.id + '.jpg'" style="height: 22px; width: 22px; border-radius: 50%; margin-right: 12px;"/>
 		{{ profileUser()!.username}}
 	</div>
-
-
 }
 
 <app-post-list mode="profile" [pageHost]="profileUser()"></app-post-list>
