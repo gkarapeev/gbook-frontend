@@ -15,6 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
 export class Login {
 	private authService = inject(AuthService);
 
+	constructor() {
+		debugger;
+	}
+
 	public entry = {
 		username: '',
 		password: '',

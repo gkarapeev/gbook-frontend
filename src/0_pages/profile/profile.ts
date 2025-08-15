@@ -1,49 +1,39 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostList } from '../../1_components/post-list/post-list';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user';
+import { map, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.html',
 	styleUrls: ['./profile.scss'],
 	standalone: true,
-	imports: [PostList],
+	imports: [PostList, AsyncPipe],
 })
 export class Profile {
-	profileUser = signal<User | null>(null);
+	private authService = inject(AuthService);
+	private userService = inject(UserService);
+	private route = inject(ActivatedRoute);
 
-	constructor(
-		public authService: AuthService,
-		private userService: UserService,
-		private route: ActivatedRoute
-	) {
-		effect(() => {
-			this.route.paramMap.subscribe((params) => {
-				const userId = parseInt(params.get('userId') || '');
+	profileUser$ = this.route.paramMap.pipe(
+		switchMap((params) => {
+			const userId = parseInt(params.get('userId') || '');
+			if (isNaN(userId)) {
+				const user = this.authService.user()!;
+				history.replaceState({}, '', '/user/' + user.id);
 
-				if (userId) {
-					this.userService.getPeople().subscribe((users) => {
-						const found = users.find(
-							(u) => u.id === userId
-						);
+				return of(user);
+			}
 
-						if (found) {
-							this.profileUser.set(found);
-						} else {
-							this.profileUser.set(null);
-						}
-					});
-				} else {
-					const user = this.authService.user();
-					if (!user) {
-						return;
-					}
-
-					this.profileUser.set(user);
-				}
-			});
-		});
-	}
+			return this.userService
+				.getPeople()
+				.pipe(
+					map((users) => users.find((u) => u.id === userId) ?? null)
+				);
+		})
+	);
 }

@@ -16,7 +16,7 @@ export class AuthService {
 			next: (res: LoginResponse) => {
 				this.user.set(res.user);
 				localStorage.setItem(SESSION_EXPIRES, res.expires.toString())
-				this.router.navigate(['/profile']);
+				this.router.navigate(['/user', res.user.id]);
 			},
 			error: (error: any) => {
 				console.error('Login failed:', error);
