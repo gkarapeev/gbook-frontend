@@ -7,12 +7,6 @@
 	background: var(--mat-sys-primary-container);
 	padding: v.$size-1;
 	height: v.$header-height;
-
-	&:not(.force-top) {
-		@media screen and (max-width: #{v.$page-content-width - 1px}) {
-			order: 2;
-		}
-	}
 }
 
 @media screen and (max-width: #{v.$page-content-width - 1px}) {
