@@ -1,4 +1,4 @@
-@use "variables.scss" as v;
+@use 'variables.scss' as v;
 
 :host {
 	display: flex;
@@ -8,4 +8,20 @@
 	background: var(--mat-sys-primary-container);
 	padding: v.$size-1;
 	height: v.$header-height;
+}
+
+#avatar {
+	::ng-deep {
+		.mdc-button__label {
+			display: flex;
+			gap: 9px;
+		}
+	}
+}
+
+dialog[open] {
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 0;
 }

@@ -2,8 +2,9 @@
 	<button matButton routerLink="/people"><mat-icon fontIcon="emoji_people"></mat-icon>people</button>
 	<button matButton routerLink="/feed"><mat-icon fontIcon="home"></mat-icon>feed</button>
 
-	<button matButton="outlined" [matMenuTriggerFor]="menu" style="margin-left: auto">
+	<button id="avatar" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
 		{{ authService.user()?.username || '???' }}
+		<img style="height: 20px; width: 20px; border-radius: 50%;" [src]="'/content/' + (authService.user()?.id || 'no') + '.jpg'" />
 	</button>
 } @else {
 	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
@@ -15,8 +16,19 @@
 		My Profile
 	</button>
 
+	<button mat-menu-item (click)="dialog.open ? dialog.open = false : dialog.showModal()">
+		<mat-icon fontIcon="photo_camera"></mat-icon>
+		Image
+	</button>
+
 	<button mat-menu-item (click)="logout()">
 		<mat-icon fontIcon="logout"></mat-icon>
 		Logout
 	</button>
 </mat-menu>
+
+<dialog
+	#dialog
+	style="border-radius: var(--mat-sys-corner-small);border: 1px solid var(--mat-sys-primary);">
+	<app-image-upload (end)="dialog.open = false"></app-image-upload>
+</dialog>
