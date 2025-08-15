@@ -1,0 +1,9 @@
+<input type="file" (change)="onFileSelected($event)">
+
+<button (click)="upload()" [disabled]="!selectedFile">Upload</button>
+
+@if (uploadStatus) {
+    <div>
+        {{ uploadStatus }}
+    </div>
+}

@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth/auth.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class UserService {
-	constructor(private http: HttpClient) {}
+	private http = inject(HttpClient)
 
 	getPeople(): Observable<User[]> {
 		return this.http.get<User[]>('/registry');
@@ -29,5 +30,12 @@ export class UserService {
 
 	logout() {
 		return this.http.post('/logout', null);
+	}
+  
+	uploadImage(file: File, userId: User['id']): Observable<any> {
+		const formData = new FormData();
+		formData.append('image', file);
+		formData.append('userId', userId.toString());
+		return this.http.post('/upload-image', formData);
 	}
 }
