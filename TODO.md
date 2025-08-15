@@ -11,24 +11,21 @@
 ✅ - Remove capitalization on register page<br />
 ✅ - Infinite dynamic post loading in scroll near bottom<br />
 ✅ - Fix: Loading user profile page, fetches posts that are for /feed
+✅ - End-to-end post size on mobile phones<br />
+✅ - Infinite scroll for Feed page<br />
+✅ - Profile images<br />
 
-
-## In Progress
-
-🔶 - Trim usernames and passwords<br />
-🔶 - Add validation to disallow spaces at start or end of passwords<br />
-🔶 - Add eye toggle on register page, password inputs<br />
-🔶 - Escape and sanitize post and comment content, even before it's sent to the backend<br />
-🔶 - "See more" on longer posts and comments<br />
 
 ## Backlog
-🕙 - End-to-end post size on mobile phones<br />
-🕙 - Infinite scroll for Feed page<br />
+🕙 - Trim username on register & login<br />
+🕙 - Add eye toggle on register page, password inputs<br />
+🕙 - Escape and sanitize post and comment content, even before it's sent to the backend<br />
+🕙 - "See more" on longer posts and comments<br />
 🕙 - Eslint<br />
 🕙 - Comment submit btn<br />
-🕙 - Profile images<br />
 🕙 - Post images<br />
 🕙 - Adding friends and restricting non-friend access to profile<br />
+🕙 - Notifications<br />
 🕙 - Exploding, well-defined design system, free from libraries<br />
 🕙 - Largest contentful paint skeleton + loading indicators for every single thing<br />
 🕙 - Protobuf!<br />
