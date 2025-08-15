@@ -17,10 +17,10 @@
 
 @media screen and (max-width: #{v.$page-content-width - 1px}) {
 	.shrinkable {
-		margin: 0;
+		margin: 0 !important;
 	}
 
-	span {
+	.shrinkable-txt {
 		display: none;
 	}
 }

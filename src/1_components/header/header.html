@@ -2,13 +2,13 @@
 	<button [matButton]="isPeopleActive ? 'filled' : ''" routerLink="/people">
 		<mat-icon fontIcon="emoji_people" class="shrinkable"></mat-icon>
 
-		<span>People</span>
+		<span class="shrinkable-txt">People</span>
 	</button>
 
 	<button [matButton]="isFeedActive ? 'filled' : ''" routerLink="/feed">
 		<mat-icon fontIcon="home" class="shrinkable"></mat-icon>
 
-		<span>Home</span>
+		<span class="shrinkable-txt">Home</span>
 	</button>
 
 	<button id="person-btn" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
