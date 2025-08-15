@@ -1,7 +1,8 @@
-@use "variables" as v;
+@use 'variables' as v;
 
 :host {
-	display: block;
+	display: flex;
+	flex-direction: column;
 }
 
 #page-view {

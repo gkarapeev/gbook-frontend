@@ -3,22 +3,21 @@
 	<button matButton routerLink="/feed"><mat-icon fontIcon="home"></mat-icon>feed</button>
 
 	<button id="avatar" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
-		{{ authService.user()?.username || '???' }}
-		<img [src]="'/content/avatars/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
+		<mat-icon fontIcon="person" style="margin: 0;"></mat-icon>
 	</button>
 } @else {
 	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
 }
 
 <mat-menu #menu="matMenu" xPosition="before">
-	<button mat-menu-item routerLink="/profile">
-		<mat-icon fontIcon="person"></mat-icon>
-		My Profile
+	<button id="profile-pic" mat-menu-item routerLink="/profile">
+		<img [src]="'/content/avatars/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
+		{{ authService.user()?.username || '???' }}
 	</button>
 
 	<button mat-menu-item (click)="dialog.open =!dialog.open">
 		<mat-icon fontIcon="photo_camera"></mat-icon>
-		Image
+		Avatar
 	</button>
 
 	<button mat-menu-item (click)="logout()">
