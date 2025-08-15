@@ -72,11 +72,9 @@
 							<div class="comment-meta">
 								<img [src]="'/content/avatars/' + comment.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
 	
-								<a
-									[routerLink]="['/profile']"
-									[queryParams]="{ user: comment.author.username }"
-									>{{ comment.author.username || 'Unknown' }}</a
-								>
+								<a [routerLink]="['/profile', comment.author.id]">
+									{{ comment.author.username || 'Unknown' }}
+								</a>
 							</div>
 
 							<div class="comment-content" [innerHTML]="(comment.content | linkify) || 'No content'"></div>
@@ -96,25 +94,21 @@
 <ng-template #forFeed let-post="post" let-fromOther="fromOther">
 	@if (fromOther) {
 		<img [src]="'/content/avatars/' + post.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
-		<a [routerLink]="['/profile']" [queryParams]="{ user: post.author.username }"
-			>{{ post.author.username || 'Unknown' }}</a
-		>&gt;
+		<a [routerLink]="['/profile', post.author.id]">
+			{{ post.author.username || 'Unknown' }}
+		</a>&gt;
 	}
 
-		<img [src]="'/content/avatars/' + post.host.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
+	<img [src]="'/content/avatars/' + post.host.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
 
-	<a
-		[routerLink]="['/profile']"
-		[queryParams]="{ user: post.host.username }"
-		>{{ post.host.username || 'Unknown' }}</a
-	>
+	<a [routerLink]="['/profile', post.host.id]">
+		{{ post.host.username || 'Unknown' }}
+	</a>
 </ng-template>
 
 <ng-template #forWall let-post="post">
 	<img [src]="'/content/avatars/' + post.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
-	<a
-		[routerLink]="['/profile']"
-		[queryParams]="{ user: post.author.username }"
-		>{{ post.author.username || 'Unknown' }}</a
-	>
+		<a [routerLink]="['/profile', post.author.id]">
+			{{ post.author.username || 'Unknown' }}
+		</a>
 </ng-template>

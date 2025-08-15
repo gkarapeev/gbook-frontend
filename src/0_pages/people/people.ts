@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserService } from '../../services/user';
 import { Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
@@ -33,7 +33,8 @@ import { MatDividerModule } from '@angular/material/divider';
 export class People implements OnInit {
 	public users = signal<User[]>([]);
 
-	constructor(private userService: UserService, private router: Router) {}
+	private userService = inject(UserService);
+	private router = inject(Router);
 
 	ngOnInit() {
 		this.userService.getPeople().subscribe((users: User[]) => {
@@ -41,7 +42,7 @@ export class People implements OnInit {
 		});
 	}
 
-	goToProfile(username: string) {
-		this.router.navigate(['/profile'], { queryParams: { user: username } });
+	goToProfile(userId: number) {
+		this.router.navigate(['/profile', userId]);
 	}
 }

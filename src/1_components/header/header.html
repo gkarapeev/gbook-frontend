@@ -15,11 +15,11 @@
 		<mat-icon fontIcon="person" style="margin: 0;"></mat-icon>
 	</button>
 } @else {
-<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
+	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
 }
 
 <mat-menu #menu="matMenu" xPosition="before">
-	<button id="profile-pic" mat-menu-item routerLink="/profile">
+	<button id="profile-pic" mat-menu-item [routerLink]="['profile', authService.user()!.id]">
 		<img [src]="'/content/avatars/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
 		{{ authService.user()?.username || '???' }}
 	</button>

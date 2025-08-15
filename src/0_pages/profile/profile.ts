@@ -20,13 +20,13 @@ export class Profile {
 		private route: ActivatedRoute
 	) {
 		effect(() => {
-			this.route.queryParams.subscribe((params) => {
-				const username = params['user'];
+			this.route.paramMap.subscribe((params) => {
+				const userId = parseInt(params.get('userId') || '');
 
-				if (username) {
+				if (userId) {
 					this.userService.getPeople().subscribe((users) => {
 						const found = users.find(
-							(u) => u.username === username
+							(u) => u.id === userId
 						);
 
 						if (found) {
