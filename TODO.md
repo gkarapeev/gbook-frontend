@@ -10,7 +10,7 @@
 ✅ - Capitalize comment input<br />
 ✅ - Remove capitalization on register page<br />
 ✅ - Infinite dynamic post loading in scroll near bottom<br />
-✅ - Fix: Loading user profile page, fetches posts that are for /feed
+✅ - Fix: Loading user profile page, fetches posts that are for /feed<br />
 ✅ - End-to-end post size on mobile phones<br />
 ✅ - Infinite scroll for Feed page<br />
 ✅ - Profile images<br />
