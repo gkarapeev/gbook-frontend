@@ -93,14 +93,14 @@
 
 <ng-template #forFeed let-post="post" let-fromOther="fromOther">
 	@if (fromOther) {
-	<a [routerLink]="['/profile']" [queryParams]="{ user: post.host.username }"
-		>{{ post.host.username || 'Unknown' }}</a
+	<a [routerLink]="['/profile']" [queryParams]="{ user: post.author.username }"
+		>{{ post.author.username || 'Unknown' }}</a
 	>&gt; }
 
 	<a
 		[routerLink]="['/profile']"
-		[queryParams]="{ user: post.author.username }"
-		>{{ post.author.username || 'Unknown' }}</a
+		[queryParams]="{ user: post.host.username }"
+		>{{ post.host.username || 'Unknown' }}</a
 	>
 </ng-template>
 
