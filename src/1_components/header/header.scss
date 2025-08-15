@@ -17,6 +17,12 @@
 			gap: 9px;
 		}
 	}
+
+	img {
+		height: 20px;
+		width: 20px;
+		border-radius: 50%;
+	}
 }
 
 dialog[open] {
@@ -25,3 +31,4 @@ dialog[open] {
 	transform: translateX(-50%);
 	margin: 0;
 }
+

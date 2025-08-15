@@ -4,7 +4,7 @@
 
 	<button id="avatar" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
 		{{ authService.user()?.username || '???' }}
-		<img style="height: 20px; width: 20px; border-radius: 50%;" [src]="'/content/' + (authService.user()?.id || 'no') + '.jpg'" />
+		<img [src]="'/content/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
 	</button>
 } @else {
 	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
@@ -30,5 +30,5 @@
 <dialog
 	#dialog
 	style="border-radius: var(--mat-sys-corner-small);border: 1px solid var(--mat-sys-primary);">
-	<app-image-upload (end)="dialog.open = false"></app-image-upload>
+	<app-image-upload (end)="dialog.open = false; queryParam.set(queryParam() + 1)"></app-image-upload>
 </dialog>

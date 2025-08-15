@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +15,7 @@ import { ImageUploadComponent } from "../image-upload/image-upload";
 })
 export class Header {
 	authService = inject(AuthService);
+	queryParam = signal(0);
 
 	logout() {
 		this.authService.logout();
