@@ -1,12 +1,21 @@
 @if (authService.user()) {
-	<button matButton routerLink="/people"><mat-icon fontIcon="emoji_people"></mat-icon>people</button>
-	<button matButton routerLink="/feed"><mat-icon fontIcon="home"></mat-icon>feed</button>
+	<button [matButton]="isPeopleActive ? 'filled' : ''" routerLink="/people">
+		<mat-icon fontIcon="emoji_people" class="shrinkable"></mat-icon>
 
-	<button id="avatar" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
-		<mat-icon fontIcon="person" style="margin: 0;"></mat-icon>
+		<span>People</span>
+	</button>
+
+	<button [matButton]="isFeedActive ? 'filled' : ''" routerLink="/feed">
+		<mat-icon fontIcon="home" class="shrinkable"></mat-icon>
+
+		<span>Home</span>
+	</button>
+
+	<button id="person-btn" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
+		<mat-icon fontIcon="person" class="shrinkable"></mat-icon>
 	</button>
 } @else {
-	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
+<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
 }
 
 <mat-menu #menu="matMenu" xPosition="before">
@@ -26,8 +35,6 @@
 	</button>
 </mat-menu>
 
-<dialog
-	#dialog
-	style="border-radius: var(--mat-sys-corner-small);border: 1px solid var(--mat-sys-primary);">
+<dialog #dialog style="border-radius: var(--mat-sys-corner-small);border: 1px solid var(--mat-sys-primary);">
 	<app-image-upload (end)="dialog.open = false; queryParam.set(queryParam() + 1)"></app-image-upload>
 </dialog>

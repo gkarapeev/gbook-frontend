@@ -8,12 +8,25 @@
 	padding: v.$size-1;
 	height: v.$header-height;
 
-	@media screen and (max-width: #{v.$page-content-width - 1px}) {
-		order: 2;
+	&:not(.force-top) {
+		@media screen and (max-width: #{v.$page-content-width - 1px}) {
+			order: 2;
+		}
 	}
 }
 
-#avatar {
+@media screen and (max-width: #{v.$page-content-width - 1px}) {
+	.shrinkable {
+		margin: 0;
+
+	}
+
+	span {
+		display: none;
+	}
+}
+
+#person-btn {
 	min-width: unset;
 
 	::ng-deep {

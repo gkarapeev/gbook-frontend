@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from '../../1_components/header/header';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
@@ -8,4 +9,6 @@ import { Header } from '../../1_components/header/header';
 	templateUrl: './app.html',
 	styleUrl: './app.scss',
 })
-export class App {}
+export class App {
+	router = inject(Router)
+}

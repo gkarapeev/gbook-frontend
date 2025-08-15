@@ -9,6 +9,11 @@ import { MatDividerModule } from '@angular/material/divider';
 	templateUrl: './people.html',
 	standalone: true,
 	styles: `
+		@use 'variables' as v;
+		@use 'mixins' as m;
+
+		@include m.post-type-indicator;
+
 		:host {
 			display: block;
 
@@ -17,6 +22,10 @@ import { MatDividerModule } from '@angular/material/divider';
 				align-items: center;
 				gap: 1rem;
 			}
+		}
+
+		#people-list {
+			padding: v.$size-2 0;
 		}
 	`,
 	imports: [MatListModule, MatDividerModule],
