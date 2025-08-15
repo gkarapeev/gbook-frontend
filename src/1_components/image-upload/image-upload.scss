@@ -1,1 +1,9 @@
-/* Add your styles here if needed */
+@use 'variables' as v;
+
+:host {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: v.$size-2;
+}
+

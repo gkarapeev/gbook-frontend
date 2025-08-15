@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { UserService } from '../../services/user';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -10,6 +10,8 @@ import { AuthService } from '../../services/auth/auth.service';
 export class ImageUploadComponent {
 	private authService = inject(AuthService);
 	private userService = inject(UserService);
+
+    @Output() end = new EventEmitter<void>();
 
 	selectedFile: File | null = null;
 	uploadStatus: string = '';
@@ -29,8 +31,14 @@ export class ImageUploadComponent {
         this.userService
 			.uploadImage(this.selectedFile, this.authService.user()!.id)
 			.subscribe({
-				next: () => (this.uploadStatus = 'Upload successful!'),
-				error: () => (this.uploadStatus = 'Upload failed.'),
+				next: () => {
+                    this.uploadStatus = 'Upload successful!';
+                    this.end.emit();
+                },
+				error: () => {
+                    this.uploadStatus = 'Upload failed.';
+                    this.end.emit();
+                },
 			});
 	}
 }
