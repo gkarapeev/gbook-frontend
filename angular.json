@@ -24,7 +24,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              { "glob": "**/*", "input": "./content", "output": "content" }
             ],
             "styles": [
               "src/styles/styles.scss"

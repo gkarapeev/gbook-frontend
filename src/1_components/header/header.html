@@ -4,7 +4,7 @@
 
 	<button id="avatar" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
 		{{ authService.user()?.username || '???' }}
-		<img [src]="'/content/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
+		<img [src]="'/content/avatars/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
 	</button>
 } @else {
 	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
