@@ -22,6 +22,7 @@
 🕙 - Escape and sanitize post and comment content, even before it's sent to the backend<br />
 🕙 - "See more" on longer posts and comments<br />
 🕙 - Eslint<br />
+🕙 - Install NVM on server and remove bundle from git<br />
 🕙 - Comment submit btn<br />
 🕙 - Post images<br />
 🕙 - Adding friends and restricting non-friend access to profile<br />
