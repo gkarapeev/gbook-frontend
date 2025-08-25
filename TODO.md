@@ -14,11 +14,11 @@
 ✅ - End-to-end post size on mobile phones<br />
 ✅ - Infinite scroll for Feed page<br />
 ✅ - Profile images<br />
+✅ - Trim username on register & login<br />
+✅ - Add eye toggle on register page, password inputs<br />
 
 
 ## Backlog
-🕙 - Trim username on register & login<br />
-🕙 - Add eye toggle on register page, password inputs<br />
 🕙 - Escape and sanitize post and comment content, even before it's sent to the backend<br />
 🕙 - "See more" on longer posts and comments<br />
 🕙 - Eslint<br />

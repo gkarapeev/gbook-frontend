@@ -14,17 +14,20 @@
 
 	<mat-form-field appearance="fill">
 		<mat-label>Password</mat-label>
-		<input
-			matInput
-			type="password"
-			[(ngModel)]="entry.password"
-			name="password"
-			(keydown.enter)="$event.preventDefault(); login()"
-		/>
-	</mat-form-field>
+	<input
+		matInput
+		[type]="showPassword ? 'text' : 'password'"
+		[(ngModel)]="entry.password"
+		name="password"
+		(keydown.enter)="$event.preventDefault(); login()"
+	/>
+	<button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword" tabindex="-1">
+		<mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+	</button>
+</mat-form-field>
 
 	<button
-        matButton="filled"
+		matButton="filled"
 		type="button"
 		(click)="login()"
 		[disabled]="entry.username.trim() === '' || entry.password.trim() === ''"
@@ -33,6 +36,6 @@
 	</button>
 
 	<div>&nbsp;</div>
-    <button matButton routerLink="/register">Register</button>
+	<button matButton routerLink="/register">Register</button>
 
 </form>
