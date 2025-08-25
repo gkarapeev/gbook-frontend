@@ -19,20 +19,19 @@ export class Profile {
 	private userService = inject(UserService);
 	private route = inject(ActivatedRoute);
 
-	profileUser$ = this.route.paramMap.pipe(
+	pageHost$ = this.route.paramMap.pipe(
 		switchMap((params) => {
-			const userId = parseInt(params.get('userId') || '');
-			if (isNaN(userId)) {
-				const user = this.authService.user()!;
-				history.replaceState({}, '', '/user/' + user.id);
+			const hostId = parseInt(params.get('userId') || '');
+			const user = this.authService.user()!;
 
+			if (hostId === user.id) {
 				return of(user);
 			}
 
 			return this.userService
 				.getPeople()
 				.pipe(
-					map((users) => users.find((u) => u.id === userId) ?? null)
+					map((users) => users.find((u) => u.id === hostId) ?? null)
 				);
 		})
 	);

@@ -19,7 +19,7 @@
 }
 
 <mat-menu #menu="matMenu" xPosition="before">
-	<button id="profile-pic" mat-menu-item [routerLink]="['profile', authService.user()?.id]">
+	<button id="profile-pic" mat-menu-item [routerLink]="['user', authService.user()?.id]">
 		<img [src]="'/content/avatars/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
 		{{ authService.user()?.username || '???' }}
 	</button>

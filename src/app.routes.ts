@@ -10,7 +10,6 @@ import { Feed } from './0_pages/feed/feed';
 export const routes: Routes = [
 	{ path: 'login', component: Login, canActivate: [loggedOutGuard] },
 	{ path: 'register', component: Register, canActivate: [loggedOutGuard] },
-	{ path: 'user', component: Profile, canActivate: [authGuard] },
 	{ path: 'user/:userId', component: Profile, canActivate: [authGuard] },
 	{ path: 'feed', component: Feed, canActivate: [authGuard] },
 	{ path: 'people', component: People, canActivate: [authGuard] },
