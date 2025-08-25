@@ -13,5 +13,5 @@ export const routes: Routes = [
 	{ path: 'user/:userId', component: Profile, canActivate: [authGuard] },
 	{ path: 'feed', component: Feed, canActivate: [authGuard] },
 	{ path: 'people', component: People, canActivate: [authGuard] },
-	{ path: '', redirectTo: '/user', pathMatch: 'full' },
+	{ path: '', redirectTo: '/feed', pathMatch: 'full' },
 ];
