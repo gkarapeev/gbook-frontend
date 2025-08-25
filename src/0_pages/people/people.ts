@@ -43,6 +43,6 @@ export class People implements OnInit {
 	}
 
 	goToProfile(userId: number) {
-		this.router.navigate(['/profile', userId]);
+		this.router.navigate(['/user', userId]);
 	}
 }

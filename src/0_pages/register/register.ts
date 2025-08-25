@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'app-register',
-	imports: [RouterLink, FormsModule, MatInputModule, MatButtonModule],
+	imports: [RouterLink, FormsModule, MatInputModule, MatButtonModule, MatIconModule],
 	templateUrl: './register.html',
 	styleUrl: './register.scss',
 	standalone: true,
@@ -20,6 +21,9 @@ export class Register {
 		password: '',
 		confirmPassword: '',
 	};
+
+	public showPassword = false;
+	public showConfirmPassword = false;
 
 	register() {
 		if (this.entry.password !== this.entry.confirmPassword) {
@@ -36,7 +40,7 @@ export class Register {
 		}
 
 		this.authService.register(
-			this.entry.username,
+			this.entry.username.trim(),
 			this.entry.password
 		);
 	}

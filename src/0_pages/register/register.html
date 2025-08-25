@@ -16,25 +16,31 @@
 
 	<mat-form-field appearance="fill">
 		<mat-label>Password</mat-label>
-		<input
-			matInput
-			type="password"
-			[(ngModel)]="entry.password"
-			name="password"
-			(keydown.enter)="$event.preventDefault(); register()"
-		/>
-	</mat-form-field>
+	<input
+		matInput
+		[type]="showPassword ? 'text' : 'password'"
+		[(ngModel)]="entry.password"
+		name="password"
+		(keydown.enter)="$event.preventDefault(); register()"
+	/>
+	<button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword" tabindex="-1">
+		<mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+	</button>
+</mat-form-field>
 
 	<mat-form-field appearance="fill">
 		<mat-label>Confirm password</mat-label>
-		<input
-			matInput
-			type="password"
-			[(ngModel)]="entry.confirmPassword"
-			name="password"
-			(keydown.enter)="$event.preventDefault(); register()"
-		/>
-	</mat-form-field>
+	<input
+		matInput
+		[type]="showConfirmPassword ? 'text' : 'password'"
+		[(ngModel)]="entry.confirmPassword"
+		name="confirmPassword"
+		(keydown.enter)="$event.preventDefault(); register()"
+	/>
+	<button mat-icon-button matSuffix type="button" (click)="showConfirmPassword = !showConfirmPassword" tabindex="-1">
+		<mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+	</button>
+</mat-form-field>
 
 	<button
 		matButton="filled"

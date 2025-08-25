@@ -72,7 +72,7 @@
 							<div class="comment-meta">
 								<img [src]="'/content/avatars/' + comment.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
 	
-								<a [routerLink]="['/profile', comment.author.id]">
+								<a [routerLink]="['/user', comment.author.id]">
 									{{ comment.author.username || 'Unknown' }}
 								</a>
 							</div>
@@ -94,21 +94,21 @@
 <ng-template #forFeed let-post="post" let-fromOther="fromOther">
 	@if (fromOther) {
 		<img [src]="'/content/avatars/' + post.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
-		<a [routerLink]="['/profile', post.author.id]">
+		<a [routerLink]="['/user', post.author.id]">
 			{{ post.author.username || 'Unknown' }}
 		</a>&gt;
 	}
 
 	<img [src]="'/content/avatars/' + post.host.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
 
-	<a [routerLink]="['/profile', post.host.id]">
+	<a [routerLink]="['/user', post.host.id]">
 		{{ post.host.username || 'Unknown' }}
 	</a>
 </ng-template>
 
 <ng-template #forWall let-post="post">
 	<img [src]="'/content/avatars/' + post.author.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
-		<a [routerLink]="['/profile', post.author.id]">
+		<a [routerLink]="['/user', post.author.id]">
 			{{ post.author.username || 'Unknown' }}
 		</a>
 </ng-template>
