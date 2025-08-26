@@ -1,0 +1,24 @@
+<button id="close-btn" mat-icon-button (click)="dialogRef.close()">
+    <mat-icon fontIcon="close"></mat-icon>
+</button>
+
+<mat-form-field>
+    <textarea #newPostTextArea matInput type="textarea" cols="40" placeholder="Write a new post..." style="flex-grow: 1"
+        (keydown)="onNewPostKeydown($event, newPostTextArea)"></textarea>
+</mat-form-field>
+
+@if (previewUrl()) {
+<img [src]="previewUrl()">
+}
+
+<div id="tools">
+    <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)">
+    <button mat-stroked-button color="primary" (click)="fileInput.click()">
+        <mat-icon fontIcon="image" style="margin: 0;"></mat-icon>
+    </button>
+
+    <button matButton (click)="submitPost(newPostTextArea)" [disabled]="!newPostTextArea.value.trim()">
+        <mat-icon fontIcon="send"></mat-icon>
+        Post
+    </button>
+</div>

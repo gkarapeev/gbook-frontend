@@ -12,15 +12,6 @@
 	}
 }
 
-#writing-box {
-	border: 1px solid var(--mat-sys-outline-variant);
-	padding: v.$size-1;
-	display: flex;
-	gap: v.$size-1;
-	border-radius: var(--mat-sys-corner-medium);
-	background-color: var(--mat-sys-surface-bright);
-}
-
 #post-container {
 	display: flex;
 	flex-direction: column;

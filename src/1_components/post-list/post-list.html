@@ -1,26 +1,7 @@
-<div id="writing-box">
-	<mat-form-field style="flex-grow: 1">
-		<textarea
-			#newPostTextArea
-			matInput
-			type="textarea"
-			[rows]="isMobile ? 3 : 2"
-			cols="40"
-			placeholder="Write a new post..."
-			style="flex-grow: 1"
-			(keydown)="onNewPostKeydown($event, newPostTextArea)"
-		></textarea>
-	</mat-form-field>
-
-	<button
-		matButton
-		(click)="submitPost(newPostTextArea)"
-		[disabled]="!newPostTextArea.value.trim()"
-	>
-		<mat-icon fontIcon="send"></mat-icon>
-		Post
-	</button>
-</div>
+<button mat-raised-button color="primary" (click)="openNewPostDialog()">
+	<mat-icon fontIcon="edit"></mat-icon>
+	New Post
+</button>
 
 <div id="post-container">
 	@if (posts() && posts()!.length > 0) { @for (post of posts(); track post.id)
@@ -39,6 +20,10 @@
 			</div>
 
 			<div class="post-content" [innerHTML]="(post.content | linkify) || 'No content'"></div>
+
+			@if (post.imagePresent === true) {
+				<img [src]="'/content/post-images/' + post.id + '.jpg'" alt="Post image" style="margin: 0 -1rem;">
+			}
 		</div>
 
 		<div class="comment-pane-toggle" (click)="post.commentsExpanded = !post.commentsExpanded" [class.collapsed]="!post.commentsExpanded">
