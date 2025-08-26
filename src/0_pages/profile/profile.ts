@@ -1,11 +1,11 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { PostList } from '../../1_components/post-list/post-list';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user';
-import { map, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-profile',
@@ -29,9 +29,9 @@ export class Profile {
 			}
 
 			return this.userService
-				.getPeople()
+				.getUser(hostId)
 				.pipe(
-					map((users) => users.find((u) => u.id === hostId) ?? null)
+					map((user) => user ?? null)
 				);
 		})
 	);

@@ -13,6 +13,10 @@ export class UserService {
 		return this.http.get<User[]>('/registry');
 	}
 
+	getUser(userId: User['id']): Observable<User> {
+		return this.http.get<User>(`/users/${userId}`);
+	}
+
 	register(username: string, password: string): Observable<any> {
 		return this.http.post('/register', { username, password });
 	}
@@ -31,7 +35,7 @@ export class UserService {
 	logout() {
 		return this.http.post('/logout', null);
 	}
-  
+
 	uploadImage(file: File, userId: User['id']): Observable<any> {
 		const formData = new FormData();
 		formData.append('image', file);
