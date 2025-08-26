@@ -10,6 +10,8 @@ import {
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { NewPostComponent } from '../new-post/new-post';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { Posts } from '../../services/posts';
@@ -38,6 +40,56 @@ export class PostList {
 	@Input({ required: true })
 	public mode!: 'feed' | 'profile';
 
+	openNewPostDialog() {
+		const dialogRef = this.dialog.open(NewPostComponent, {
+			width: '100vw',
+			maxWidth: '100dvw',
+			height: 'calc(100dvh - 60px)',
+			maxHeight: 'calc(100dvh - 60px)',
+			position: { bottom: '0', top: '60px', left: '0', right: '0' },
+			enterAnimationDuration: '0ms',
+			exitAnimationDuration: '0ms',
+			panelClass: 'slide-up-dialog',
+			autoFocus: false,
+			restoreFocus: false,
+			hasBackdrop: false,
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result) {
+				const currentUser = this.authService.user();
+				if (!currentUser) {
+					return;
+				}
+
+				const hostId =
+					this.pageHost() !== null
+						? this.pageHost()!.id
+						: currentUser.id;
+
+				if (!hostId || !result.content) {
+					return;
+				}
+
+				this.postService
+					.createPost(currentUser.id, hostId, result.content, result.image)
+					.subscribe({
+						next: () => {
+							this.skip = 0;
+							this.allLoaded = false;
+
+							if (this.mode === 'profile') {
+								this.loadPosts(hostId, true);
+							} else {
+								this.loadFeed(true);
+							}
+						},
+						error: () => {},
+					});
+			}
+		});
+	}
+
 	public pageHost = input<User | null>(null);
 
 	public posts = signal<PostWithComments[]>([]);
@@ -48,11 +100,12 @@ export class PostList {
 	private allLoaded = false;
 
 	public humanTime = humanTime;
-	public isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(
-		navigator.userAgent
-	);
 
-	constructor(public authService: AuthService, private postService: Posts) {
+	constructor(
+		public authService: AuthService,
+		private postService: Posts,
+		private dialog: MatDialog
+	) {
 		effect(() => {
 			this.skip = 0;
 			this.allLoaded = false;
@@ -146,44 +199,6 @@ export class PostList {
 				console.error('Error fetching feed posts:', err);
 				this.loading = false;
 			},
-		});
-	}
-
-	onNewPostKeydown(event: any, textarea: HTMLTextAreaElement) {
-		if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-			event.preventDefault();
-			this.submitPost(textarea);
-		}
-	}
-
-	submitPost(textarea: HTMLTextAreaElement) {
-		const currentUser = this.authService.user();
-		if (!currentUser) {
-			return;
-		}
-
-		const hostId =
-			this.pageHost() !== null ? this.pageHost()!.id : currentUser.id;
-
-		const content = textarea.value.trim();
-		if (!hostId || !content) {
-			return;
-		}
-
-		this.postService.createPost(currentUser.id, hostId, content).subscribe({
-			next: () => {
-				this.skip = 0;
-				this.allLoaded = false;
-
-				if (this.mode === 'profile') {
-					this.loadPosts(hostId, true);
-				} else {
-					this.loadFeed(true);
-				}
-
-				textarea.value = '';
-			},
-			error: () => {},
 		});
 	}
 

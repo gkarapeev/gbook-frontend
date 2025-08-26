@@ -18,6 +18,7 @@ interface Post {
 	host: User;
 	createdAt: number;
 	comments: Comment[] | null;
+	imagePresent: boolean; 
 }
 
 interface LoginResponse {

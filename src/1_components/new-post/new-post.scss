@@ -1,0 +1,45 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+:host {
+    flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: v.$size-1;
+	padding: v.$size-1;
+
+	::ng-deep.mat-mdc-form-field-subscript-wrapper {
+		display: none;
+	}
+}
+
+::ng-deep .slide-up-dialog .mat-mdc-dialog-container {
+	animation: slideUp 150ms ease-out;
+    
+    
+	.mat-mdc-dialog-surface {
+        background-color: var(--mat-sys-surface-bright);
+		border-radius: 0;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		transform: translateY(100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+#close-btn {
+	margin-left: auto;
+}
+
+#tools {
+	display: flex;
+	gap: 8px;
+	justify-content: space-between;
+}
