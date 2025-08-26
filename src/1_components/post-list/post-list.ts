@@ -90,31 +90,6 @@ export class PostList {
 		}
 	}
 
-	private onScroll = () => {
-		const pageView = document.getElementById('page-view');
-		if (!pageView || this.loading || this.allLoaded) {
-			return;
-		}
-
-		const scrollBottom =
-			pageView.scrollHeight - pageView.scrollTop - pageView.clientHeight;
-
-		if (scrollBottom > 100) {
-			return;
-		}
-
-		if (this.mode === 'profile') {
-			const user = this.pageHost();
-			if (user) {
-				this.loadPosts(user.id);
-			}
-
-			return;
-		}
-
-		this.loadFeed();
-	};
-
 	loadPosts(userId: number, reset = false) {
 		if (this.loading || this.allLoaded) {
 			return;
@@ -249,4 +224,29 @@ export class PostList {
 			...posts.map((p) => ({ ...p, commentsExpanded: false })),
 		]);
 	}
+
+	private onScroll = () => {
+		const pageView = document.getElementById('page-view');
+		if (!pageView || this.loading || this.allLoaded) {
+			return;
+		}
+
+		const scrollBottom =
+			pageView.scrollHeight - pageView.scrollTop - pageView.clientHeight;
+
+		if (scrollBottom > 100) {
+			return;
+		}
+
+		if (this.mode === 'profile') {
+			const user = this.pageHost();
+			if (user) {
+				this.loadPosts(user.id);
+			}
+
+			return;
+		}
+
+		this.loadFeed();
+	};
 }
