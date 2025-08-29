@@ -16,6 +16,7 @@
 ✅ - Profile images<br />
 ✅ - Trim username on register & login<br />
 ✅ - Add eye toggle on register page, password inputs<br />
+✅ - Post images<br />
 
 
 ## Backlog
@@ -24,7 +25,6 @@
 🕙 - Eslint<br />
 🕙 - Install NVM on server and remove bundle from git<br />
 🕙 - Comment submit btn<br />
-🕙 - Post images<br />
 🕙 - Adding friends and restricting non-friend access to profile<br />
 🕙 - Notifications<br />
 🕙 - Exploding, well-defined design system, free from libraries<br />
