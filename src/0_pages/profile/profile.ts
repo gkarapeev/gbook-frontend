@@ -1,11 +1,12 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { PostList } from '../../1_components/post-list/post-list';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user';
+import { ScrollTopService } from '../../services/scroll-top';
 
 @Component({
 	selector: 'app-profile',
@@ -15,6 +16,8 @@ import { UserService } from '../../services/user';
 	imports: [PostList, AsyncPipe],
 })
 export class Profile {
+	public scrollToTop = inject(ScrollTopService).scrollToTop;
+
 	private authService = inject(AuthService);
 	private userService = inject(UserService);
 	private route = inject(ActivatedRoute);
