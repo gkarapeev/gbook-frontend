@@ -18,6 +18,7 @@
 ✅ - Add eye toggle on register page, password inputs<br />
 ✅ - Post images<br />
 
+🔶 - Going to /login while having a valid token does NOT redirect to home
 
 ## Backlog
 🕙 - Escape and sanitize post and comment content, even before it's sent to the backend<br />

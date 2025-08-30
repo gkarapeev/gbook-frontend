@@ -15,7 +15,7 @@ import { NewPostComponent } from '../new-post/new-post';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { Posts } from '../../services/posts';
-import { humanTime } from '../utils/utils';
+import { HumanTimePipe } from '../../pipes/human-time.pipe';
 import { LinkifyPipe } from '../../pipes/linkify';
 
 interface PostWithComments extends Post {
@@ -30,7 +30,8 @@ interface PostWithComments extends Post {
 		MatInputModule,
 		MatIconModule,
 		MatButton,
-		LinkifyPipe,
+ 		LinkifyPipe,
+ 		HumanTimePipe,
 	],
 	templateUrl: './post-list.html',
 	styleUrl: './post-list.scss',
@@ -99,7 +100,6 @@ export class PostList {
 	private loading = false;
 	private allLoaded = false;
 
-	public humanTime = humanTime;
 
 	constructor(
 		public authService: AuthService,

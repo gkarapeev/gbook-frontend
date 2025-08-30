@@ -12,7 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 		@use 'variables' as v;
 		@use 'mixins' as m;
 
-		@include m.post-type-indicator;
+		@include m.page-title;
 
 		:host {
 			display: block;
