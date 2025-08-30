@@ -16,7 +16,7 @@
 					*ngTemplateOutlet="template; context: { post, fromOther }"
 				></ng-container>
 
-				<span class="post-time">{{ humanTime(post.createdAt) }}&nbsp;ago</span>
+				<span class="post-time">{{ post.createdAt | humanTime }}&nbsp;</span>
 			</div>
 
 			<div class="post-content" [innerHTML]="(post.content | linkify) || 'No content'"></div>
@@ -64,7 +64,7 @@
 
 							<div class="comment-content" [innerHTML]="(comment.content | linkify) || 'No content'"></div>
 			
-							<span class="time">{{ humanTime(comment.createdAt) }}</span>
+							<span class="time">{{ comment.createdAt | humanTime }}</span>
 						</div>
 					}
 				}
