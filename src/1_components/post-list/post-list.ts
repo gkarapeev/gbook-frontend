@@ -70,7 +70,7 @@ export class PostList {
 						? this.pageHost()!.id
 						: currentUser.id;
 
-				if (!hostId || !result.content) {
+				if (!hostId || (!result.content && !result.image)) {
 					return;
 				}
 

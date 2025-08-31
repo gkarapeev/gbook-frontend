@@ -12,12 +12,12 @@
 }
 
 <div id="tools">
-    <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)">
+    <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" accept="image/jpg, image/png, image/jpeg">
     <button mat-stroked-button color="primary" (click)="fileInput.click()">
         <mat-icon fontIcon="image" style="margin: 0;"></mat-icon>
     </button>
 
-    <button matButton (click)="submitPost(newPostTextArea)" [disabled]="!newPostTextArea.value.trim()">
+    <button matButton (click)="submitPost(newPostTextArea)" [disabled]="!newPostTextArea.value.trim() && !previewUrl()">
         <mat-icon fontIcon="send"></mat-icon>
         Post
     </button>

@@ -19,7 +19,9 @@
 				<span class="post-time">{{ post.createdAt | humanTime }}&nbsp;</span>
 			</div>
 
-			<div class="post-content" [innerHTML]="(post.content | linkify) || 'No content'"></div>
+			@if (post.content) {
+				<div class="post-content" [innerHTML]="(post.content | linkify)"></div>
+			}
 
 			@if (post.imagePresent === true) {
 				<img [src]="'/content/post-images/' + post.id + '.jpg' + imgQuery()" alt="Post image" style="margin: 0 -1rem; margin-bottom: -1rem;"/>

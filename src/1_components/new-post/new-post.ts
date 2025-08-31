@@ -46,8 +46,10 @@ export class NewPostComponent {
 
 	submitPost(textarea: HTMLTextAreaElement) {
 		const content = textarea.value.trim();
-		if (content) {
+
+		if (content || this.previewUrl()) {
 			this.dialogRef.close({ content, image: this.image });
 		}
 	}
 }
+
