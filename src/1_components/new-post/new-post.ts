@@ -1,9 +1,9 @@
-import { Component, Inject, signal } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
 	selector: 'app-new-post',
@@ -38,6 +38,21 @@ export class NewPostComponent {
 			reader.onload = (e: any) => {
 				this.previewUrl.set(e.target.result);
 				this.image = file;
+
+				let img = new Image();
+
+				img.onerror = () => {
+					alert('Couldn\'t read image file. Georgi is to blame.');
+					img = null as any;
+				};
+
+				img.onload = () => img = null as any;
+
+				img.src = e.target.result;
+			};
+
+			reader.onerror = (e) => {
+				alert('Error reading file: ' + e);
 			};
 
 			reader.readAsDataURL(file);
