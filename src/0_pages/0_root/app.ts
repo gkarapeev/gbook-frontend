@@ -1,8 +1,7 @@
-import { Component, ElementRef, inject, Signal, ViewChild, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, Signal, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from '../../1_components/header/header';
 import { ScrollTopService } from '../../services/scroll-top';
-import { H } from '@angular/cdk/keycodes';
 
 @Component({
 	selector: 'app-root',

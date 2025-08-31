@@ -1,26 +1,20 @@
-import { inject, Injector } from '@angular/core';
+import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { catchError, map, of } from 'rxjs';
+import { AutoLoginService } from './auto-login';
 import { AuthService } from './auth.service';
-import { UserService } from '../user';
-import { map, catchError, of } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-	const authService = inject(AuthService);
+	const startupService = inject(AutoLoginService);
 	const router = inject(Router);
+	const authService = inject(AuthService);
 
-	if (authService.user() !== null) {
-		return true;
-	}
-
-	const userService = inject(UserService);
-
-	return userService.loginAuto().pipe(
-		map((res) => {
-			if (res) {
-				authService.user.set(res.user);
+	return startupService.loaded.pipe(
+		map(() => {
+			if (authService.user() !== null) {
 				return true;
 			}
-
+			
 			return router.createUrlTree(['/login']);
 		}),
 		catchError(() => of(router.createUrlTree(['/login'])))
