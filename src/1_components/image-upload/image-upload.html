@@ -1,6 +1,27 @@
-<input type="file" (change)="onFileSelected($event)">
+<input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" accept="image/jpg, image/png, image/jpeg">
 
-<button (click)="upload()" [disabled]="!selectedFile">Upload</button>
+<button id="close-dialog" matButton="tonal" color="primary" (click)="dialogRef.close()">
+    <mat-icon fontIcon="close" style="margin: 0;"></mat-icon>
+</button>
+
+<div id="area">
+    @if (previewUrl()) {
+        <img [src]="previewUrl()" id="avatar-preview" alt="Image Preview" />
+
+        <button id="close-img" matButton="outlined" color="primary" (click)="previewUrl.set(null)">
+            <mat-icon fontIcon="close" style="margin: 0;"></mat-icon>
+        </button>
+    }
+
+    @else {
+        <button id="select-avatar" mat-stroked-button color="primary" (click)="fileInput.click()">
+            <mat-icon fontIcon="image"></mat-icon>
+            Select Image
+        </button>
+    }
+</div>
+
+<button matButton="filled" (click)="upload()" [disabled]="!selectedFile">Upload</button>
 
 @if (uploadStatus) {
     <div>

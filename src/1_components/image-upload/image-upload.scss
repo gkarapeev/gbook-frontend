@@ -4,6 +4,65 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: v.$size-2;
+	padding: v.$size-1;
+	gap: v.$size-1;
 }
 
+::ng-deep .avatar-dialog {
+	width: 100vw;
+	min-width: 0 !important;
+	max-width: 350px !important;
+
+	.mat-mdc-dialog-surface {
+		@media screen and (max-width: 350px) {
+			border-radius: 0;
+		}
+	}
+}
+
+#area {
+	background-color: var(--mat-sys-surface-bright);
+	width: 100%;
+	padding-bottom: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	border-radius: var(--mat-sys-corner-large);
+}
+
+#select-avatar {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	white-space: nowrap;
+}
+
+#avatar-preview {
+	max-width: 100%;
+	border-radius: 8px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	object-fit: cover;
+}
+
+#close-img,
+#close-dialog {
+	min-width: 40px;
+	width: 40px;
+	padding: 0;
+}
+
+#close-img {
+	position: absolute;
+	top: v.$size-1;
+	right: v.$size-1;
+}
+
+#close-dialog {
+	align-self: flex-end;
+}

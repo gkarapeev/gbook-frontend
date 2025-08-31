@@ -24,7 +24,7 @@
 		{{ authService.user()?.username || '???' }}
 	</button>
 
-	<button mat-menu-item (click)="dialog.open =!dialog.open">
+	<button mat-menu-item (click)="openImageUpload()">
 		<mat-icon fontIcon="photo_camera"></mat-icon>
 		Avatar
 	</button>
@@ -34,7 +34,3 @@
 		Logout
 	</button>
 </mat-menu>
-
-<dialog #dialog style="border-radius: var(--mat-sys-corner-small);border: 1px solid var(--mat-sys-primary);">
-	<app-image-upload (end)="dialog.open = false; queryParam.set(queryParam() + 1)"></app-image-upload>
-</dialog>
