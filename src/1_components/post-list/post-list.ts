@@ -41,6 +41,8 @@ export class PostList {
 	@Input({ required: true })
 	public mode!: 'feed' | 'profile';
 
+	public imgQuery = signal(`?abc=${new Date().getTime()}`);
+
 	openNewPostDialog() {
 		const dialogRef = this.dialog.open(NewPostComponent, {
 			width: '100vw',
