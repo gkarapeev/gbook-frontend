@@ -23,7 +23,7 @@ export class NewPostComponent {
 	image: File | null = null;
 
 	onNewPostKeydown(event: KeyboardEvent, textarea: HTMLTextAreaElement) {
-		if (event.key === 'Enter' && !event.shiftKey) {
+		if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
 			event.preventDefault();
 			this.submitPost(textarea);
 		}
