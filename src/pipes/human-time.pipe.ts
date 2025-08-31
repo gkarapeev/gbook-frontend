@@ -13,15 +13,15 @@ export class HumanTimePipe implements PipeTransform {
 
 		if (diff < 3600) {
             const minutes = Math.floor(diff / 60);
-			return minutes === 0 ? 'just now' : `${minutes}m ago`;
+			return minutes <= 0 ? 'just now' : `${minutes}m ago`;
 		}
 
 		if (diff < 86400) {
-			return `${Math.floor(diff / 3600)}h`;
+			return `${Math.floor(diff / 3600)}h ago`;
 		}
 
 		if (diff < 2592000) {
-			return `${Math.floor(diff / 86400)}d`;
+			return `${Math.floor(diff / 86400)}d ago`;
 		}
 
 		const d = new Date(timestamp);
