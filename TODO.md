@@ -23,6 +23,7 @@
 
 ## Backlog
 🕙 - cooler profile page with photos section
+🕙 - floating new-post btn, and maybe new-post in a dialog (not fullscreen)
 🕙 - preview of youtube links
 🕙 - Escape and sanitize post and comment content, even before it's sent to the backend<br />
 🕙 - "See more" on longer posts and comments<br />
