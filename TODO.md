@@ -22,6 +22,7 @@
 
 
 ## Backlog
+🕙 - tag people in posts and comments
 🕙 - email verification, reset password
 🕙 - cooler profile page with photos section
 🕙 - floating new-post btn, and maybe new-post in a dialog (not fullscreen)
