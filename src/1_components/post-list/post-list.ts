@@ -229,8 +229,10 @@ export class PostList {
 
 	public pulsingLikeId = signal<number | null>(null);
 	likePost(id: Post['id'], unlike: boolean = false): void {
-		this.pulsingLikeId.set(id);
-		setTimeout(() => this.pulsingLikeId.set(null), 1000);
+		if (!unlike) {
+			this.pulsingLikeId.set(id);
+			setTimeout(() => this.pulsingLikeId.set(null), 1000);
+		}
 
 		this.postService.likePost(id, unlike).subscribe({
 			next: () => {
