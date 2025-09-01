@@ -1,4 +1,4 @@
 export const environment = {
-	production: true,
-	apiUrl: 'http://test.gbook.lol/api',
+	production: false,
+	apiUrl: 'https://test.gbook.lol/api',
 };
