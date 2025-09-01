@@ -159,6 +159,15 @@
 	margin-left: auto;
 }
 
+.like-icon {
+	margin-left: auto;
+	cursor: pointer;
+
+	&.liked {
+		color: var(--mat-sys-primary);
+	}
+}
+
 .pulsing {
 	transition: transform 0.2s;
 	animation: pulse 0.3s;
@@ -175,3 +184,4 @@
 		transform: scale(1);
 	}
 }
+

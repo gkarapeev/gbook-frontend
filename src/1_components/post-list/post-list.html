@@ -18,7 +18,13 @@
 
 				<span class="post-time">{{ post.createdAt | humanTime }}&nbsp;</span>
 
-				<mat-icon [class.pulsing]="pulsingLikeId() === post.id" [fontIcon]="post.userLikesIt ? 'favorite' : 'favorite_border'" style="margin-left: auto; cursor: pointer; color: var(--mat-sys-primary);" (click)="likePost(post.id, post.userLikesIt)"></mat-icon>
+				<mat-icon
+					class="like-icon"
+					[class.pulsing]="pulsingLikeId() === post.id"
+					[class.liked]="post.userLikesIt"
+					[fontIcon]="post.userLikesIt ? 'favorite' : 'favorite_border'"
+					(click)="likePost(post.id, post.userLikesIt)"
+				></mat-icon>
 			</div>
 
 			@if (post.content) {
