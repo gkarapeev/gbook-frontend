@@ -41,4 +41,8 @@ export class Posts {
 			content,
 		}) as Observable<Comment>;
 	}
+
+	likePost(postId: number, unlike: boolean) {
+		return this.http.post('/likePost', { postId, unlike });
+	}
 }

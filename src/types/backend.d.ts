@@ -19,6 +19,7 @@ interface Post {
 	createdAt: number;
 	comments: Comment[] | null;
 	imagePresent: boolean; 
+	userLikesIt: boolean;
 }
 
 interface LoginResponse {

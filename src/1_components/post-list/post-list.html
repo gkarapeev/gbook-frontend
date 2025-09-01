@@ -8,7 +8,7 @@
 	{
 	<div class="post">
 		<div class="post-main">
-			<div class="post-meta">
+			<div class="post-header">
 				@let fromOther = post.author.id !== post.host.id; @let template
 				= mode === 'feed' ? forFeed : forWall;
 
@@ -17,6 +17,8 @@
 				></ng-container>
 
 				<span class="post-time">{{ post.createdAt | humanTime }}&nbsp;</span>
+
+				<mat-icon [class.pulsing]="pulsingLikeId() === post.id" [fontIcon]="post.userLikesIt ? 'favorite' : 'favorite_border'" style="margin-left: auto; cursor: pointer; color: var(--mat-sys-primary);" (click)="likePost(post.id, post.userLikesIt)"></mat-icon>
 			</div>
 
 			@if (post.content) {

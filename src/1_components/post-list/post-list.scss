@@ -47,7 +47,7 @@
 	gap: v.$size-0;
 }
 
-.post-meta {
+.post-header {
 	font-size: var(--mat-sys-label-large-size);
 	color: var(--grey-font-color);
 	display: flex;
@@ -157,4 +157,21 @@
 .time {
 	font-size: var(--mat-sys-label-medium-size);
 	margin-left: auto;
+}
+
+.pulsing {
+	transition: transform 0.2s;
+	animation: pulse 0.3s;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1.1);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
 }

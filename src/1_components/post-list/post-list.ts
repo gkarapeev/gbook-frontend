@@ -227,6 +227,32 @@ export class PostList {
 			});
 	}
 
+	public pulsingLikeId = signal<number | null>(null);
+	likePost(id: Post['id'], unlike: boolean = false): void {
+		this.pulsingLikeId.set(id);
+		setTimeout(() => this.pulsingLikeId.set(null), 1000);
+
+		this.postService.likePost(id, unlike).subscribe({
+			next: () => {
+				this.posts.update((posts) => {
+					const post = posts.find((p) => p.id === id);
+
+					if (!post) {
+						return posts;
+					}
+
+					if (unlike) {
+						post.userLikesIt = false;
+					} else {
+						post.userLikesIt = true;
+					}
+
+					return [...posts];
+				});
+			}
+		});
+	}
+
 	private setPosts(posts: Post[]) {
 		this.posts.set(posts.map((p) => ({ ...p, commentsExpanded: false })));
 	}
