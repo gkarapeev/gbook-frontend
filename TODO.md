@@ -17,10 +17,12 @@
 ✅ - Trim username on register & login<br />
 ✅ - Add eye toggle on register page, password inputs<br />
 ✅ - Post images<br />
+✅ - Going to /login while having a valid token does NOT redirect to home<br />
 
-🔶 - Going to /login while having a valid token does NOT redirect to home
+
 
 ## Backlog
+🕙 - preview of youtube links
 🕙 - Escape and sanitize post and comment content, even before it's sent to the backend<br />
 🕙 - "See more" on longer posts and comments<br />
 🕙 - Eslint<br />
