@@ -19,8 +19,9 @@
 	}
 }
 
-#person-btn {
-	min-width: unset;
+#profile-btn {
+	padding: 0 v.$size-1;
+    border-color: #a6b4f4;
 
 	::ng-deep {
 		.mdc-button__label {

@@ -11,8 +11,13 @@
 		<span class="shrinkable-txt">Home</span>
 	</button>
 
-	<button id="person-btn" matButton [matMenuTriggerFor]="menu" style="margin-left: auto">
-		<mat-icon fontIcon="person" style="margin: 0;"></mat-icon>
+	<button id="profile-btn" matButton="outlined" [matMenuTriggerFor]="menu" style="margin-left: auto">
+		{{ authService.user()?.username || '???' }}
+
+		<img
+			[src]="'/content/avatars/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()"
+			style="width: 20px; border-radius: 50%;"
+		/>
 	</button>
 } @else {
 	<h2 style="margin: 0.2rem 0">Welcome to gbook!</h2>
@@ -20,8 +25,8 @@
 
 <mat-menu #menu="matMenu" xPosition="before">
 	<button id="profile-pic" mat-menu-item [routerLink]="['user', authService.user()?.id]">
-		<img [src]="'/content/avatars/' + (authService.user()?.id || 'no') + '.jpg?v=' + queryParam()" />
-		{{ authService.user()?.username || '???' }}
+		<mat-icon fontIcon="person"></mat-icon>
+		Profile
 	</button>
 
 	<button mat-menu-item (click)="openImageUpload()">
