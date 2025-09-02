@@ -16,6 +16,7 @@ $transition: cubic-bezier(0.22, 0.2, 0.47, 1.04);
 $duration: 0.35s;
 
 .page-title {
+	cursor: default;
 	position: fixed;
 	top: v.$header-height;
 	left: 0;
@@ -32,18 +33,24 @@ $duration: 0.35s;
 		width: 3rem;
 		border-radius: 50%;
 		margin-right: 12px;
+		cursor: pointer;
 
 		border: 2px solid white;
 		box-sizing: content-box;
 		box-shadow: 3px 3px 8px -6px black;
 
 		transition: all $duration $transition;
+
+		&:hover {
+			filter: brightness(1.2);
+		}
 	}
 
 	&.small {
 		background-color: var(--mat-sys-surface-bright);
 		border-color: var(--mat-sys-outline-variant);
-		height: 30px;
+		height: $small-size;
+		cursor: pointer;
 
 		h2 {
 			font-size: 1rem !important;

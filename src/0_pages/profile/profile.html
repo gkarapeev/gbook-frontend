@@ -2,7 +2,7 @@
 
 @if (user) {
 	<div class="page-title" [class.small]="smallHeader()" (click)="scrollToTop.next()">
-		<img [src]="'/content/avatars/' + user.id + '.jpg'" />
+		<img [src]="'/content/avatars/' + user.id + '.jpg'"  (click)="openPic()"/>
 		<h2>{{ user.username }}</h2>
 	</div>
 
