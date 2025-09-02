@@ -1,11 +1,17 @@
 @if (authService.user()) {
-	<button [matButton]="isPeopleActive ? 'filled' : ''" routerLink="/people">
+	<button class="nav-btn" [matButton]="currentRoute() === '/people' ? 'filled' : ''" routerLink="/people">
 		<mat-icon fontIcon="emoji_people" class="shrinkable"></mat-icon>
 
 		<span class="shrinkable-txt">People</span>
 	</button>
 
-	<button [matButton]="isFeedActive ? 'filled' : ''" routerLink="/feed">
+	<button class="nav-btn" [matButton]="currentRoute() === '/interactions' ? 'filled' : ''" routerLink="/interactions">
+		<mat-icon fontIcon="circle" class="shrinkable"></mat-icon>
+
+		<span class="shrinkable-txt">Interactions</span>
+	</button>
+
+	<button class="nav-btn" [matButton]="currentRoute() === '/feed' ? 'filled' : ''" routerLink="/feed">
 		<mat-icon fontIcon="home" class="shrinkable"></mat-icon>
 
 		<span class="shrinkable-txt">Home</span>

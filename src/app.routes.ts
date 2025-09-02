@@ -6,12 +6,14 @@ import { People } from './0_pages/people/people';
 import { authGuard } from './services/auth/auth.guard';
 import { loggedOutGuard } from './services/auth/logged-out.guard';
 import { Feed } from './0_pages/feed/feed';
+import { Interactions } from './0_pages/interactions/interactions';
 
 export const routes: Routes = [
 	{ path: 'login', component: Login, canActivate: [loggedOutGuard] },
 	{ path: 'register', component: Register, canActivate: [loggedOutGuard] },
 	{ path: 'user/:userId', component: Profile, canActivate: [authGuard] },
 	{ path: 'feed', component: Feed, canActivate: [authGuard] },
+	{ path: 'interactions', component: Interactions, canActivate: [authGuard] },
 	{ path: 'people', component: People, canActivate: [authGuard] },
 	{ path: '**', redirectTo: '/feed', pathMatch: 'full' },
 ];
