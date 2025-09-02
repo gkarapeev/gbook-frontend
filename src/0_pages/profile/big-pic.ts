@@ -11,7 +11,7 @@ import { AuthService } from "../../services/auth/auth.service";
         @let id = $any((data | async)).id;
 
         @if (authService.user()?.id === id) {
-            <button id="edit-img" matButton="outlined" color="primary" (click)="edit()">
+            <button id="edit-img" mat-raised-button color="primary" (click)="edit()">
                 <mat-icon fontIcon="edit" style="margin: 0;"></mat-icon>
             </button>
         }
@@ -21,20 +21,35 @@ import { AuthService } from "../../services/auth/auth.service";
 	styles: `
         @use 'variables' as v;
 
+        ::ng-deep .big-pic-dialog {
+            .mat-mdc-dialog-surface {
+                border-radius: var(--mat-sys-corner-full);
+            }
+        }
+
         img {
             width: 100%;
             display: block;
             padding: v.$size-1;
-            border-radius: var(--mat-sys-corner-extra-large);
+            border-radius: var(--mat-sys-corner-full);
+            width: 280px;
+            height: 280px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         #edit-img {
-            position: absolute;
-            top: calc(v.$size-2);
-            right: calc(v.$size-2);
+            position: fixed;
+            top: calc(50dvh - 115px);
+            right: calc(50dvw - 110px);
             min-width: 0;
             padding: 0;
             width: 40px;
+            z-index: 1;
         }
     `,
 	standalone: true,
