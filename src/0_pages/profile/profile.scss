@@ -6,3 +6,68 @@
 }
 
 @include m.page-title;
+
+$big-size: 100px;
+$small-size: 30px;
+
+// $transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+// $transition: ease-out;
+$transition: cubic-bezier(0.22, 0.2, 0.47, 1.04);
+$duration: 0.35s;
+
+.page-title {
+	position: fixed;
+	top: v.$header-height;
+	left: 0;
+	right: 0;
+	height: $big-size;
+	padding: v.$size-1;
+	margin-top: -1px;
+	background-color: transparent;
+	border-color: transparent;
+	transition: all $duration $transition;
+
+	img {
+		height: 3rem;
+		width: 3rem;
+		border-radius: 50%;
+		margin-right: 12px;
+
+		border: 2px solid white;
+		box-sizing: content-box;
+		box-shadow: 3px 3px 8px -6px black;
+
+		transition: all $duration $transition;
+	}
+
+	&.small {
+		background-color: var(--mat-sys-surface-bright);
+		border-color: var(--mat-sys-outline-variant);
+		height: 30px;
+
+		h2 {
+			font-size: 1rem !important;
+			font-weight: 400 !important;
+		}
+
+		img {
+			height: 1.5rem;
+			width: 1.5rem;
+
+			border-width: 0;
+			border-color: transparent;
+			box-shadow: 3px 3px 8px -6px transparent;
+		}
+	}
+}
+
+app-post-list {
+	margin-top: $big-size;
+	padding-top: 0 !important;
+	transition: margin-top $duration $transition;
+
+	&.small {
+		margin-top: $small-size;
+	}
+}
+

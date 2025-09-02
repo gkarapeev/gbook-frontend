@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, output } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, output, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ScrollTopService } from '../../services/scroll-top';
 	standalone: true,
 	imports: [PostList, AsyncPipe],
 })
-export class Profile {
+export class Profile implements AfterViewInit, OnDestroy{
 	public scrollToTop = inject(ScrollTopService).scrollToTop;
 
 	private authService = inject(AuthService);
@@ -38,4 +38,22 @@ export class Profile {
 				);
 		})
 	);
+
+	public smallHeader = signal(false);
+	private scrollListener: any;
+	ngAfterViewInit() {
+		const pageView = document.getElementById('page-view')!;
+
+		this.scrollListener = pageView.addEventListener('scroll', () => {			
+			if (pageView.scrollTop > 20) {
+				this.smallHeader.set(true);
+			} else if (pageView.scrollTop < 2) {
+				this.smallHeader.set(false);
+			}
+		});
+	}
+
+	ngOnDestroy(): void {
+		document.getElementById('page-view')!.removeEventListener('scroll', this.scrollListener);
+	}
 }

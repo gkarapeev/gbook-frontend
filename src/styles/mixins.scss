@@ -17,10 +17,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: var(--mat-sys-surface);
 		background-color: var(--mat-sys-surface-bright);
 		border-bottom: 1px solid var(--mat-sys-outline-variant);
 		z-index: 2;
 		margin: 0 calc((100vw - 100%) / -2);
 	}
 }
+
