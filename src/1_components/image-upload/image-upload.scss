@@ -11,10 +11,10 @@
 ::ng-deep .avatar-dialog {
 	width: 100vw;
 	min-width: 0 !important;
-	max-width: 350px !important;
+	max-width: 320px !important;
 
 	.mat-mdc-dialog-surface {
-		@media screen and (max-width: 350px) {
+		@media screen and (max-width: 320px) {
 			border-radius: 0;
 		}
 	}

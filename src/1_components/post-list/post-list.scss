@@ -111,7 +111,7 @@
 .comment-pane {
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
+	gap: 10px;
 }
 
 .new-comment-input {
@@ -124,39 +124,53 @@
 
 .comment {
 	display: flex;
-	gap: v.$size-1;
-	padding: v.$size-0 v.$size-1;
-	background-color: white;
-	margin: auto;
-	width: 100%;
-	border-radius: var(--mat-sys-corner-small);
-	border: 1px solid var(--mat-sys-outline-variant);
-	border-color: color-mix(
-		in srgb,
-		var(--mat-sys-outline-variant) 50%,
-		transparent
-	);
-}
+	align-items: flex-start;
+	gap: 8px;
 
-.comment-meta {
-	display: flex;
-	gap: v.$size-0;
-	font-size: var(--mat-sys-label-medium-size);
-	text-align: right;
-	color: var(--grey-font-color);
+	&-container {
+		padding: 0.3rem 0.7rem;
+		background-color: white;
+		margin: auto;
+		width: 100%;
+		border-radius: var(--mat-sys-corner-small);
+		border: 1px solid var(--mat-sys-outline-variant);
+		border-color: color-mix(
+			in srgb,
+			var(--mat-sys-outline-variant) 50%,
+			transparent
+		);
+	}
 
-	@include m.username-text;
-}
+	&-avatar {
+		border-radius: 50%;
+		height: 22px;
+		width: 22px;
+	}
 
-.comment-content {
-	display: flex;
-	align-items: center;
-	text-align: left;
-}
+	&-meta {
+		font-size: var(--mat-sys-label-medium-size);
+		color: var(--grey-font-color);
 
-.time {
-	font-size: var(--mat-sys-label-medium-size);
-	margin-left: auto;
+		@include m.username-text;
+
+		a {
+			margin-right: -3px;
+		}
+	}
+
+	&-content {
+		display: block;
+		text-align: left;
+
+		&::first-line {
+			line-height: 1.4rem;
+		}
+	}
+
+	.time {
+		color: var(--grey-font-color);
+		margin-left: 2px;
+	}
 }
 
 $starting-opacity: 0.4;
