@@ -21,10 +21,10 @@
     }
 </div>
 
-<button matButton="filled" (click)="upload()" [disabled]="!selectedFile">Upload</button>
+<button matButton="filled" (click)="upload()" [disabled]="!selectedFile" type="button">Upload</button>
 
-@if (uploadStatus) {
+@if (uploadStatus()) {
     <div>
-        {{ uploadStatus }}
+        {{ uploadStatus() }}
     </div>
 }

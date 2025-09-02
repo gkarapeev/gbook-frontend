@@ -41,6 +41,10 @@ export class Header {
 			autoFocus: false,
 			restoreFocus: false,
 			hasBackdrop: true,
+		}).afterClosed().subscribe((result) => {
+			if (result === 'success') {
+				window.location.reload();
+			}
 		});
 	}
 

@@ -16,10 +16,8 @@ export class AvatarUploadComponent {
 	private userService = inject(UserService);
 	public dialogRef = inject(MatDialogRef<AvatarUploadComponent>);
 
-	@Output() end = new EventEmitter<void>();
-
 	selectedFile: File | null = null;
-	uploadStatus: string = '';
+	uploadStatus = signal<string | null>(null);
 	previewUrl = signal<string | null>(null);
 
 	onFileSelected(event: Event) {
@@ -61,12 +59,13 @@ export class AvatarUploadComponent {
 			.uploadImage(this.selectedFile, this.authService.user()!.id)
 			.subscribe({
 				next: () => {
-					this.uploadStatus = 'Upload successful!';
-					this.end.emit();
+					this.uploadStatus.set('Upload successful!');
+					setTimeout(() => {
+						this.dialogRef.close("success");
+					}, 3000);
 				},
-				error: () => {
-					this.uploadStatus = 'Upload failed.';
-					this.end.emit();
+				error: (e) => {
+					this.uploadStatus.set('Upload failed. Error: ' + e.message);
 				},
 			});
 	}
