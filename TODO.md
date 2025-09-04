@@ -22,6 +22,7 @@
 
 
 ## Backlog
+zoom controls
 🕙 - tag people in posts and comments
 🕙 - email verification, reset password
 🕙 - cooler profile page with photos section
