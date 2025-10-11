@@ -1,14 +1,37 @@
 <div class="page-title">People</div>
 
-<mat-action-list id="people-list">
+<div id="people-list">
 	@for (user of users(); track user.id) {
-    <button mat-list-item (click)="goToProfile(user.id)">
-      <img [src]="'/content/avatars/' + user.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
-      {{ user.username }}
-    </button>
+		<div class="person" (click)="goToProfile(user.id)">
+			<div class="info">
+				<img [src]="'/content/avatars/' + user.id + '.jpg'" style="border-radius: 50%; height: 20px; width: 20px;"/>
+	
+				{{ user.username }}
+			</div>
 
-    @if (!$last) {
-      <mat-divider></mat-divider>
-    }
-  }
-</mat-action-list>
+			<div class="actions">
+				@switch (user.friendshipStatus) {
+					@case ('accepted') {
+						<button matButton (click)="cancelFriendRequest($event, user.id)">Remove Friend</button>
+					}
+
+					@case ('pending') {
+						<button matButton (click)="cancelFriendRequest($event, user.id)">Cancel</button>
+
+						@if (user.sentByUserId !== authService.user()!.id) {
+							<button matButton (click)="acceptFriendRequest($event, user.id)">Accept</button>
+						}
+					}
+
+					@case (undefined) {
+						<button matButton (click)="requestFriendship($event, user.id)">Add Friend</button>
+					}
+				}
+			</div>
+		</div>
+
+		@if (!$last) {
+			<mat-divider></mat-divider>
+		}
+	}
+</div>

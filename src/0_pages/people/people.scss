@@ -1,0 +1,39 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+@include m.page-title;
+
+:host {
+	display: block;
+
+	::ng-deep .mdc-list-item__primary-text {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+}
+
+#people-list {
+	padding: v.$size-2 0;
+}
+
+.person {
+    padding: v.$size-0 v.$size-1;
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+		background-color: var(--mat-sys-surface-variant);
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        gap: v.$size-1;
+    }
+
+    .actions {
+    }
+}
