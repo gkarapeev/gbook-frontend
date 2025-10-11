@@ -42,4 +42,20 @@ export class UserService {
 		formData.append('userId', userId.toString());
 		return this.http.post('/upload-image', formData);
 	}
+
+	sendFriendRequest(receiverId: User['id']): Observable<any> {
+		return this.http.post('/send-friend-request', { receiverId });
+	}
+
+	acceptFriendRequest(senderId: User['id']): Observable<any> {
+		return this.http.post('/accept-friend-request', { 
+			senderId
+		});
+	}
+
+	cancelFriendRequest(otherUserId: User['id']): Observable<any> {
+		return this.http.post('/cancel-friend-request', { 
+			otherUserId
+		});
+	}
 }

@@ -1,6 +1,10 @@
+type FriendshipStatus = 'pending' | 'accepted' ;
+
 interface User {
 	id: number;
 	username: string;
+	friendshipStatus?: FriendshipStatus;
+	sentByUserId?: User['id'];
 }
 
 interface Comment {
