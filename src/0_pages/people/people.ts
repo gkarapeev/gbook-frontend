@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth/auth.service';
+import { ScrollTopService } from '../../services/scroll-top';
 
 @Component({
 	selector: 'app-people',
@@ -15,6 +16,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class People implements OnInit {
 	public users = signal<User[]>([]);
 	public authService = inject(AuthService);
+	public scrollToTop = inject(ScrollTopService).scrollToTop;
 
 	private userService = inject(UserService);
 	private router = inject(Router);
