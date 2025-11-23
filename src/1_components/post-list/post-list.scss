@@ -65,6 +65,14 @@
 	text-align: left;
 	white-space: pre-line;
 
+	&.clamped {
+		display: -webkit-box;
+		line-clamp: 3;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
 	::ng-deep {
 		a {
 			color: var(--mat-sys-primary);
@@ -74,6 +82,21 @@
 				text-decoration: underline;
 			}
 		}
+	}
+}
+
+.see-more {
+	background: none;
+	border: none;
+	color: var(--mat-sys-primary);
+	cursor: pointer;
+	font-size: var(--mat-sys-label-medium-size);
+	padding: 0.2rem 0;
+	text-align: left;
+	width: 100%;
+	
+	&:hover {
+		text-decoration: underline;
 	}
 }
 

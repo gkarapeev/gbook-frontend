@@ -18,8 +18,10 @@ import { Posts } from '../../services/posts';
 import { HumanTimePipe } from '../../pipes/human-time.pipe';
 import { LinkifyPipe } from '../../pipes/linkify';
 
-interface PostWithComments extends Post {
+interface DisplayPost extends Post {
 	commentsExpanded: boolean;
+	contentExpanded?: boolean;
+	showSeeMore?: boolean;
 }
 
 @Component({
@@ -95,7 +97,7 @@ export class PostList {
 
 	public pageHost = input<User | null>(null);
 
-	public posts = signal<PostWithComments[]>([]);
+	public posts = signal<DisplayPost[]>([]);
 
 	public skip = 0;
 	public take = 10;
@@ -135,6 +137,10 @@ export class PostList {
 
 		pageView.removeEventListener('scroll', this.onScroll);
 		pageView.addEventListener('scroll', this.onScroll);
+
+		setTimeout(() => this.setShowSeeMoreForAllPosts(), 50);
+
+		window.addEventListener('resize', this.onResize);
 	}
 
 	ngOnDestroy() {
@@ -142,6 +148,12 @@ export class PostList {
 
 		if (pageView) {
 			pageView.removeEventListener('scroll', this.onScroll);
+		}
+
+		window.removeEventListener('resize', this.onResize);
+
+		if (this.resizeTimeout) {
+			clearTimeout(this.resizeTimeout);
 		}
 	}
 
@@ -256,7 +268,11 @@ export class PostList {
 	}
 
 	private setPosts(posts: Post[]) {
-		this.posts.set(posts.map((p) => ({ ...p, commentsExpanded: false })));
+		this.posts.set(
+			posts.map((p) => ({ ...p, commentsExpanded: false, contentExpanded: false, showSeeMore: false }))
+		);
+		
+		setTimeout(() => this.setShowSeeMoreForAllPosts(), 50);
 	}
 
 	private appendPosts(posts: Post[]) {
@@ -266,8 +282,65 @@ export class PostList {
 
 		this.posts.update((prev) => [
 			...prev,
-			...posts.map((p) => ({ ...p, commentsExpanded: false })),
+			...posts.map((p) => ({ ...p, commentsExpanded: false, contentExpanded: false, showSeeMore: false })),
 		]);
+
+		setTimeout(() => this.setShowSeeMoreForAllPosts(), 50);
+	}
+
+	private resizeTimeout: any = null;
+
+	private onResize = () => {
+		if (this.resizeTimeout) {
+			clearTimeout(this.resizeTimeout);
+		}
+
+		this.resizeTimeout = setTimeout(() => {
+			this.setShowSeeMoreForAllPosts();
+		}, 120);
+	};
+
+	public toggleSeeMore(post: DisplayPost) {
+		this.posts.update((posts) => {
+			const list = posts.map((p) => {
+				if (p.id === post.id) {
+					p.contentExpanded = !p.contentExpanded;
+				}
+				return p;
+			});
+			return [...list];
+		});
+	}
+
+	private setShowSeeMoreForAllPosts() {
+		const container = document.getElementById('post-container');
+		if (!container) return;
+
+		const nodes = container.querySelectorAll<HTMLElement>('.post-content');
+		if (!nodes || nodes.length === 0) return;
+
+		const updates: Record<number, boolean> = {};
+		nodes.forEach((el) => {
+			const idStr = el.getAttribute('data-post-id');
+			if (!idStr) return;
+			const id = Number(idStr);
+			const isOverflowing = el.scrollHeight > el.clientHeight + 1;
+			updates[id] = isOverflowing;
+		});
+
+		this.posts.update((posts) => {
+			let changed = false;
+			const next = posts.map((p) => {
+				const should = updates[p.id];
+				if (typeof should === 'boolean' && p.showSeeMore !== should) {
+					changed = true;
+					p.showSeeMore = should;
+				}
+				return p;
+			});
+
+			return changed ? [...next] : posts;
+		});
 	}
 
 	private onScroll = () => {

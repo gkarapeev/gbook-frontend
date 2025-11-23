@@ -28,7 +28,18 @@
 			</div>
 
 			@if (post.content) {
-				<div class="post-content" [innerHTML]="(post.content | linkify)"></div>
+				<div
+					class="post-content"
+					[attr.data-post-id]="post.id"
+					[class.clamped]="!post.contentExpanded"
+					[innerHTML]="(post.content | linkify)"
+				></div>
+
+				@if (post.showSeeMore) {
+					<button class="see-more" (click)="toggleSeeMore(post)">
+						{{ post.contentExpanded ? 'See less' : 'See more' }}
+					</button>
+				}
 			}
 
 			@if (post.imagePresent === true) {
