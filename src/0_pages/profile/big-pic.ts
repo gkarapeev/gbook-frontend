@@ -8,15 +8,19 @@ import { AuthService } from "../../services/auth/auth.service";
 
 @Component({
 	template: `
-        @let id = $any((data | async)).id;
+        @let templateData = data | async;
 
-        @if (authService.user()?.id === id) {
-            <button id="edit-img" mat-raised-button color="primary" (click)="edit()">
-                <mat-icon fontIcon="edit" style="margin: 0;"></mat-icon>
-            </button>
+        @if (templateData) {
+            @let id = $any(templateData).id;
+    
+            @if (authService.user()!.id === id) {
+                <button id="edit-img" mat-raised-button color="primary" (click)="edit()">
+                    <mat-icon fontIcon="edit" style="margin: 0;"></mat-icon>
+                </button>
+            }
+    
+            <img [src]="'/content/avatars/' + id + '.jpg'" (click)="close()" />
         }
-
-        <img [src]="'/content/avatars/' + id + '.jpg'" (click)="close()" />
     `,
 	styles: `
         @use 'variables' as v;
